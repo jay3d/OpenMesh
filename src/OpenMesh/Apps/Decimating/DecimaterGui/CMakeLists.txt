@@ -29,7 +29,7 @@ endif ()
 target_link_libraries (DecimaterGui
   OpenMeshCore
   OpenMeshTools
-  Qt5::OpenGL
+  ${QT_TARGET}::OpenGL
   ${OPENGL_LIBRARIES}
 )
 

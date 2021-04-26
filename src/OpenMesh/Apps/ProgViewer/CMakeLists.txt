@@ -28,7 +28,7 @@ endif ()
 target_link_libraries ( ProgViewer
   OpenMeshCore
   OpenMeshTools
-  Qt5::OpenGL
+  ${QT_TARGET}::OpenGL
   ${OPENGL_LIBRARIES}
 )
 

@@ -44,12 +44,16 @@
 #endif
 
 #include <iostream>
+
 #include <fstream>
 #include <QApplication>
 #include <QMessageBox>
 #include <QMainWindow>
 #include <QMenuBar>
 #include <QFileDialog>
+#if QT_VERSION_MAJOR > 5
+#include <QOpenGLContext>
+#endif
 
 #include "MeshViewerWidget.hh"
 
@@ -62,7 +66,11 @@ int main(int argc, char **argv)
   // OpenGL check
   QApplication app(argc,argv);
 
-  if ( !QGLFormat::hasOpenGL() ) {
+#if QT_VERSION_MAJOR < 6
+    if ( !QGLFormat::hasOpenGL() ) {
+#else
+    if ( QOpenGLContext::openGLModuleType() != QOpenGLContext::LibGL ) {
+#endif
     QString msg = "System has no OpenGL support!";
     QMessageBox::critical( nullptr, QString("OpenGL"), msg + QString(argv[1]) );
     return -1;

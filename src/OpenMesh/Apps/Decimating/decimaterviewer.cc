@@ -50,6 +50,7 @@
 #include <OpenMesh/Tools/Utils/getopt.h>
 #include <qapplication.h>
 #include <qmessagebox.h>
+#include <QOpenGLContext>
 
 #include "DecimaterViewerWidget.hh"
 
@@ -64,8 +65,12 @@ int main(int argc, char **argv)
   
   // OpenGL check
   QApplication app(argc,argv);
-  
+
+#if QT_VERSION_MAJOR < 6
   if ( !QGLFormat::hasOpenGL() ) {
+#else
+  if ( QOpenGLContext::openGLModuleType() != QOpenGLContext::LibGL ) {
+#endif
     QString msg = "System has no OpenGL support!";
     QMessageBox::critical( nullptr, "OpenGL", msg + argv[1] );
     return -1;

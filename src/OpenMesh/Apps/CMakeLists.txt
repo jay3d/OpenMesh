@@ -41,14 +41,14 @@ if ( BUILD_APPS )
     find_package (OpenGL)
 
     # For the apps, we need qt and opengl to build them
-    if (NOT QT5_FOUND)
-      set(QT5_REQUIRED_PACKAGES
-        Qt5Core
-        Qt5Widgets
-        Qt5OpenGL
-        Qt5Gui
+    if (NOT QT_FOUND)
+      set(QT_REQUIRED_PACKAGES
+        Core
+        Widgets
+        OpenGL
+        Gui
         )
-      vci_qt5 ()
+      vci_qt ()
       set(CMAKE_AUTOMOC ON)
     endif()
 
@@ -57,7 +57,7 @@ if ( BUILD_APPS )
     endif()
 
     # check for OpenGL as our required dependencies
-    if (( QT5_FOUND ) AND OPENGL_FOUND AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" )
+    if (( QT_FOUND ) AND OPENGL_FOUND AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" )
 
       add_subdirectory (Decimating/DecimaterGui)
       add_subdirectory (QtViewer)
@@ -95,8 +95,8 @@ if ( BUILD_APPS )
 
     else () # QT ,Opengl or glut not found
       
-      if (NOT QT5_FOUND)
-	    message ("QT5 not found! Skipping some apps.")
+      if (NOT QT_FOUND)
+	    message ("QT not found! Skipping some apps.")
       endif ()
 
       if (NOT OPENGL_FOUND)

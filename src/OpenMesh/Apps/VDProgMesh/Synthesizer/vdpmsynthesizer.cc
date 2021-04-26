@@ -49,6 +49,9 @@
 
 #include <QString>
 #include <QApplication>
+#if QT_VERSION_MAJOR > 5
+#include <QOpenGLContext>
+#endif
 
 #include "VDPMSynthesizerViewerWidget.hh"
 
@@ -58,7 +61,11 @@ int main(int argc, char **argv)
   QApplication app(argc,argv);
 
 
+#if QT_VERSION_MAJOR < 6
   if ( !QGLFormat::hasOpenGL() ) {
+#else
+  if ( QOpenGLContext::openGLModuleType() != QOpenGLContext::LibGL ) {
+#endif
     std::cerr << "This system has no OpenGL support.\n";
     return 1;
   }

@@ -60,12 +60,17 @@
 #include <QImage>
 #include <QDateTime>
 #include <QMouseEvent>
+#include <QActionGroup>
 // --------------------
 #include <OpenMesh/Apps/QtViewer/QGLViewerWidget.hh>
 #include <OpenMesh/Tools/Utils/Timer.hh>
 
 #if !defined(M_PI)
 #  define M_PI 3.1415926535897932
+#endif
+
+#if QT_VERSION_MAJOR > 5
+#define swapBuffers()
 #endif
 
 const double TRACKBALL_RADIUS = 0.6;
@@ -81,21 +86,22 @@ std::string QGLViewerWidget::nomode_ = "";
 
 //----------------------------------------------------------------------------
 
-QGLViewerWidget::QGLViewerWidget( QWidget* _parent )
-  : QGLWidget( _parent )
+#if QT_VERSION_MAJOR < 6
+QGLViewerWidget::QGLViewerWidget( QWidget* _parent ) : QGLWidget( _parent )
+#else
+QGLViewerWidget::QGLViewerWidget( QWidget* _parent ) : QOpenGLWidget( _parent )
+#endif
 {    
   init();
 }
 
-//----------------------------------------------------------------------------
+//---------------------------------------------------------------------------
 
-QGLViewerWidget::
-QGLViewerWidget( QGLFormat& _fmt, QWidget* _parent )
-  : QGLWidget( _fmt, _parent )
-{
-  init();
+#if QT_VERSION_MAJOR > 5
+void QGLViewerWidget::updateGL() {
+    update();
 }
-
+#endif
 
 //----------------------------------------------------------------------------
 
@@ -330,7 +336,7 @@ QGLViewerWidget::mouseMoveEvent( QMouseEvent* _event )
 
   
   // move in z direction
-  if ( (_event->buttons() == (LeftButton+MidButton)) ||
+  if ( (_event->buttons() == (LeftButton|MiddleButton)) ||
 	  (_event->buttons() == LeftButton && _event->modifiers() == ControlModifier))
   {
     float value_y = radius_ * dy * 3.0 / h;
@@ -339,7 +345,7 @@ QGLViewerWidget::mouseMoveEvent( QMouseEvent* _event )
 	
 
   // move in x,y direction
-  else if ( (_event->buttons() == MidButton) ||
+  else if ( (_event->buttons() == MiddleButton) ||
 			(_event->buttons() == LeftButton && _event->modifiers() == AltModifier) )
   {
     float z = - (modelview_matrix_[ 2]*center_[0] + 
@@ -417,7 +423,7 @@ void QGLViewerWidget::wheelEvent(QWheelEvent* _event)
 {
   // Use the mouse wheel to zoom in/out
 
-  float d = -(float)_event->delta() / 120.0 * 0.2 * radius_;
+  float d = -(float)( _event->angleDelta().y() / 120.0 * 0.2 * radius_ );
   translate(Vec3f(0.0, 0.0, d));
   updateGL();
   _event->accept();
