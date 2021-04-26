@@ -26,5 +26,11 @@ target_link_libraries (Synthesizer
   OpenMeshCore
   OpenMeshTools
   ${QT_TARGET}::OpenGL
+  ${QT_TARGET}::Widgets
+  ${QT_TARGET}::Gui
   ${OPENGL_LIBRARIES}
 )
+
+if (QT_VERSION_MAJOR GREATER 5)
+  target_link_libraries (Synthesizer ${QT_TARGET}::OpenGLWidgets)
+endif()

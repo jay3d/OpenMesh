@@ -48,6 +48,9 @@ if ( BUILD_APPS )
         OpenGL
         Gui
         )
+      set(QT6_REQUIRED_PACKAGES
+        OpenGLWidgets
+        )
       vci_qt ()
       set(CMAKE_AUTOMOC ON)
     endif()
