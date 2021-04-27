@@ -8,7 +8,7 @@ MAKE_OPTIONS=""
 BUILDPATH=""
 
 # set GTEST path
-OPTIONS=""
+OPTIONS="-DGTEST_ROOT= ~/sw/gtest-1.10.0/"
 
 if [ "$COMPILER" == "gcc" ]; then
   echo "Building with GCC";
