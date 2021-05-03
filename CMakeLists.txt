@@ -170,7 +170,9 @@ if(${CMAKE_PROJECT_NAME} MATCHES "OpenMesh")
        "${CMAKE_BINARY_DIR}/fixbundle.cmake" @ONLY IMMEDIATE)
 
     # let bundle generation depend on all targets
-    add_dependencies (fixbundle DecimaterGui ProgViewer QtViewer SubdividerGui) 
+    if (QT_FOUND)
+        add_dependencies (fixbundle DecimaterGui ProgViewer QtViewer SubdividerGui)
+    endif()
 
     # Required for Snow leopard, and the latest qt. Then the resources have to be copied
     if ( EXISTS "/opt/local/libexec/qt4-mac/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib" )
