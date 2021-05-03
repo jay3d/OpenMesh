@@ -87,9 +87,6 @@ public:
   explicit VHierarchyNodeIndex(unsigned int _value)
   { value_ = _value; }
 
-  VHierarchyNodeIndex(const VHierarchyNodeIndex &_other)
-  { value_ = _other.value_; }
-
   VHierarchyNodeIndex(unsigned int   _tree_id, 
 		      unsigned int   _node_id, 
 		      unsigned short _tree_id_bits)
