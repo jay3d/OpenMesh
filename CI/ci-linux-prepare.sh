@@ -63,10 +63,14 @@ elif [ "$QTVERSION" == "qt5.15.1" ]; then
   echo "Using QT5.15.1";
   BUILDPATH="$BUILDPATH-qt5.15.1"
   OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.15.1/gcc_64 -DQT_VERSION=5"
-elif [ "$QTVERSION" == "qt5.15.1" ]; then
+elif [ "$QTVERSION" == "qt6.0.0" ]; then
   echo "Using QT6.0.0";
   BUILDPATH="$BUILDPATH-qt6.0.0"
   OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.0/6.0.0/gcc_64 -DQT_VERSION=6"
+elif [ "$QTVERSION" == "qt6.0.3" ]; then
+  echo "Using QT6.0.3";
+  BUILDPATH="$BUILDPATH-qt6.0.3"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.3/gcc_64 -DQT_VERSION=6"
 fi
 
 #=====================================
