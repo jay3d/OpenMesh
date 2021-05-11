@@ -8,7 +8,8 @@ MAKE_OPTIONS=""
 BUILDPATH=""
 
 # set GTEST path
-OPTIONS="-DGTEST_ROOT=~/sw/gtest-1.10.0"
+# OPTIONS="-DGTEST_ROOT=~/sw/gtest-1.10.0"
+OPTIONS="-DGTEST_ROOT=/usr/src/gtest/"
 
 if [ "$COMPILER" == "gcc" ]; then
   echo "Building with GCC";
@@ -66,7 +67,7 @@ elif [ "$QTVERSION" == "qt5.15.1" ]; then
 elif [ "$QTVERSION" == "qt6.0.0" ]; then
   echo "Using QT6.0.0";
   BUILDPATH="$BUILDPATH-qt6.0.0"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.0/6.0.0/gcc_64 -DQT_VERSION=6"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.0/gcc_64 -DQT_VERSION=6"
 elif [ "$QTVERSION" == "qt6.0.3" ]; then
   echo "Using QT6.0.3";
   BUILDPATH="$BUILDPATH-qt6.0.3"
