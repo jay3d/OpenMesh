@@ -111,7 +111,8 @@ public:
       ColorAlpha     = 0x0800, ///< Has (r) / store (w) alpha values for colors
       ColorFloat     = 0x1000, ///< Has (r) / store (w) float values for colors (currently only implemented for PLY and OFF files)
       Custom         = 0x2000, ///< Has (r)             custom properties (currently only implemented in PLY Reader ASCII version)
-      Status         = 0x4000  ///< Has (r) / store (w) status properties
+      Status         = 0x4000, ///< Has (r) / store (w) status properties
+      TexCoordST     = 0x8000  ///< Write texture coordinates as ST instead of UV
   };
 
 public:
@@ -212,6 +213,7 @@ public:
   bool face_has_status()     const { return check(Status); }
   bool color_has_alpha()     const { return check(ColorAlpha); }
   bool color_is_float()      const { return check(ColorFloat); }
+  bool use_st_coordinates()  const { return check(TexCoordST); }
 
 
   /// Returns true if _rhs has the same options enabled.
