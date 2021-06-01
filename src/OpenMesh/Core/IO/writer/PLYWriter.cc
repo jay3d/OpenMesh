@@ -278,8 +278,13 @@ void _PLYWriter_::write_header(std::ostream& _out, BaseExporter& _be, Options& _
   }
 
   if ( _opt.vertex_has_texcoord() ){
-    _out << "property float u" << '\n';
-    _out << "property float v" << '\n';
+    if ( _opt.use_st_coordinates() ){
+      _out << "property float s" << '\n';
+      _out << "property float t" << '\n';
+    } else {
+      _out << "property float u" << '\n';
+      _out << "property float v" << '\n';
+    }
   }
 
   if ( _opt.vertex_has_color() ){

@@ -33,6 +33,7 @@
 <li>OM Writer: Removed debug output</li>
 <li>OM Writer/Reader: Added support for (re)storing properties of type vector<T></li>
 <li>OM Reader: Properties can now be restored from files without the need to create the properties beforehand. Custom types need to be registered for this to work using the OM_REGISTER_PROPERTY_TYPE macro.</li>
+<li>PLY writer: Added option to choose if we want to write texture coordinates as uv or ply</li>
 </ul>
 
 <b>Tools</b>
