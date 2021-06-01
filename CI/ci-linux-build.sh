@@ -58,6 +58,9 @@ else
   # build unittests
   make  $MAKE_OPTIONS unittests
 
+  ldd Unittests/unittests
+
+
   # Creating System Library folder to contain all dependend libraries to run OpenFlipper
   if [ ! -d systemlib ]; then
     echo "Creating systemlib folder"

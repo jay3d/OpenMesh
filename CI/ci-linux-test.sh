@@ -58,6 +58,10 @@ echo "Running unittests $BUILD_TYPE version with vectorchecks enabled"
 echo "======================================================================"
 echo -e "${NC}"
 
+
+ldd ./unittests
+
+
 cd Unittests
 
 #execute tests
