@@ -58,11 +58,9 @@ echo "Running unittests $BUILD_TYPE version with vectorchecks enabled"
 echo "======================================================================"
 echo -e "${NC}"
 
+cd Unittests
 
 ldd ./unittests
-
-
-cd Unittests
 
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml:./report.xml
