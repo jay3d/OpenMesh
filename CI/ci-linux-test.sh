@@ -60,6 +60,8 @@ echo -e "${NC}"
 
 cd Unittests
 
+ldd ./unittests
+
 #execute tests
 ./unittests --gtest_color=yes --gtest_output=xml:./report.xml
 
