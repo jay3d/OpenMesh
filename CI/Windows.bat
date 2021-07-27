@@ -56,8 +56,8 @@ IF "%BUILD_PLATFORM%" == "VS2019" (
     set VS_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.com"
 
     IF "%ARCHITECTURE%" == "x64" (
-      set QT_INSTALL_PATH=E:\Qt\5.15.2\msvc2019_64
-      set QT_BASE_CONFIG=-DQT_INSTALL_PATH=E:\Qt\5.15.2\msvc2019_64 -DQT_VERSION=5
+      set QT_INSTALL_PATH=E:\Qt\6.1.2\msvc2019_64
+      set QT_BASE_CONFIG=-DQT_INSTALL_PATH=E:\Qt\6.1.2\msvc2019_64 -DQT_VERSION=6
     )
 
 )

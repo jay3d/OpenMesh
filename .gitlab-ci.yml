@@ -863,7 +863,7 @@ build-VS2019-x64-shared-TRUE-apps:
   script: "CI\\Windows.bat"
   tags:
     - VS2019
-    - Qt5150
+    - Qt612
   artifacts:
     paths:
       - build-release/*.exe
@@ -891,7 +891,7 @@ build-VS2019-x64-shared-FALSE-apps:
   script: "CI\\Windows.bat"
   tags:
     - VS2019
-    - Qt5150
+    - Qt612
   artifacts:
     paths:
       - build-release/*.exe
