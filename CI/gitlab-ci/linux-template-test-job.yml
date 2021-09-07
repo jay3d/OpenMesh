@@ -7,7 +7,7 @@
 test-{{BUILDTYPE}}-{{COMPILER}}-{{LANGUAGE}}-{{QT_VERSION}}:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: gitlab.vci.graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch

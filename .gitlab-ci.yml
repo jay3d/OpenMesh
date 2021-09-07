@@ -25,7 +25,7 @@ variables:
 cppcheck:
   stage: build
   script: "CI/ci-cppcheck.sh"
-  image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags: [Docker]
   timeout: 3h
   artifacts:
@@ -42,7 +42,7 @@ cppcheck:
 build-debug-gcc-cpp11-qt6.0.0:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -66,7 +66,7 @@ build-debug-gcc-cpp11-qt6.0.0:
 test-debug-gcc-cpp11-qt6.0.0:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -98,7 +98,7 @@ test-debug-gcc-cpp11-qt6.0.0:
 build-release-gcc-cpp11-qt6.0.0:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -122,7 +122,7 @@ build-release-gcc-cpp11-qt6.0.0:
 test-release-gcc-cpp11-qt6.0.0:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -154,7 +154,7 @@ test-release-gcc-cpp11-qt6.0.0:
 build-debug-clang-cpp11-qt6.0.0:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -178,7 +178,7 @@ build-debug-clang-cpp11-qt6.0.0:
 test-debug-clang-cpp11-qt6.0.0:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -210,7 +210,7 @@ test-debug-clang-cpp11-qt6.0.0:
 build-release-clang-cpp11-qt6.0.0:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -234,7 +234,7 @@ build-release-clang-cpp11-qt6.0.0:
 test-release-clang-cpp11-qt6.0.0:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -267,7 +267,7 @@ test-release-clang-cpp11-qt6.0.0:
 build-debug-gcc-cpp11-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -291,7 +291,7 @@ build-debug-gcc-cpp11-qt5.15.1:
 test-debug-gcc-cpp11-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -323,7 +323,7 @@ test-debug-gcc-cpp11-qt5.15.1:
 build-release-gcc-cpp11-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -347,7 +347,7 @@ build-release-gcc-cpp11-qt5.15.1:
 test-release-gcc-cpp11-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -379,7 +379,7 @@ test-release-gcc-cpp11-qt5.15.1:
 build-debug-clang-cpp11-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -403,7 +403,7 @@ build-debug-clang-cpp11-qt5.15.1:
 test-debug-clang-cpp11-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -435,7 +435,7 @@ test-debug-clang-cpp11-qt5.15.1:
 build-release-clang-cpp11-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -459,7 +459,7 @@ build-release-clang-cpp11-qt5.15.1:
 test-release-clang-cpp11-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -491,7 +491,7 @@ test-release-clang-cpp11-qt5.15.1:
 build-debug-gcc-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -515,7 +515,7 @@ build-debug-gcc-cpp14-qt5.15.1:
 test-debug-gcc-cpp14-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -547,7 +547,7 @@ test-debug-gcc-cpp14-qt5.15.1:
 build-release-gcc-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -571,7 +571,7 @@ build-release-gcc-cpp14-qt5.15.1:
 test-release-gcc-cpp14-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -603,7 +603,7 @@ test-release-gcc-cpp14-qt5.15.1:
 build-debug-clang-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -627,7 +627,7 @@ build-debug-clang-cpp14-qt5.15.1:
 test-debug-clang-cpp14-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -659,7 +659,7 @@ test-debug-clang-cpp14-qt5.15.1:
 build-release-clang-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -683,7 +683,7 @@ build-release-clang-cpp14-qt5.15.1:
 test-release-clang-cpp14-qt5.15.1:
   stage: test
   script: "CI/ci-linux-test.sh"
-  #image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -715,7 +715,7 @@ test-release-clang-cpp14-qt5.15.1:
 iwyu-release-clang-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
@@ -739,7 +739,7 @@ iwyu-release-clang-cpp14-qt5.15.1:
 nvc-release-clang-cpp14-qt5.15.1:
   stage: build
   script: "CI/ci-linux-build.sh"
-  image: graphics.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
+  image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
   tags:
     - Linux
     - stretch
