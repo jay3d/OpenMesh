@@ -241,13 +241,13 @@ find_writer(const std::string& _format)
 {
   using std::string;
 
-  string::size_type dot = _format.rfind('.');
+  string::size_type dotpos = _format.rfind('.');
 
   string ext;
-  if (dot == string::npos)
+  if (dotpos == string::npos)
     ext = _format;
   else
-    ext = _format.substr(dot+1,_format.length()-(dot+1));
+    ext = _format.substr(dotpos+1,_format.length()-(dotpos+1));
 
   std::set<BaseWriter*>::const_iterator it     = writer_modules_.begin();
   std::set<BaseWriter*>::const_iterator it_end = writer_modules_.end();

@@ -327,7 +327,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   {
 
     if (useMatrial &&  _opt.check(Options::FaceColor) ){
-      size_t material = std::numeric_limits<std::size_t>::max();
+      size_t material;
 
       //color with alpha
       if ( _opt.color_has_alpha() ){
