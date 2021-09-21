@@ -12,8 +12,8 @@ cppcheck:
     paths:
       - cppcheck.log
 
-{linux-template-job.yml, COMPILER=gcc, LANGUAGE=cpp11, QT_VERSION=qt6.0.0}
-{linux-template-job.yml, COMPILER=clang, LANGUAGE=cpp11, QT_VERSION=qt6.0.0}
+{linux-template-job.yml, COMPILER=gcc, LANGUAGE=cpp11, QT_VERSION=qt6.1.2}
+{linux-template-job.yml, COMPILER=clang, LANGUAGE=cpp11, QT_VERSION=qt6.1.2}
 
 {linux-template-job.yml, COMPILER=gcc, LANGUAGE=cpp11, QT_VERSION=qt5.15.1}
 {linux-template-job.yml, COMPILER=clang, LANGUAGE=cpp11, QT_VERSION=qt5.15.1}
