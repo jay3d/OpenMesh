@@ -37,9 +37,9 @@ cppcheck:
 # OS:         Linux
 # Compiler:   gcc
 # Language:   cpp11
-# QT Version: qt6.0.0
+# QT Version: qt6.1.2
 
-build-debug-gcc-cpp11-qt6.0.0:
+build-debug-gcc-cpp11-qt6.1.2:
   stage: build
   script: "CI/ci-linux-build.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -50,12 +50,12 @@ build-debug-gcc-cpp11-qt6.0.0:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "debug"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
   artifacts:
     paths:
-    - build-gcc-cpp11-qt6.0.0-debug-vectorchecks/
+    - build-gcc-cpp11-qt6.1.2-debug-vectorchecks/
 
 #-----------  Job Informations:
 # Type:       Test: debug
@@ -63,7 +63,7 @@ build-debug-gcc-cpp11-qt6.0.0:
 # Compiler:   gcc
 # Language:   cpp11
 
-test-debug-gcc-cpp11-qt6.0.0:
+test-debug-gcc-cpp11-qt6.1.2:
   stage: test
   script: "CI/ci-linux-test.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -75,17 +75,17 @@ test-debug-gcc-cpp11-qt6.0.0:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "debug"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
-  dependencies: [build-debug-gcc-cpp11-qt6.0.0]
-  needs: [build-debug-gcc-cpp11-qt6.0.0]
+  dependencies: [build-debug-gcc-cpp11-qt6.1.2]
+  needs: [build-debug-gcc-cpp11-qt6.1.2]
   artifacts:
     reports:
       junit:
-        - build-gcc-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report.xml
-        - build-gcc-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report-customvec.xml
-        - build-gcc-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report-doublevec.xml
+        - build-gcc-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report.xml
+        - build-gcc-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report-customvec.xml
+        - build-gcc-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report-doublevec.xml
 
 
 #-----------  Job Informations:
@@ -93,9 +93,9 @@ test-debug-gcc-cpp11-qt6.0.0:
 # OS:         Linux
 # Compiler:   gcc
 # Language:   cpp11
-# QT Version: qt6.0.0
+# QT Version: qt6.1.2
 
-build-release-gcc-cpp11-qt6.0.0:
+build-release-gcc-cpp11-qt6.1.2:
   stage: build
   script: "CI/ci-linux-build.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -106,12 +106,12 @@ build-release-gcc-cpp11-qt6.0.0:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "release"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
   artifacts:
     paths:
-    - build-gcc-cpp11-qt6.0.0-release-vectorchecks/
+    - build-gcc-cpp11-qt6.1.2-release-vectorchecks/
 
 #-----------  Job Informations:
 # Type:       Test: release
@@ -119,7 +119,7 @@ build-release-gcc-cpp11-qt6.0.0:
 # Compiler:   gcc
 # Language:   cpp11
 
-test-release-gcc-cpp11-qt6.0.0:
+test-release-gcc-cpp11-qt6.1.2:
   stage: test
   script: "CI/ci-linux-test.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -131,17 +131,17 @@ test-release-gcc-cpp11-qt6.0.0:
     COMPILER: "gcc"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "release"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
-  dependencies: [build-release-gcc-cpp11-qt6.0.0]
-  needs: [build-release-gcc-cpp11-qt6.0.0]
+  dependencies: [build-release-gcc-cpp11-qt6.1.2]
+  needs: [build-release-gcc-cpp11-qt6.1.2]
   artifacts:
     reports:
       junit:
-        - build-gcc-cpp11-qt6.0.0-release-vectorchecks/Unittests/report.xml
-        - build-gcc-cpp11-qt6.0.0-release-vectorchecks/Unittests/report-customvec.xml
-        - build-gcc-cpp11-qt6.0.0-release-vectorchecks/Unittests/report-doublevec.xml
+        - build-gcc-cpp11-qt6.1.2-release-vectorchecks/Unittests/report.xml
+        - build-gcc-cpp11-qt6.1.2-release-vectorchecks/Unittests/report-customvec.xml
+        - build-gcc-cpp11-qt6.1.2-release-vectorchecks/Unittests/report-doublevec.xml
 
 
 #-----------  Job Informations:
@@ -149,9 +149,9 @@ test-release-gcc-cpp11-qt6.0.0:
 # OS:         Linux
 # Compiler:   clang
 # Language:   cpp11
-# QT Version: qt6.0.0
+# QT Version: qt6.1.2
 
-build-debug-clang-cpp11-qt6.0.0:
+build-debug-clang-cpp11-qt6.1.2:
   stage: build
   script: "CI/ci-linux-build.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -162,12 +162,12 @@ build-debug-clang-cpp11-qt6.0.0:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "debug"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
   artifacts:
     paths:
-    - build-clang-cpp11-qt6.0.0-debug-vectorchecks/
+    - build-clang-cpp11-qt6.1.2-debug-vectorchecks/
 
 #-----------  Job Informations:
 # Type:       Test: debug
@@ -175,7 +175,7 @@ build-debug-clang-cpp11-qt6.0.0:
 # Compiler:   clang
 # Language:   cpp11
 
-test-debug-clang-cpp11-qt6.0.0:
+test-debug-clang-cpp11-qt6.1.2:
   stage: test
   script: "CI/ci-linux-test.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -187,17 +187,17 @@ test-debug-clang-cpp11-qt6.0.0:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "debug"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
-  dependencies: [build-debug-clang-cpp11-qt6.0.0]
-  needs: [build-debug-clang-cpp11-qt6.0.0]
+  dependencies: [build-debug-clang-cpp11-qt6.1.2]
+  needs: [build-debug-clang-cpp11-qt6.1.2]
   artifacts:
     reports:
       junit:
-        - build-clang-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report.xml
-        - build-clang-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report-customvec.xml
-        - build-clang-cpp11-qt6.0.0-debug-vectorchecks/Unittests/report-doublevec.xml
+        - build-clang-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report.xml
+        - build-clang-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report-customvec.xml
+        - build-clang-cpp11-qt6.1.2-debug-vectorchecks/Unittests/report-doublevec.xml
 
 
 #-----------  Job Informations:
@@ -205,9 +205,9 @@ test-debug-clang-cpp11-qt6.0.0:
 # OS:         Linux
 # Compiler:   clang
 # Language:   cpp11
-# QT Version: qt6.0.0
+# QT Version: qt6.1.2
 
-build-release-clang-cpp11-qt6.0.0:
+build-release-clang-cpp11-qt6.1.2:
   stage: build
   script: "CI/ci-linux-build.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -218,12 +218,12 @@ build-release-clang-cpp11-qt6.0.0:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "release"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
   artifacts:
     paths:
-    - build-clang-cpp11-qt6.0.0-release-vectorchecks/
+    - build-clang-cpp11-qt6.1.2-release-vectorchecks/
 
 #-----------  Job Informations:
 # Type:       Test: release
@@ -231,7 +231,7 @@ build-release-clang-cpp11-qt6.0.0:
 # Compiler:   clang
 # Language:   cpp11
 
-test-release-clang-cpp11-qt6.0.0:
+test-release-clang-cpp11-qt6.1.2:
   stage: test
   script: "CI/ci-linux-test.sh"
   #image: gitlab.vci.rwth-aachen.de:4567/docker/docker/docker-openmesh-container
@@ -243,17 +243,17 @@ test-release-clang-cpp11-qt6.0.0:
     COMPILER: "clang"
     LANGUAGE: "cpp11"
     BUILD_TYPE: "release"
-    QTVERSION: "qt6.0.0"
+    QTVERSION: "qt6.1.2"
     IWYU: "no"
     VECTORCHECKS: "yes"
-  dependencies: [build-release-clang-cpp11-qt6.0.0]
-  needs: [build-release-clang-cpp11-qt6.0.0]
+  dependencies: [build-release-clang-cpp11-qt6.1.2]
+  needs: [build-release-clang-cpp11-qt6.1.2]
   artifacts:
     reports:
       junit:
-        - build-clang-cpp11-qt6.0.0-release-vectorchecks/Unittests/report.xml
-        - build-clang-cpp11-qt6.0.0-release-vectorchecks/Unittests/report-customvec.xml
-        - build-clang-cpp11-qt6.0.0-release-vectorchecks/Unittests/report-doublevec.xml
+        - build-clang-cpp11-qt6.1.2-release-vectorchecks/Unittests/report.xml
+        - build-clang-cpp11-qt6.1.2-release-vectorchecks/Unittests/report-customvec.xml
+        - build-clang-cpp11-qt6.1.2-release-vectorchecks/Unittests/report-doublevec.xml
 
 
 
@@ -907,6 +907,63 @@ build-VS2019-x64-shared-FALSE-apps:
 # OS:           Windows
 # Architecture: x64
 # Shared:       TRUE
+# VS Version:   VS2019
+# Apps:         {{APPS}}
+
+build-VS2019-x64-shared-TRUE-apps:
+  stage: build
+  variables:
+    BUILD_PLATFORM: "VS2019"
+    ARCHITECTURE:   "x64"
+    SHARED:         "TRUE"
+    APPS:           "ON"
+  script: "CI\\Windows.bat"
+  tags:
+    - VS2019
+    - Qt5150
+  artifacts:
+    paths:
+      - build-release/*.exe
+    reports:
+      junit:
+        - build-release/unittests/report.xml
+        - build-release/unittests/report-customvec.xml
+        - build-release/unittests/report-doublevec.xml
+
+#-------------  Job Informations:
+# Type:         Build+Test: Release
+# OS:           Windows
+# Architecture: x64
+# Shared:       FALSE
+# VS Version:   VS2019
+# Apps:         {{APPS}}
+
+build-VS2019-x64-shared-FALSE-apps:
+  stage: build
+  variables:
+    BUILD_PLATFORM: "VS2019"
+    ARCHITECTURE:   "x64"
+    SHARED:         "FALSE"
+    APPS:           "ON"
+  script: "CI\\Windows.bat"
+  tags:
+    - VS2019
+    - Qt5150
+  artifacts:
+    paths:
+      - build-release/*.exe
+    reports:
+      junit:
+        - build-release/unittests/report.xml
+        - build-release/unittests/report-customvec.xml
+        - build-release/unittests/report-doublevec.xml
+
+
+#-------------  Job Informations:
+# Type:         Build+Test: Release
+# OS:           Windows
+# Architecture: x64
+# Shared:       TRUE
 # VS Version:   VS2017
 # Apps:         {{APPS}}
 
@@ -949,101 +1006,6 @@ build-VS2017-x64-shared-FALSE-apps:
   tags:
     - VS2017
     - Qt5101
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-
-#-------------  Job Informations:
-# Type:         Build+Test: Release
-# OS:           Windows
-# Architecture: x64
-# Shared:       TRUE
-# VS Version:   VS2015
-# Apps:         {{APPS}}
-
-build-VS2015-x64-shared-TRUE-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2015"
-    ARCHITECTURE:   "x64"
-    SHARED:         "TRUE"
-    APPS:           "ON"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2015
-    - Qt5101
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-build-VS2015-x64-shared-TRUE-no-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2015"
-    ARCHITECTURE:   "x64"
-    SHARED:         "TRUE"
-    APPS:           "OFF"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2015
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-#-------------  Job Informations:
-# Type:         Build+Test: Release
-# OS:           Windows
-# Architecture: x64
-# Shared:       FALSE
-# VS Version:   VS2015
-# Apps:         {{APPS}}
-
-build-VS2015-x64-shared-FALSE-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2015"
-    ARCHITECTURE:   "x64"
-    SHARED:         "FALSE"
-    APPS:           "ON"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2015
-    - Qt5101
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-build-VS2015-x64-shared-FALSE-no-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2015"
-    ARCHITECTURE:   "x64"
-    SHARED:         "FALSE"
-    APPS:           "OFF"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2015
   artifacts:
     paths:
       - build-release/*.exe
