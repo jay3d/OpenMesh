@@ -2,7 +2,7 @@
 
 import sys, os, re, yaml, hashlib
 
-# Version 3.2
+# Version 3.3
 
 # Script for automated gitlab-ci creation
 # Assembles the gitlab ci from master template file:
@@ -76,7 +76,7 @@ def fetchVariableReplacers(variablesGrep):
 
         if (key != None and value != None):
             key = key.strip()
-            result[key] = value
+            result[key] = value.strip()
 
     return result
 
@@ -174,3 +174,4 @@ def main():
 # Execute main function
 if __name__ == '__main__':
     main()
+

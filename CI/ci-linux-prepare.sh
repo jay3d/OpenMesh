@@ -8,7 +8,12 @@ MAKE_OPTIONS=""
 BUILDPATH=""
 
 # set GTEST path
-OPTIONS="-DGTEST_ROOT=~/sw/gtest-1.10.0"
+if [ -d "$HOME/sw/gtest-1.10.0" ]; then
+  OPTIONS="-DGTEST_ROOT=$HOME/sw/gtest-1.10.0"
+  export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$HOME/sw/gtest-1.10.0/lib"
+else
+  OPTIONS="-DGTEST_ROOT=/usr/src/gtest/"
+fi
 
 if [ "$COMPILER" == "gcc" ]; then
   echo "Building with GCC";
@@ -42,27 +47,35 @@ fi
 if [ "$QTVERSION" == "qt5.13.0" ]; then
   echo "Using QT5.13.0";
   BUILDPATH="$BUILDPATH-qt5.13.0"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.13.0/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.13.0/gcc_64 -DQT_VERSION=5"
 elif [ "$QTVERSION" == "qt5.12.2" ]; then
   echo "Using QT5.12.2";
   BUILDPATH="$BUILDPATH-qt5.12.2"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.12.2/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.12.2/gcc_64 -DQT_VERSION=5"
 elif [ "$QTVERSION" == "qt5.11.2" ]; then
   echo "Using QT5.11.2";
   BUILDPATH="$BUILDPATH-qt5.11.2"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.11.2/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.11.2/gcc_64 -DQT_VERSION=5"
 elif [ "$QTVERSION" == "qt5.9.0" ]; then
   echo "Using QT5.9.0";
   BUILDPATH="$BUILDPATH-qt5.9.0"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.9/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.9/gcc_64 -DQT_VERSION=5"
 elif [ "$QTVERSION" == "qt5.13.2" ]; then
   echo "Using QT5.13.2";
   BUILDPATH="$BUILDPATH-qt5.13.2"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.13.2/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.13.2/gcc_64 -DQT_VERSION=5"
 elif [ "$QTVERSION" == "qt5.15.1" ]; then
   echo "Using QT5.15.1";
   BUILDPATH="$BUILDPATH-qt5.15.1"
-  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.15.1/gcc_64"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/5.15.1/gcc_64 -DQT_VERSION=5"
+elif [ "$QTVERSION" == "qt6.0.0" ]; then
+  echo "Using QT6.0.0";
+  BUILDPATH="$BUILDPATH-qt6.0.0"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.0/gcc_64 -DQT_VERSION=6"
+elif [ "$QTVERSION" == "qt6.0.3" ]; then
+  echo "Using QT6.0.3";
+  BUILDPATH="$BUILDPATH-qt6.0.3"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.3/gcc_64 -DQT_VERSION=6"
 fi
 
 #=====================================

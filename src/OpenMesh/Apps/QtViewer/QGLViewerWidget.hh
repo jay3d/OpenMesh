@@ -47,14 +47,15 @@
 
 
 //== INCLUDES =================================================================
-
-
 #include <OpenMesh/Core/Geometry/VectorT.hh>
-#include <QGLWidget>
 #include <string>
 #include <vector>
 #include <map>
-
+#if QT_VERSION_MAJOR < 6
+    #include <QGLWidget>
+#else
+    #include <QtOpenGLWidgets/QOpenGLWidget>
+#endif
 
 //== FORWARD DECLARATIONS =====================================================
 
@@ -64,20 +65,24 @@ class QAction;
 
 //== CLASS DEFINITION =========================================================
 
-  
+#if QT_VERSION_MAJOR < 6
 class QGLViewerWidget : public QGLWidget
+#else
+class QGLViewerWidget : public QOpenGLWidget
+#endif
 {
-
   Q_OBJECT
+
   
 public:
+  #if QT_VERSION_MAJOR < 6
   typedef QGLWidget Super;
+  #else
+  typedef QOpenGLWidget Super;
+  #endif
    
   // Default constructor.
   explicit QGLViewerWidget( QWidget* _parent=0 );
-
-  // 
-  QGLViewerWidget( QGLFormat& _fmt, QWidget* _parent=0 );
 
   // Destructor.
   virtual ~QGLViewerWidget();
@@ -87,6 +92,11 @@ private:
   void init(void);
 
 public:
+
+#if QT_VERSION_MAJOR > 5
+  /* Updates the gui - used to provide backwards compability */
+  void updateGL();
+#endif
 
   /* Sets the center and size of the whole scene. 
      The _center is used as fixpoint for rotations and for adjusting

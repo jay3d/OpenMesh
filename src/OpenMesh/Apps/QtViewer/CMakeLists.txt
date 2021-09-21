@@ -30,7 +30,13 @@ endif ()
 target_link_libraries (QtViewer
   OpenMeshCore
   OpenMeshTools
-  Qt5::OpenGL
+  ${QT_TARGET}::OpenGL
+  ${QT_TARGET}::Widgets
+  ${QT_TARGET}::Gui
   ${OPENGL_LIBRARIES}
 )
+
+if (QT_VERSION_MAJOR GREATER 5)
+  target_link_libraries (QtViewer ${QT_TARGET}::OpenGLWidgets)
+endif()
 
