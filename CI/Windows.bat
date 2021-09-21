@@ -51,7 +51,7 @@ IF "%BUILD_PLATFORM%" == "VS2017" (
 
 IF "%BUILD_PLATFORM%" == "VS2019" (
     set LIBPATH=E:\libs\VS2019
-    set GTESTVERSION=gtest-1.10.0
+    set GTESTVERSION=gtest-1.11.0
     set GENERATOR=Visual Studio 16 2019
     set VS_PATH="C:\Program Files (x86)\Microsoft Visual Studio\2019\Professional\Common7\IDE\devenv.com"
 
