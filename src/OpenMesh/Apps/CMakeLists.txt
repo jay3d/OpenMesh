@@ -48,7 +48,7 @@ if ( BUILD_APPS )
         Qt5OpenGL
         Qt5Gui
         )
-      vci_qt5 ()
+      vci_qt ()
       set(CMAKE_AUTOMOC ON)
     endif()
 
