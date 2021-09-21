@@ -76,7 +76,12 @@ elif [ "$QTVERSION" == "qt6.0.3" ]; then
   echo "Using QT6.0.3";
   BUILDPATH="$BUILDPATH-qt6.0.3"
   OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.0.3/gcc_64 -DQT_VERSION=6"
+elif [ "$QTVERSION" == "qt6.1.2" ]; then
+  echo "Using QT6.0.3";
+  BUILDPATH="$BUILDPATH-qt6.1.2"
+  OPTIONS="$OPTIONS -DQT_INSTALL_PATH=~/sw/Qt/6.1.2/gcc_64 -DQT_VERSION=6"
 fi
+
 
 #=====================================
 # Color Settings:
