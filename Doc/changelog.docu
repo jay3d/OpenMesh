@@ -14,6 +14,7 @@
 <li>Dropped 32-bit Windows continuous integration and artifact builds (This does not mean that OpenMesh will not build and work on 32-bit, but we don't explicitly test and guarantee it anymore).</li>
 <li>Changed CCW begin/end/range to start on last element of CW counterpart. May break your code if you depend on CCW begin to start at a specific element.</li>
 <li>The binary struct that needs to be implemented in order to store properties of user defined types now requires a method type_identifier() which returns an std::string that uniquely identifies the type.
+<li>Dropped support for VS2015. OpenMesh might still work on VS2015 but we don't test it anymore.</li>
 </ul>
 
 <b>Core</b>
@@ -49,6 +50,7 @@
 <li>Switched to external cmake-library used by all of our projects now</li>
 <li>Removed custom Eigen3 finder. Eigen3 has full cmake support. (You can point OpenMesh to eigen via -DEigen3_DIR="c:\<path>" )
 <li>Added support for and fixed some issues with VS2019</li>
+<li>Support QT 6 for aplication examples</li> 
 </ul>
 
 </tr>
