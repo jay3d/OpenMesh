@@ -188,24 +188,23 @@ read_material(std::fstream& _in)
 
     stream >> keyWrd;
 
-    if (keyWrd == "newmtl") // begin new material definition
+    if( ( isspace(line[0]) && line[0] != '\t' ) || line[0] == '#' )
     {
-      // If we are in a material definition (Already reading a material)
-      // And a material name has been set
-      // And the current material definition is valid
-      // Then Store the current material in our lookup table 
       if (indef && !key.empty() && mat.is_valid())
       {
         materials_[key] = mat;
         mat.cleanup();
       }
+    }
 
+    else if (keyWrd == "newmtl") // begin new material definition
+    {
       stream >> key;
       indef = true;
     }
 
     else if (keyWrd == "Kd") // diffuse color
-    { 
+    {
       stream >> f1; stream >> f2; stream >> f3;
 
       if( !stream.fail() )

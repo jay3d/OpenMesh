@@ -623,48 +623,7 @@ TEST_F(OpenMeshReadWriteOBJ, FaceTexCoordTest) {
 }
 
 
-/*
- * Load, save and load a simple obj
- */
-TEST_F(OpenMeshReadWriteOBJ, ReadOBJMTL) {
 
-  mesh_.clear();
-  mesh_.request_face_colors();
-
-  OpenMesh::IO::Options options;
-  options += OpenMesh::IO::Options::FaceColor;
-  bool ok = OpenMesh::IO::read_mesh(mesh_, "CubeCol.obj", options);
-
-  EXPECT_TRUE(ok) << "Unable to load CubeCol.obj";
-
-  OpenMesh::FaceHandle fh0 = mesh_.face_handle(0);
-  OpenMesh::FaceHandle fh1 = mesh_.face_handle(1);
-  OpenMesh::FaceHandle fh2 = mesh_.face_handle(2);
-  OpenMesh::FaceHandle fh3 = mesh_.face_handle(3);
-
-
-  EXPECT_TRUE(fh0.is_valid()) << "fh0 should be valid";
-  EXPECT_TRUE(fh1.is_valid()) << "fh1 should be valid";
-  EXPECT_TRUE(fh2.is_valid()) << "fh2 should be valid";
-  EXPECT_TRUE(fh3.is_valid()) << "fh3 should be valid";
-
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh0)[0] ) << "Wrong vertex color at face 0 component 0";
-  EXPECT_FLOAT_EQ(64 ,   mesh_.color(fh0)[1] ) << "Wrong vertex color at face 0 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh0)[2] ) << "Wrong vertex color at face 0 component 2";
-
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh1)[0] ) << "Wrong vertex color at face 1 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh1)[1] ) << "Wrong vertex color at face 1 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh1)[2] ) << "Wrong vertex color at face 1 component 2";
-
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh2)[0] ) << "Wrong vertex color at face 2 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh2)[1] ) << "Wrong vertex color at face 2 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh2)[2] ) << "Wrong vertex color at face 2 component 2";
-
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh3)[0] ) << "Wrong vertex color at face 3 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh3)[1] ) << "Wrong vertex color at face 3 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh3)[2] ) << "Wrong vertex color at face 3 component 2";
-
-}
 
 
 
