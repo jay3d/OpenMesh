@@ -840,6 +840,48 @@ macos-cpp14-release:
 #          - build-release-cpp14/Unittests/report-doublevec.xml
 
 
+#-----------  Job Informations:
+# Type:       Build+Test: debug
+# OS:         Mac
+# Language:   cpp14
+
+macos-M1-cpp14-debug:
+    stage: build
+    script: "CI/ci-mac-build.sh cpp14 debug ; CI/ci-mac-test.sh cpp14 debug"
+    tags:
+      - AppleM1
+    artifacts:
+      paths:
+        - build-debug-cpp14/*.dmg
+        - build-debug-cpp14/*.tar.gz
+#      reports:
+#        junit:
+#          - build-debug-cpp14/Unittests/report.xml
+#          - build-debug-cpp14/Unittests/report-customvec.xml
+#          - build-debug-cpp14/Unittests/report-doublevec.xml
+
+#-----------  Job Informations:
+# Type:       Build+Test: release
+# OS:         Mac
+# Language:   cpp14
+
+macos-M1-cpp14-release:
+    stage: build
+    script: "CI/ci-mac-build.sh cpp14 release ; CI/ci-mac-test.sh cpp14 release"
+    tags:
+      - AppleM1
+    artifacts:
+      paths:
+        - build-release-cpp14/*.dmg
+        - build-release-cpp14/*.tar.gz
+#      reports:
+#        junit:
+#          - build-release-cpp14/Unittests/report.xml
+#          - build-release-cpp14/Unittests/report-customvec.xml
+#          - build-release-cpp14/Unittests/report-doublevec.xml
+
+
+
 
 # -----------------
 # Windows tasks
@@ -892,63 +934,6 @@ build-VS2019-x64-shared-FALSE-apps:
   tags:
     - VS2019
     - Qt612
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-
-#-------------  Job Informations:
-# Type:         Build+Test: Release
-# OS:           Windows
-# Architecture: x64
-# Shared:       TRUE
-# VS Version:   VS2019
-# Apps:         {{APPS}}
-
-build-VS2019-x64-shared-TRUE-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2019"
-    ARCHITECTURE:   "x64"
-    SHARED:         "TRUE"
-    APPS:           "ON"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2019
-    - Qt5150
-  artifacts:
-    paths:
-      - build-release/*.exe
-    reports:
-      junit:
-        - build-release/unittests/report.xml
-        - build-release/unittests/report-customvec.xml
-        - build-release/unittests/report-doublevec.xml
-
-#-------------  Job Informations:
-# Type:         Build+Test: Release
-# OS:           Windows
-# Architecture: x64
-# Shared:       FALSE
-# VS Version:   VS2019
-# Apps:         {{APPS}}
-
-build-VS2019-x64-shared-FALSE-apps:
-  stage: build
-  variables:
-    BUILD_PLATFORM: "VS2019"
-    ARCHITECTURE:   "x64"
-    SHARED:         "FALSE"
-    APPS:           "ON"
-  script: "CI\\Windows.bat"
-  tags:
-    - VS2019
-    - Qt5150
   artifacts:
     paths:
       - build-release/*.exe
