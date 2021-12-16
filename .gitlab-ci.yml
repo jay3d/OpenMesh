@@ -847,7 +847,7 @@ macos-cpp14-release:
 
 macos-M1-cpp14-debug:
     stage: build
-    script: "CI/ci-mac-build.sh cpp14 debug ; CI/ci-mac-test.sh cpp14 debug"
+    script: "CI/ci-mac-M1-build.sh cpp14 debug ; CI/ci-mac-M1-test.sh cpp14 debug"
     tags:
       - AppleM1
     artifacts:
@@ -867,7 +867,7 @@ macos-M1-cpp14-debug:
 
 macos-M1-cpp14-release:
     stage: build
-    script: "CI/ci-mac-build.sh cpp14 release ; CI/ci-mac-test.sh cpp14 release"
+    script: "CI/ci-mac-M1-build.sh cpp14 release ; CI/ci-mac-M1-test.sh cpp14 release"
     tags:
       - AppleM1
     artifacts:

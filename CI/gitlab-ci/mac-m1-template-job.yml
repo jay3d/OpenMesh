@@ -5,7 +5,7 @@
 
 macos-M1-{{LANGUAGE}}-{{BUILDTYPE}}:
     stage: build
-    script: "CI/ci-mac-build.sh {{LANGUAGE}} {{BUILDTYPE}} ; CI/ci-mac-test.sh {{LANGUAGE}} {{BUILDTYPE}}"
+    script: "CI/ci-mac-M1-build.sh {{LANGUAGE}} {{BUILDTYPE}} ; CI/ci-mac-M1-test.sh {{LANGUAGE}} {{BUILDTYPE}}"
     tags:
       - AppleM1
     artifacts:
