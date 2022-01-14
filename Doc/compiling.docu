@@ -113,14 +113,31 @@ Building OpenMesh on Windows requires cmake to generate the project files for Vi
 
 \section sec_compiling_macosx MacOS X
 
+To compile OpenMesh, you need cmake on your system which is the minimal requirement to build OpenMesh.
+
+We recommend using homebrew (https://brew.sh/index_de) for installing additional packages required for 
+compiling OpenMesh or other projects.
+
+After installing homebrew, you can use the following command to install cmake:<br>
+<tt>
+brew install cmake&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;## cmake generates the makefiles<br>
+</tt><br>
+
+Optional libraries which can be used to build OpenMesh:<br>
+<tt>
+brew install googletest&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Required to compile the included tests<br>
+brew install qt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Required to compile the included UI example apps<br>
+</tt><br>
+
 Download and install required libraries as stated above.
-You can download %OpenMesh's sources from <tt>www.openmesh.org</tt> or check out the latest repository via GIT:<br/>
+
+You can download %OpenMesh's sources from <tt>www.openmesh.org</tt> or check out the latest repository via GIT (Recommended to get the latest version of OpenMesh):<br/>
 <tt>https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh</tt>.<br/><br/>
 
 \subsection mac_using_cmake Compiling OpenMesh using CMake
 
 We recommend you to use CMake >= 3.7 as build system. This can also easily be installed
-via MacPorts as well as the Qt >= 5.6 library which is used for some example applications
+via Homebrew as well as the Qt >= 6.2 library which is used for some example applications
 in %OpenMesh.<br/>
 Once installed, change to %OpenMesh's root directory and create a directory
 named e.g. "buildDebug" (assuming you want to build with debug symbols).<br/>
