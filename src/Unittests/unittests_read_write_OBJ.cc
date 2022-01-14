@@ -648,21 +648,36 @@ TEST_F(OpenMeshReadWriteOBJ, ReadOBJMTL) {
   EXPECT_TRUE(fh2.is_valid()) << "fh2 should be valid";
   EXPECT_TRUE(fh3.is_valid()) << "fh3 should be valid";
 
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh0)[0] ) << "Wrong vertex color at face 0 component 0";
-  EXPECT_FLOAT_EQ(64 ,   mesh_.color(fh0)[1] ) << "Wrong vertex color at face 0 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh0)[2] ) << "Wrong vertex color at face 0 component 2";
 
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh1)[0] ) << "Wrong vertex color at face 1 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh1)[1] ) << "Wrong vertex color at face 1 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh1)[2] ) << "Wrong vertex color at face 1 component 2";
 
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh2)[0] ) << "Wrong vertex color at face 2 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh2)[1] ) << "Wrong vertex color at face 2 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh2)[2] ) << "Wrong vertex color at face 2 component 2";
+#ifdef TEST_DOUBLE_TRAITS
+  const float value1 = 32.0/255.0;
+  const float value2 = 64.0/255.0;
+  const float value3 = 128.0/255.0;
+#else
+  const float value1 = 32;
+  const float value2 = 64;
+  const float value3 = 128;
+#endif
 
-  EXPECT_FLOAT_EQ(32,    mesh_.color(fh3)[0] ) << "Wrong vertex color at face 3 component 0";
-  EXPECT_FLOAT_EQ(64,    mesh_.color(fh3)[1] ) << "Wrong vertex color at face 3 component 1";
-  EXPECT_FLOAT_EQ(128,   mesh_.color(fh3)[2] ) << "Wrong vertex color at face 3 component 2";
+
+
+
+  EXPECT_FLOAT_EQ(value1,    mesh_.color(fh0)[0] ) << "Wrong vertex color at face 0 component 0";
+  EXPECT_FLOAT_EQ(value2 ,   mesh_.color(fh0)[1] ) << "Wrong vertex color at face 0 component 1";
+  EXPECT_FLOAT_EQ(value3,   mesh_.color(fh0)[2] ) << "Wrong vertex color at face 0 component 2";
+
+  EXPECT_FLOAT_EQ(value1,    mesh_.color(fh1)[0] ) << "Wrong vertex color at face 1 component 0";
+  EXPECT_FLOAT_EQ(value2,    mesh_.color(fh1)[1] ) << "Wrong vertex color at face 1 component 1";
+  EXPECT_FLOAT_EQ(value3,   mesh_.color(fh1)[2] ) << "Wrong vertex color at face 1 component 2";
+
+  EXPECT_FLOAT_EQ(value1,    mesh_.color(fh2)[0] ) << "Wrong vertex color at face 2 component 0";
+  EXPECT_FLOAT_EQ(value2,    mesh_.color(fh2)[1] ) << "Wrong vertex color at face 2 component 1";
+  EXPECT_FLOAT_EQ(value3,   mesh_.color(fh2)[2] ) << "Wrong vertex color at face 2 component 2";
+
+  EXPECT_FLOAT_EQ(value1,    mesh_.color(fh3)[0] ) << "Wrong vertex color at face 3 component 0";
+  EXPECT_FLOAT_EQ(value2,    mesh_.color(fh3)[1] ) << "Wrong vertex color at face 3 component 1";
+  EXPECT_FLOAT_EQ(value3,   mesh_.color(fh3)[2] ) << "Wrong vertex color at face 3 component 2";
 
 }
 
