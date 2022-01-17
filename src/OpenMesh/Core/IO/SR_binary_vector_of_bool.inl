@@ -25,7 +25,7 @@ template <> struct binary< std::vector<bool> >
 
     if(_store_size)
     {
-      unsigned int size_N = _v.size();
+      unsigned int size_N = static_cast<unsigned int>(_v.size());
       bytes += binary<unsigned int>::store( _ostr, size_N, _swap );
     }
 

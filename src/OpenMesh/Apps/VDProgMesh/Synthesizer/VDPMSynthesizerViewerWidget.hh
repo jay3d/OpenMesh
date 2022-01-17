@@ -79,15 +79,6 @@ namespace OpenMesh {
 //== CLASS DEFINITION =========================================================
 
 	      
-/** \class newClass newClass.hh <OpenMesh/.../newClass.hh>
-
-    Brief Description.
-  
-    A more elaborate description follows.
-*/
-
-
-
 typedef TriMesh_ArrayKernelT<VDPM::MeshTraits>	VDPMMesh;
 typedef MeshViewerWidgetT<VDPMMesh>		MeshViewerWidget;
 
