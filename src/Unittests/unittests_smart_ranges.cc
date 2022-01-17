@@ -293,7 +293,7 @@ TEST_F(OpenMeshSmartRanges, ForEach)
 
   ASSERT_EQ(vec.size(), mesh_.n_vertices()) << "vec has wrong size";
   for (size_t i = 0; i < vec.size(); ++i)
-    EXPECT_EQ(vec[i], i) << "wrong index in vector";
+    EXPECT_EQ(vec[i], static_cast<int>(i)) << "wrong index in vector";
 }
 
 
@@ -892,19 +892,19 @@ TEST_F(OpenMeshSmartRanges, MemberFunctionFunctor)
   int factor = 3;
   MemberFunctionWrapperTestStruct test_object(factor);
 
-  // Test using a MemberFunctionWrapper as Functor
-  EXPECT_EQ(mesh_.n_edges() / 2, mesh_.edges().count_if(make_member_function_wrapper(test_object, &MemberFunctionWrapperTestStruct::id_divisible_by_2)));
+  // Test using a MemberFunctionWrapper as Functorstatic_cast<int>(
+  EXPECT_EQ(static_cast<int>(mesh_.n_edges() / 2), mesh_.edges().count_if(make_member_function_wrapper(test_object, &MemberFunctionWrapperTestStruct::id_divisible_by_2)));
 
 
   // Test using a MemberFunctionWrapper as Functor that is created using the convenience macro from inside the struct
   for (auto vh : mesh_.vertices())
-    EXPECT_EQ(test_object.valence_times_i(vh), vh.valence() * factor);
+    EXPECT_EQ(test_object.valence_times_i(vh), static_cast<int>(vh.valence()) * factor);
 
   factor = 4;
   test_object.i_ = factor;
   for (auto vh : mesh_.vertices())
   {
-    EXPECT_EQ(test_object.valence_times_i(vh), vh.valence() * factor);
+    EXPECT_EQ(test_object.valence_times_i(vh), static_cast<int>(vh.valence() * factor));
   }
 
 
