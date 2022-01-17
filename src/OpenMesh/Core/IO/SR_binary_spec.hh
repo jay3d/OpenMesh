@@ -337,7 +337,7 @@ struct binary< std::vector< T >, typename std::enable_if<std::is_default_constru
   {
     if(binary<T>::size_of() != IO::UnknownSize)
     {
-      unsigned int   N     = _v.size();
+      unsigned int N = static_cast<unsigned int>(_v.size());
       auto res = binary<T>::size_of()*_v.size() + (_store_size? sizeof(decltype(N)) : 0);
       return res;
     }
@@ -359,7 +359,7 @@ struct binary< std::vector< T >, typename std::enable_if<std::is_default_constru
     size_t bytes=0;
     if(_store_size)
     {
-      unsigned int N = _v.size();
+      unsigned int N = static_cast<unsigned int>(_v.size());
       bytes += binary<unsigned int>::store( _os, N, _swap );
     }
     if (_swap)
