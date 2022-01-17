@@ -132,7 +132,7 @@ brew install qt&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp
 Download and install required libraries as stated above.
 
 You can download %OpenMesh's sources from <tt>www.openmesh.org</tt> or check out the latest repository via GIT (Recommended to get the latest version of OpenMesh):<br/>
-<tt>https://www.graphics.rwth-aachen.de:9000/OpenMesh/OpenMesh</tt>.<br/><br/>
+<tt>https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh</tt>.<br/><br/>
 
 \subsection mac_using_cmake Compiling OpenMesh using CMake
 
