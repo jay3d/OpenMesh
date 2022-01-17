@@ -452,6 +452,8 @@ struct FilteredSmartRangeT : public SmartRangeT<FilteredSmartRangeT<RangeT, Hand
         operator++();
     }
 
+    FilteredIterator(const FilteredIterator& other) = default;
+
     FilteredIterator& operator=(const FilteredIterator& other)
     {
       BaseIterator::operator=(other);

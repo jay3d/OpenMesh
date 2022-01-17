@@ -89,10 +89,10 @@ public:
 
 
   //! default constructor (not initialized)
-  NormalConeT() {}
+  NormalConeT() : angle_(0.0) {}
 
   //! Initialize cone with center (unit vector) and angle (radius in radians)
-  NormalConeT(const Vec3& _center_normal, Scalar _angle=0.0);
+  explicit NormalConeT(const Vec3& _center_normal, Scalar _angle=0.0);
 
   //! return max. distance (radians) unit vector to cone (distant side)
   Scalar max_angle(const Vec3&) const;

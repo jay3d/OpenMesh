@@ -293,7 +293,7 @@ TEST_F(OpenMeshSmartRanges, ForEach)
 
   ASSERT_EQ(vec.size(), mesh_.n_vertices()) << "vec has wrong size";
   for (size_t i = 0; i < vec.size(); ++i)
-    EXPECT_EQ(vec[i], i) << "wrong index in vector";
+    EXPECT_EQ(vec[i], static_cast<int>(i)) << "wrong index in vector";
 }
 
 
@@ -310,26 +310,26 @@ TEST_F(OpenMeshSmartRanges, Filtered)
   auto to_id              = [](VH vh) { return vh.idx(); };
 
   auto even_vertices = mesh_.vertices().filtered(is_even).to_vector(to_id);
-  EXPECT_EQ(even_vertices.size(), 4);
+  EXPECT_EQ(even_vertices.size(), 4u);
   EXPECT_EQ(even_vertices[0], 0);
   EXPECT_EQ(even_vertices[1], 2);
   EXPECT_EQ(even_vertices[2], 4);
   EXPECT_EQ(even_vertices[3], 6);
 
   auto odd_vertices = mesh_.vertices().filtered(is_odd).to_vector(to_id);
-  EXPECT_EQ(odd_vertices.size(), 4);
+  EXPECT_EQ(odd_vertices.size(), 4u);
   EXPECT_EQ(odd_vertices[0], 1);
   EXPECT_EQ(odd_vertices[1], 3);
   EXPECT_EQ(odd_vertices[2], 5);
   EXPECT_EQ(odd_vertices[3], 7);
 
   auto even_3_vertices = mesh_.vertices().filtered(is_even).filtered(is_divisible_by_3).to_vector(to_id);
-  EXPECT_EQ(even_3_vertices.size(), 2);
+  EXPECT_EQ(even_3_vertices.size(), 2u);
   EXPECT_EQ(even_3_vertices[0], 0);
   EXPECT_EQ(even_3_vertices[1], 6);
 
   auto odd_3_vertices = mesh_.vertices().filtered(is_odd).filtered(is_divisible_by_3).to_vector(to_id);
-  EXPECT_EQ(odd_3_vertices.size(), 1);
+  EXPECT_EQ(odd_3_vertices.size(), 1u);
   EXPECT_EQ(odd_3_vertices[0], 3);
 
 
@@ -346,8 +346,8 @@ TEST_F(OpenMeshSmartRanges, Filtered)
 
   {
     OpenMesh::FProp<bool> to_be_visited(true, mesh_);
-    int visited_faces_in_main_loop = 0;
-    int visited_faces_in_sub_loop = 0;
+    size_t visited_faces_in_main_loop = 0;
+    size_t visited_faces_in_sub_loop = 0;
     for (auto fh : mesh_.faces().filtered(to_be_visited))
     {
       to_be_visited(fh) = false;
@@ -367,8 +367,8 @@ TEST_F(OpenMeshSmartRanges, Filtered)
   {
     OpenMesh::FProp<bool> to_be_visited(true, mesh_);
     const auto& to_be_visited_const_ref = to_be_visited;
-    int visited_faces_in_main_loop = 0;
-    int visited_faces_in_sub_loop = 0;
+    size_t visited_faces_in_main_loop = 0;
+    size_t visited_faces_in_sub_loop = 0;
     for (auto fh : mesh_.faces().filtered(to_be_visited_const_ref))
     {
       to_be_visited(fh) = false;
@@ -892,19 +892,19 @@ TEST_F(OpenMeshSmartRanges, MemberFunctionFunctor)
   int factor = 3;
   MemberFunctionWrapperTestStruct test_object(factor);
 
-  // Test using a MemberFunctionWrapper as Functor
-  EXPECT_EQ(mesh_.n_edges() / 2, mesh_.edges().count_if(make_member_function_wrapper(test_object, &MemberFunctionWrapperTestStruct::id_divisible_by_2)));
+  // Test using a MemberFunctionWrapper as Functorstatic_cast<int>(
+  EXPECT_EQ(static_cast<int>(mesh_.n_edges() / 2), mesh_.edges().count_if(make_member_function_wrapper(test_object, &MemberFunctionWrapperTestStruct::id_divisible_by_2)));
 
 
   // Test using a MemberFunctionWrapper as Functor that is created using the convenience macro from inside the struct
   for (auto vh : mesh_.vertices())
-    EXPECT_EQ(test_object.valence_times_i(vh), vh.valence() * factor);
+    EXPECT_EQ(test_object.valence_times_i(vh), static_cast<int>(vh.valence()) * factor);
 
   factor = 4;
   test_object.i_ = factor;
   for (auto vh : mesh_.vertices())
   {
-    EXPECT_EQ(test_object.valence_times_i(vh), vh.valence() * factor);
+    EXPECT_EQ(test_object.valence_times_i(vh), static_cast<int>(vh.valence() * factor));
   }
 
 
