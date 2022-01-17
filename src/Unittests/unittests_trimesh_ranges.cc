@@ -89,7 +89,7 @@ void compare_ranges(RangeT1&& range1, RangeT2&& range2, int offset, bool reverse
   auto vec2 = range2.to_vector();
 
   ASSERT_EQ(vec1.size(), vec2.size()) << "Ranges have different number of elements";
-  ASSERT_GT(vec1.size(), 0) << "Ranges are empty";
+  ASSERT_GT(vec1.size(), 0u) << "Ranges are empty";
 
   size_t n = vec1.size();
 
