@@ -34,7 +34,7 @@ The following binaries are created from the latest master. They are automaticall
  [Download (M1)    ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=macos-M1-cpp14-release)
 
 ## Download Sources
-[ Download Sources](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/?job=Sources )
+[ Download Sources](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=Sources )
 
 
 ## Installing
