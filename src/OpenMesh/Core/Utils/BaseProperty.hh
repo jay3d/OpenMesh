@@ -79,6 +79,7 @@ public:
   /// flag with set_persistent().
   ///
   /// \param _name Optional textual name for the property.
+  /// \param _internal_type_name Internal type name which will be used when storing the data in OM format
   ///
   BaseProperty(const std::string& _name = "<unknown>", const std::string& _internal_type_name = "<unknown>" )
   : name_(_name), internal_type_name_(_internal_type_name), persistent_(false)
