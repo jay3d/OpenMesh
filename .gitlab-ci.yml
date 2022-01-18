@@ -1006,6 +1006,7 @@ Doc-publish:
   only:
      - master
   script: "CI/ci-doc.sh"
+  dependencies:
   tags:
      - Linux
      - stretch     
@@ -1018,6 +1019,7 @@ Sources:
   tags:
      - Linux
      - stretch     
+  dependencies:
   artifacts:
     paths:
       - OpenMesh*.zip
