@@ -10,7 +10,7 @@ make doc
 cd ..
 
 # Extract Version Information
-VERSION=OpenMesh-$(cat VERSION | grep VERSION | tr -d "VERSION=")
+VERSION=OpenMesh-$(cat CMakeLists.txt | grep VERSION | grep -v cmake | grep -v CMAKE | tr -d "VERSION=" | tr -d " ")
 
 # Create Publishing directory
 mkdir $VERSION
