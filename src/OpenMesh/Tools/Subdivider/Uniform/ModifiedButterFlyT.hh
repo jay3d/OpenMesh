@@ -195,7 +195,6 @@ protected:
     {
 
       // This is an interpolating scheme, old vertices remain the same.
-      typename mesh_t::VertexIter initialVerticesEnd = _m.vertices_end();
       for ( auto vh : _m.vertices())
         _m.property( vp_pos_, vh ) = _m.point(vh);
 

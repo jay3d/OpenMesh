@@ -42,7 +42,7 @@ OpenMesh::PolyMeshT can use any kernel.
    to know what a mesh type has to offer refer to OpenMesh::Concepts::KernelT,
    OpenMesh::PolyMeshT, OpenMesh::TriMeshT.
 
- */
+*/
 
 //-----------------------------------------------------------------------------
 
@@ -554,6 +554,7 @@ curvature, i.e. vertex color.
 \include mymesh.cc
 
 That's it.
+*/
 
 //-----------------------------------------------------------------------------
 
@@ -635,7 +636,7 @@ provides the pubic member functions of
 \see OpenMesh::PolyMeshT
 \see OpenMesh::TriMeshT
 
-**/
+*/
 
 
 //-----------------------------------------------------------------------------
@@ -987,7 +988,6 @@ for(; fh_it.is_valid(); ++fh_it) {
 }
 
 \endcode
-
 
 
 */

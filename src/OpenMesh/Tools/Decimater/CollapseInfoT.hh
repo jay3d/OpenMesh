@@ -73,15 +73,6 @@ namespace Decimater {
 template<class Mesh>
 struct CollapseInfoT {
   public:
-    /** Initializing constructor.
-     *
-     *  Given a mesh and a halfedge handle of the halfedge to be collapsed
-     *  all important information of a halfedge collapse will be stored.
-     * \param _mesh Mesh source
-     * \param _heh Halfedge to collapse. The direction of the halfedge
-     *        defines the direction of the collapse, i.e. the from-vertex
-     *        will be removed and the to-vertex remains.
-     */
     CollapseInfoT(Mesh& _mesh, typename Mesh::HalfedgeHandle _heh);
 
     Mesh& mesh;
@@ -106,7 +97,11 @@ struct CollapseInfoT {
 
 //-----------------------------------------------------------------------------
 
-/**
+/** Initializing constructor.
+*    
+*   Given a mesh and a halfedge handle of the halfedge to be collapsed
+*   all important information of a halfedge collapse will be stored.
+*
 *   Local configuration of halfedge collapse to be stored in CollapseInfoT:
 *
 *       vl
@@ -124,6 +119,9 @@ struct CollapseInfoT {
 *
 * @param _mesh Reference to mesh
 * @param  _heh The halfedge (v0 -> v1) defining the collapse
+*              The direction of the halfedge
+*              defines the direction of the collapse, i.e. the from-vertex
+*              will be removed and the to-vertex remains.
 */
 template<class Mesh>
 inline CollapseInfoT<Mesh>::CollapseInfoT(Mesh& _mesh,
