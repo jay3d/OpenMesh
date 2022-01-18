@@ -33,7 +33,6 @@ typedef TriMesh Mesh;
 // ----------------------------------------------------------------------------
 
 #ifndef DOXY_IGNORE_THIS
-
 struct MyData
 {
   int             ival;
@@ -82,7 +81,6 @@ struct MyData
   bool operator != (const MyData& _rhs) const { return !(*this == _rhs); }
 
 };
-
 #endif
 
 
@@ -116,6 +114,11 @@ namespace OpenMesh {
       static size_t size_of(const value_type&) 
       { 
         return size_of(); 
+      }
+
+      static std::string type_identifier(void)
+      {
+        return "RegisteredDataType";
       }
 
       static size_t store(std::ostream& _os, const value_type& _v, bool _swap=false)
