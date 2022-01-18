@@ -23,15 +23,15 @@ The following binaries are created from the latest master. They are automaticall
 
 | Visual Studio Version: | 2019 | 2017 |
 | -------- | -------- |-------- |
-| 64-Bit shared, with apps  | [Download](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release?job=build-VS2019-x64-shared-TRUE-apps) | [Download](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release?job=build-VS2017-x64-shared-TRUE-apps)  |
-| 64-Bit static, with apps  | [Download ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release?job=build-VS2019-x64-shared-FALSE-apps)  | [Download ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release?job=build-VS2017-x64-shared-FALSE-apps)  |
+| 64-Bit shared, with apps  | [Download](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=build-VS2019-x64-shared-TRUE-apps) | [Download](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=build-VS2017-x64-shared-TRUE-apps)  |
+| 64-Bit static, with apps  | [Download ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=build-VS2019-x64-shared-FALSE-apps)  | [Download ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=build-VS2017-x64-shared-FALSE-apps)  |
 
 
 ### Apple
 
- [Download (Intel) ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release-cpp11?job=macos-cpp14-release)
+ [Download (Intel) ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=macos-cpp14-release)
  
- [Download (M1)    ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/build-release-cpp11?job=macos-M1-cpp14-release)
+ [Download (M1)    ](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse?job=macos-M1-cpp14-release)
 
 ## Download Sources
 [ Download Sources](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/-/jobs/artifacts/master/browse/?job=Sources )
