@@ -2,7 +2,7 @@
 
 The %OpenMesh' proprietary OM format allows to store and restore
 custom properties along with the standard properties. For it we have
-to use named custom properties like the following one
+to use named custom properties like the following one:
 
 \dontinclude 10-persistence/persistence.cc
 \skipline VPropHandleT
@@ -15,8 +15,8 @@ persistent, must follow a few rules
 -# max. 256 characters long
 -# The prefixes \c "v:", \c "h:", \c "e:", \c "f:" and \c "m:" are reserved.
 
-If we stick to this rules we are fine. Furthermore we have to
-consider, that the names are handled case-sensitive.
+If we stick to these rules we are fine. Furthermore, we have to
+consider that the names are handled case-sensitive.
 
 To actually make a custom property persistent we have to set the
 persistent flag in the property with
@@ -37,9 +37,8 @@ IO::read_mesh() will return \c false. And if the data cannot be
 restored, because the appropriate restore method is not available the
 exception std::logic_error() will be thrown.
 
-Since we now know the behaviour, we need to know what kind of data can
-we store?  Without any further effort, simply using named properties
-and setting the persistent flag, we can store following types
+Without any further effort, simply using named properties
+and setting the persistent flag, we can store following types:
 
 - bool, stored as a bitset
 - all other fundamental types except long double, (unsigned) long and size_t
@@ -75,13 +74,22 @@ Herein we have to implement the following set of static member
 variables and functions:
 
 \skipline is_streamable
+\skipline type_identifier
 \skipline size_of
 \skipline size_of
 \skipline store
 \skipline restore
 
 The flag \c is_streamable has to be set to \c true. Else the data
-cannot be stored at all. 
+cannot be stored at all.
+
+<h5>\c type_identifier </h5>
+
+The \c type_identifier method needs only to be implemented if typename.hh
+does not already provide a string for type recognition. If this is the
+case, the type identifier needs to be registered with the macro
+
+ \c OM_REGISTER_PROPERTY_TYPE(MyData)
 
 <h5>\c size_of methods </h5>
 
