@@ -1006,7 +1006,7 @@ Doc-publish:
   only:
      - master
   script: "CI/ci-doc.sh"
-  dependencies:
+  dependencies: []
   tags:
      - Linux
      - stretch     
@@ -1019,7 +1019,7 @@ Sources:
   tags:
      - Linux
      - stretch     
-  dependencies:
+  dependencies: []
   artifacts:
     paths:
       - OpenMesh*.zip
@@ -1030,7 +1030,7 @@ trigger_openmesh-python-rebuild:
   stage: deploy
   only:
      - master
-  dependencies:
+  dependencies: []
   script:
     - "curl -X POST -F token=b63ed804ada51d7d1ffe5d6ea0dfa2 -F ref=track-OM-master https://www.graphics.rwth-aachen.de:9000/api/v4/projects/1024/trigger/pipeline"
 
