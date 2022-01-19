@@ -21,7 +21,7 @@ struct MyData
   OpenMesh::Vec4f vec4fval;
 
   MyData()
-    : ival(0), dval(0.0), bval(false)
+    : ival(0), dval(0.0), bval(false), vec4fval(0.0,0.0,0.0,0.0)
   { }
 
   MyData( const MyData& _cpy )
