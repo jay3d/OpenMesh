@@ -24,7 +24,7 @@ mv Doc            $VERSION/
 mv LICENSE        $VERSION/
 mv README.md      $VERSION/
 mv src            $VERSION/
-mv VERSION        $VERSION/ 
+mv cmake-library  $VERSION/ 
 mv openmesh.pc.in $VERSION/
 
 mv build-doc/Build/share/OpenMesh/Doc/html/  $VERSION/Documentation
