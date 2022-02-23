@@ -424,7 +424,7 @@ struct binary< std::vector< T >, typename std::enable_if<std::is_default_constru
   }
 };
 
-#include <OpenMesh/Core/IO/SR_binary_vector_of_bool.inl>
+#include <OpenMesh/Core/IO/SR_binary_vector_of_bool.hh>
 
 // ----------------------------------------------------------------------------
 
