@@ -106,18 +106,14 @@ if (WIN32)
   if ( OPENMESH_BUILD_SHARED )
     add_definitions( -DOPENMESHDLL -DBUILDOPENMESHDLL)
     vci_add_library (OpenMeshTools SHARED ${sources} ${headers})
-
-    target_include_directories(OpenMeshTools PUBLIC
-                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-                                          $<INSTALL_INTERFACE:include>)
   else()
     # OpenMesh has no dll exports so we have to build a static library on windows
     vci_add_library (OpenMeshTools STATIC ${sources} ${headers})
-
-    target_include_directories(OpenMeshToolsStatic PUBLIC
-                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-                                          $<INSTALL_INTERFACE:include>)
   endif()
+
+  target_include_directories(OpenMeshTools PUBLIC
+                                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                        $<INSTALL_INTERFACE:include>)
 
 else ()
   vci_add_library (OpenMeshTools SHAREDANDSTATIC ${sources} ${headers})
