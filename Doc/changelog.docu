@@ -8,6 +8,11 @@
 
 <tr valign=top><td><b>9.1</b> (?/?/?)</td><td>
 
+<b>Build System</b>
+<ul>
+<li>Removed globbing for Core and Tools library include and source files</li>
+<li>Removed global includes from App builds</li>
+</ul>
 </tr>
 
 
