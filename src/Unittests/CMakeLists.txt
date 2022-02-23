@@ -1,10 +1,5 @@
 include (VCICommon)
 
-include_directories (
-  ..
-  ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
 if ( NOT DEFINED OPENMESH_BUILD_UNIT_TESTS)
     set( OPENMESH_BUILD_UNIT_TESTS false CACHE BOOL "Enable or disable unit test builds in OpenMesh." )
 endif()
