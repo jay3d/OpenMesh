@@ -1,29 +1,98 @@
 include (VCICommon)
 
-include_directories (
-  ../..
-  ${CMAKE_CURRENT_SOURCE_DIR}
+set ( headers  
+Decimater/BaseDecimaterT.hh
+Decimater/BaseDecimaterT_impl.hh
+Decimater/CollapseInfoT.hh
+Decimater/DecimaterT.hh
+Decimater/DecimaterT_impl.hh
+Decimater/McDecimaterT.hh
+Decimater/McDecimaterT_impl.hh
+Decimater/MixedDecimaterT.hh
+Decimater/MixedDecimaterT_impl.hh
+Decimater/ModAspectRatioT.hh
+Decimater/ModAspectRatioT_impl.hh
+Decimater/ModBaseT.hh
+Decimater/ModEdgeLengthT.hh
+Decimater/ModEdgeLengthT_impl.hh
+Decimater/ModHausdorffT.hh
+Decimater/ModHausdorffT_impl.hh
+Decimater/ModIndependentSetsT.hh
+Decimater/ModNormalDeviationT.hh
+Decimater/ModNormalFlippingT.hh
+Decimater/ModProgMeshT.hh
+Decimater/ModProgMeshT_impl.hh
+Decimater/ModQuadricT.hh
+Decimater/ModQuadricT_impl.hh
+Decimater/ModRoundnessT.hh
+Decimater/Observer.hh
+Dualizer/meshDualT.hh
+Smoother/JacobiLaplaceSmootherT.hh
+Smoother/JacobiLaplaceSmootherT_impl.hh
+Smoother/LaplaceSmootherT.hh
+Smoother/LaplaceSmootherT_impl.hh
+Smoother/SmootherT.hh
+Smoother/SmootherT_impl.hh
+Smoother/smooth_mesh.hh
+Subdivider/Adaptive/Composite/CompositeT.hh
+Subdivider/Adaptive/Composite/CompositeT_impl.hh
+Subdivider/Adaptive/Composite/CompositeTraits.hh
+Subdivider/Adaptive/Composite/RuleInterfaceT.hh
+Subdivider/Adaptive/Composite/RulesT.hh
+Subdivider/Adaptive/Composite/RulesT_impl.hh
+Subdivider/Adaptive/Composite/Traits.hh
+Subdivider/Uniform/Composite/CompositeT.hh
+Subdivider/Uniform/Composite/CompositeT_impl.hh
+Subdivider/Uniform/Composite/CompositeTraits.hh
+Subdivider/Uniform/CatmullClarkT.hh
+Subdivider/Uniform/CatmullClarkT_impl.hh
+Subdivider/Uniform/CompositeLoopT.hh
+Subdivider/Uniform/CompositeSqrt3T.hh
+Subdivider/Uniform/LongestEdgeT.hh
+Subdivider/Uniform/LoopT.hh
+Subdivider/Uniform/MidpointT.hh
+Subdivider/Uniform/ModifiedButterFlyT.hh
+Subdivider/Uniform/Sqrt3InterpolatingSubdividerLabsikGreinerT.hh
+Subdivider/Uniform/Sqrt3T.hh
+Subdivider/Uniform/SubdividerT.hh
+Utils/Config.hh
+Utils/GLConstAsString.hh
+Utils/Gnuplot.hh
+Utils/HeapT.hh
+Utils/MeshCheckerT.hh
+Utils/MeshCheckerT_impl.hh
+Utils/NumLimitsT.hh
+Utils/StripifierT.hh
+Utils/StripifierT_impl.hh
+Utils/TestingFramework.hh
+Utils/Timer.hh
+Utils/conio.hh
+VDPM/MeshTraits.hh
+VDPM/StreamingDef.hh
+VDPM/VFront.hh
+VDPM/VHierarchy.hh
+VDPM/VHierarchyNode.hh
+VDPM/VHierarchyNodeIndex.hh
+VDPM/VHierarchyWindow.hh
+VDPM/ViewingParameters.hh
 )
 
-# source code directories
-set (directories 
-  . 
-  Decimater
-  Dualizer
-  Smoother
-  Subdivider/Adaptive/Composite
-  Subdivider/Uniform/Composite 
-  Subdivider/Uniform
-  Utils
-  VDPM
+
+set ( sources
+Decimater/Observer.cc
+Utils/Gnuplot.cc
+Utils/Timer.cc
+Utils/conio.cc
+VDPM/VFront.cc
+VDPM/VHierarchy.cc
+VDPM/VHierarchyNodeIndex.cc
+VDPM/VHierarchyWindow.cc
+VDPM/ViewingParameters.cc
 )
 
-# collect all header and source files
-vci_append_files (headers "*.hh" ${directories})
-vci_append_files (sources "*.cc" ${directories})
 
 IF(WIN32 AND NOT MINGW)
-  vci_append_files (sources "*.c" ${directories})
+  list(APPEND sources "Utils/getopt.c")
 ENDIF(WIN32 AND NOT MINGW)
 
 # Disable Library installation when not building OpenMesh on its own but as part of another project!
@@ -42,8 +111,21 @@ if (WIN32)
     vci_add_library (OpenMeshTools STATIC ${sources} ${headers})
   endif()
 
+  target_include_directories(OpenMeshTools PUBLIC
+                                        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                        $<INSTALL_INTERFACE:include>)
+
 else ()
   vci_add_library (OpenMeshTools SHAREDANDSTATIC ${sources} ${headers})
+
+  target_include_directories(OpenMeshTools PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
+
+  target_include_directories(OpenMeshToolsStatic PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
+
   set_target_properties (OpenMeshTools PROPERTIES VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
                                                 SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} )
 endif ()
@@ -104,9 +186,8 @@ else()
 endif()
 
 if (NOT APPLE AND NOT ${OPENMESH_NO_INSTALL_HEADERS})
-
-# Install Header Files
-install(DIRECTORY .
+  # Install Header Files
+  install(DIRECTORY .
         DESTINATION include/OpenMesh/Tools
         FILES_MATCHING
         PATTERN "*.hh"
@@ -116,14 +197,9 @@ install(DIRECTORY .
         PATTERN "Templates" EXCLUDE
         PATTERN "Debian*" EXCLUDE)
 
-#install the config file
-install(FILES Utils/getopt.h DESTINATION include/OpenMesh/Tools/Utils)
-
+  #install the config file
+  install(FILES Utils/getopt.h DESTINATION include/OpenMesh/Tools/Utils)
 endif ()
-
-target_include_directories(OpenMeshTools PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-  $<INSTALL_INTERFACE:include>)
 
 install(TARGETS OpenMeshTools EXPORT OpenMeshConfig
   ARCHIVE DESTINATION ${VCI_PROJECT_LIBDIR}
