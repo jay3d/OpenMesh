@@ -1,23 +1,5 @@
 include (VCICommon)
 
-include_directories (
-  ../..
-  ${CMAKE_CURRENT_SOURCE_DIR}
-)
-
-# source code directories
-set (directories 
-  . 
-  Decimater
-  Dualizer
-  Smoother
-  Subdivider/Adaptive/Composite
-  Subdivider/Uniform/Composite 
-  Subdivider/Uniform
-  Utils
-  VDPM
-)
-
 set ( headers  
 Decimater/BaseDecimaterT.hh
 Decimater/BaseDecimaterT_impl.hh
@@ -124,13 +106,30 @@ if (WIN32)
   if ( OPENMESH_BUILD_SHARED )
     add_definitions( -DOPENMESHDLL -DBUILDOPENMESHDLL)
     vci_add_library (OpenMeshTools SHARED ${sources} ${headers})
+
+    target_include_directories(OpenMeshTools PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
   else()
     # OpenMesh has no dll exports so we have to build a static library on windows
     vci_add_library (OpenMeshTools STATIC ${sources} ${headers})
+
+    target_include_directories(OpenMeshToolsStatic PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
   endif()
 
 else ()
   vci_add_library (OpenMeshTools SHAREDANDSTATIC ${sources} ${headers})
+
+  target_include_directories(OpenMeshTools PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
+
+  target_include_directories(OpenMeshToolsStatic PUBLIC
+                                          $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
+                                          $<INSTALL_INTERFACE:include>)
+
   set_target_properties (OpenMeshTools PROPERTIES VERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
                                                 SOVERSION ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR} )
 endif ()
@@ -207,10 +206,6 @@ install(DIRECTORY .
 install(FILES Utils/getopt.h DESTINATION include/OpenMesh/Tools/Utils)
 
 endif ()
-
-target_include_directories(OpenMeshTools PUBLIC
-  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/../..>
-  $<INSTALL_INTERFACE:include>)
 
 install(TARGETS OpenMeshTools EXPORT OpenMeshConfig
   ARCHIVE DESTINATION ${VCI_PROJECT_LIBDIR}
