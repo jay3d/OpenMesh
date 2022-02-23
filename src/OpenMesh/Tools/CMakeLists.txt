@@ -186,9 +186,8 @@ else()
 endif()
 
 if (NOT APPLE AND NOT ${OPENMESH_NO_INSTALL_HEADERS})
-
-# Install Header Files
-install(DIRECTORY .
+  # Install Header Files
+  install(DIRECTORY .
         DESTINATION include/OpenMesh/Tools
         FILES_MATCHING
         PATTERN "*.hh"
@@ -198,9 +197,8 @@ install(DIRECTORY .
         PATTERN "Templates" EXCLUDE
         PATTERN "Debian*" EXCLUDE)
 
-#install the config file
-install(FILES Utils/getopt.h DESTINATION include/OpenMesh/Tools/Utils)
-
+  #install the config file
+  install(FILES Utils/getopt.h DESTINATION include/OpenMesh/Tools/Utils)
 endif ()
 
 install(TARGETS OpenMeshTools EXPORT OpenMeshConfig
