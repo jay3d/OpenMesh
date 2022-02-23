@@ -22,6 +22,7 @@ IO/OMFormatT_impl.hh
 IO/Options.hh
 IO/SR_binary.hh
 IO/SR_binary_spec.hh
+IO/SR_binary_vector_of_bool.hh 
 IO/SR_rbo.hh
 IO/SR_store.hh
 IO/SR_types.hh
@@ -244,19 +245,6 @@ install(DIRECTORY .
 #install the config file
 install(FILES System/config.h DESTINATION include/OpenMesh/Core/System)
 
-#install inlined Files from IO
-install(DIRECTORY IO/ 
-	DESTINATION include/OpenMesh/Core/IO
-	FILES_MATCHING
-	PATTERN "*.inl"         
-	PATTERN "CVS" EXCLUDE
-        PATTERN ".svn" EXCLUDE
-        PATTERN "reader" EXCLUDE
-        PATTERN "writer" EXCLUDE
-        PATTERN "importer" EXCLUDE
-        PATTERN "exporter" EXCLUDE
-        PATTERN "tmp" EXCLUDE
-        PATTERN "Debian*" EXCLUDE )    
 endif ()
 
 install(TARGETS OpenMeshCore EXPORT OpenMeshConfig
