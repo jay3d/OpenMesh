@@ -23,19 +23,10 @@ if ( BUILD_APPS )
     add_subdirectory (VDProgMesh/Analyzer)
 
     # Add non ui apps as dependency before fixbundle 
-    if ( WIN32 )
-      if ( NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" )
-	# let bundle generation depend on all targets
+    if ( APPLE OR (WIN32 AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" ) )
+        # let bundle generation depend on all targets
 	add_dependencies (fixbundle commandlineDecimater Dualizer mconvert Smoothing commandlineAdaptiveSubdivider commandlineSubdivider mkbalancedpm Analyzer )
-      endif()
     endif()
-
-    # Add non ui apps as dependency before fixbundle
-    if ( APPLE)
-      # let bundle generation depend on all targets
-      add_dependencies (fixbundle commandlineDecimater Dualizer mconvert Smoothing commandlineAdaptiveSubdivider commandlineSubdivider mkbalancedpm Analyzer )
-    endif()
-
 
     set( OpenGL_GL_PREFERENCE GLVND)
 

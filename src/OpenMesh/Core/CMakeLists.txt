@@ -172,17 +172,9 @@ endif ()
 # Add core as dependency before fixbundle 
 if ( (${CMAKE_PROJECT_NAME} MATCHES "OpenMesh") AND BUILD_APPS )
 
-  if ( WIN32 )
-    if ( NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" )
+  if ( APPLE OR (WIN32 AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" ) )
       add_dependencies (fixbundle OpenMeshCore)
-    endif()
   endif()
-
-  # Add core as dependency before fixbundle 
-  if ( APPLE )
-    # let bundle generation depend on targets
-    add_dependencies (fixbundle OpenMeshCore)
-  endif ()
 
 endif()
 
