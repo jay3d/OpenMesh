@@ -8,6 +8,12 @@
 
 <tr valign=top><td><b>9.1</b> (?/?/?)</td><td>
 
+<b>IO</b>
+<ul>
+<li>OBJ writer: Added param 'texture_file' to the Options class, it specifies the path to the texture file (Thanks to Philipp Auersperg-Castell for the patch)</li>
+<li>OBJ writer: added param 'material_file_extension' to the Options class, it specifies the material file suffix, default is ".mat" as it was before. (Thanks to Philipp Auersperg-Castell for the patch)</li>
+</ul>
+
 <b>Build System</b>
 <ul>
 <li>Removed globbing for Core and Tools library include and source files</li>

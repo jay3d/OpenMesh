@@ -195,6 +195,9 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
       _out << "illum 1" << '\n';
     }
 
+  if (_opt.texture_file != "") {
+      _out << "map_Kd " << _opt.texture_file << std::endl;
+  }
   return true;
 }
 
@@ -219,8 +222,10 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out.precision(_precision);
 
   // check exporter features
-  if (!check( _be, _opt))
-     return false;
+  if (!check( _be, _opt)) {
+      return false;
+  }
+
 
   // No binary mode for OBJ
   if ( _opt.check(Options::Binary) ) {
@@ -240,9 +245,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   }
 
   //create material file if needed
-  if ( _opt.check(Options::FaceColor) ){
+  if ( _opt.check(Options::FaceColor) || _opt.texture_file != ""){
 
-    std::string matFile = path_ + objName_ + ".mat";
+    std::string matFile = path_ + objName_ + _opt.material_file_extension;
 
     std::fstream matStream(matFile.c_str(), std::ios_base::out );
 
@@ -262,8 +267,8 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out << _be.n_faces() << " faces" << '\n';
 
   // material file
-  if (useMatrial &&  _opt.check(Options::FaceColor) )
-    _out << "mtllib " << objName_ << ".mat" << '\n';
+  if ( (useMatrial &&  _opt.check(Options::FaceColor)) || _opt.texture_file != "")
+    _out << "mtllib " << objName_ << _opt.material_file_extension << '\n';
 
   std::map<Vec2f,int> texMap;
   //collect Texturevertices from halfedges
