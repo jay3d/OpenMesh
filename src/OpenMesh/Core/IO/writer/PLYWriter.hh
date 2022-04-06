@@ -135,7 +135,7 @@ private:
     writeValue(_type, _out, _value);
   }
   template<typename T>
-  void writeProxy(ValueType _type, std::ostream& _out, T _value, OpenMesh::GenProg::FalseType /*_binary*/) const
+  void writeProxy(ValueType /*_type*/, std::ostream& _out, T _value, OpenMesh::GenProg::FalseType /*_binary*/) const
   {
     _out << " " << _value;
   }

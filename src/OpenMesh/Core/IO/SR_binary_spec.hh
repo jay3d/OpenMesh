@@ -330,7 +330,7 @@ struct binary< std::vector< T >, typename std::enable_if<std::is_default_constru
   typedef typename value_type::value_type elem_type;
 
   static const bool is_streamable = binary<T>::is_streamable;
-  static size_t size_of(bool _store_size = true)
+  static size_t size_of(bool /*_store_size*/ = true)
   { return IO::UnknownSize; }
 
   static size_t size_of(const value_type& _v, bool _store_size = true)

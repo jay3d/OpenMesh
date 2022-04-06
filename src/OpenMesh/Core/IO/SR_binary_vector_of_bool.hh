@@ -6,7 +6,7 @@ template <> struct binary< std::vector<bool> >
 
   static const bool is_streamable = true;
 
-  static size_t size_of(bool _store_size = true) { return UnknownSize; }
+  static size_t size_of(bool /*_store_size*/ = true) { return UnknownSize; }
   static size_t size_of(const value_type& _v, bool _store_size = true)
   {
     size_t size = _v.size() / 8 + ((_v.size() % 8)!=0);
