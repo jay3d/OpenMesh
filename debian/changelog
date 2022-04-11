@@ -1,3 +1,9 @@
+openmesh (9.1) bullseye; urgency=medium
+
+  * New uppstream version
+
+ -- Jan Moebius <openmesh@lists.rwth-aachen.de>  Mon, 11 Apr 2022 09:47:33 +0200
+
 openmesh (2.0-0~ppa1~maverick1) maverick; urgency=low
 
   * First maverick version of the official openmesh v2 release.
