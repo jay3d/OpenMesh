@@ -56,5 +56,5 @@ Debian:
   dependencies: []
   artifacts:
     paths:
-      - libopenmesh*.deb
+      - ../libopenmesh*.deb
 
