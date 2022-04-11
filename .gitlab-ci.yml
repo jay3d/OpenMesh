@@ -1038,7 +1038,7 @@ Debian:
   stage: deploy
   only:
      - master
-  script: dpkg-buildpackage
+  script: dpkg-buildpackage --no-sign
   tags:
      - Linux
      - stretch
