@@ -8,6 +8,12 @@
 
 <tr valign=top><td><b>9.1</b> (?/?/?)</td><td>
 
+<b>Tools</b>
+<ul>
+<li>Decimater: Fixed incompatibility with Eigen vector type</li>
+</ul>
+
+
 <b>IO</b>
 <ul>
 <li>OBJ writer: Added param 'texture_file' to the Options class, it specifies the path to the texture file (Thanks to Philipp Auersperg-Castell for the patch)</li>
