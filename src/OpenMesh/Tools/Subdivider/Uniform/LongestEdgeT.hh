@@ -160,7 +160,7 @@ protected:
       const typename MeshType::Point to   = _m.point(_m.to_vertex_handle(_m.halfedge_handle(*eit,0)));
       const typename MeshType::Point from = _m.point(_m.from_vertex_handle(_m.halfedge_handle(*eit,0)));
 
-      real_t length = (to - from).sqrnorm();
+      real_t length = sqrnorm(to - from);
 
       // Only push the edges that need to be split
       if ( length > max_edge_length_squared_ )
@@ -187,7 +187,7 @@ protected:
           typename MeshType::EdgeHandle eh = _m.edge_handle(*voh_it);
           const typename MeshType::Point to   = _m.point(_m.to_vertex_handle(*voh_it));
           const typename MeshType::Point from = _m.point(_m.from_vertex_handle(*voh_it));
-          real_t length = (to - from).sqrnorm();
+          real_t length = sqrnorm(to - from);
 
           // Only push the edges that need to be split
           if ( length > max_edge_length_squared_ )

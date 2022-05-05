@@ -287,10 +287,10 @@ public: // specific methods
     Vec3f vecAB     = B-A;
 
     // compute squared values to avoid sqrt-computations
-    value_type aa = (B-C).sqrnorm();
-    value_type bb = vecAC.sqrnorm();
-    value_type cc = vecAB.sqrnorm();
-    value_type AA = cross(vecAC,vecAB).sqrnorm(); // without factor 1/4   **)
+    value_type aa = sqrnorm(B-C);
+    value_type bb = sqrnorm(vecAC);
+    value_type cc = sqrnorm(vecAB);
+    value_type AA = sqrnorm(cross(vecAC,vecAB)); // without factor 1/4   **)
 
     if ( AA < epsilon )
       return 0.0;

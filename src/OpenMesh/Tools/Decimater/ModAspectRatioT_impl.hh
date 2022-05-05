@@ -68,16 +68,16 @@ typename ModAspectRatioT<MeshT>::Scalar ModAspectRatioT<MeshT>::aspectRatio(
   Point d1 = _v1 - _v2;
 
   // finds the max squared edge length
-  Scalar l2, maxl2 = d0.sqrnorm();
-  if ((l2 = d1.sqrnorm()) > maxl2)
+  Scalar l2, maxl2 = sqrnorm(d0);
+  if ((l2 = sqrnorm(d1)) > maxl2)
     maxl2 = l2;
   // keep searching for the max squared edge length
   d1 = _v2 - _v0;
-  if ((l2 = d1.sqrnorm()) > maxl2)
+  if ((l2 = sqrnorm(d1)) > maxl2)
     maxl2 = l2;
 
   // squared area of the parallelogram spanned by d0 and d1
-  Scalar a2 = (d0 % d1).sqrnorm();
+  Scalar a2 = sqrnorm(d0 % d1);
 
   // the area of the triangle would be
   // sqrt(a2)/2 or length * height / 2
