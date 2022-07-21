@@ -9,9 +9,12 @@
 #include <OpenMesh/Core/Mesh/TriMesh_ArrayKernelT.hh>
 #include <OpenMesh/Tools/Decimater/DecimaterT.hh>
 #include <OpenMesh/Tools/Decimater/ModQuadricT.hh>
+#include <OpenMesh/Tools/Decimater/ModEdgeLengthT.hh>
 #include <OpenMesh/Tools/Decimater/ModNormalDeviationT.hh>
 
 #include <OpenMesh/Core/Geometry/EigenVectorT.hh>
+
+#include <OpenMesh/Tools/Subdivider/Uniform/Sqrt3T.hh>
 
 struct EigenTraits : OpenMesh::DefaultTraits {
     using Point = Eigen::Vector3d;
@@ -265,6 +268,141 @@ TEST_F(OpenMeshEigenTest, Decimater) {
    EXPECT_EQ(1578u, mesh_.n_edges())    << "The number of edges after decimation is not correct!";
    EXPECT_EQ(1052u, mesh_.n_faces())    << "The number of faces after decimation is not correct!";
 }
+
+// Test decimation with Eigen as vector type
+TEST_F(OpenMeshEigenTest, DecimaterWithEdgeLength) {
+   mesh_.clear();
+
+   bool ok = OpenMesh::IO::read_mesh(mesh_, "cube1.off");
+
+   EXPECT_TRUE(ok);
+
+   EXPECT_EQ(7526u , mesh_.n_vertices()) << "The number of loaded vertices is not correct!";
+   EXPECT_EQ(22572u, mesh_.n_edges()) << "The number of loaded edges is not correct!";
+   EXPECT_EQ(15048u, mesh_.n_faces()) << "The number of loaded faces is not correct!";
+
+   mesh_.update_normals();
+
+   OpenMesh::Decimater::DecimaterT<EigenTriMesh> decimater(mesh_);
+   OpenMesh::Decimater::ModEdgeLengthT<EigenTriMesh>::Handle hModEdgeLength;             // use a the edge length module
+   OpenMesh::Decimater::ModNormalDeviationT<EigenTriMesh>::Handle hModNormalDeviation;   // also use normal deviation module as binary check
+   decimater.add(hModEdgeLength);
+   decimater.module(hModEdgeLength).set_edge_length(30.0);
+   decimater.add(hModNormalDeviation);
+
+   decimater.module(hModNormalDeviation).set_normal_deviation(50);
+   decimater.initialize();
+   size_t removedVertices = decimater.decimate_to(2);
+   mesh_.garbage_collection();
+
+   EXPECT_EQ(0u, removedVertices)    << "The number of remove vertices is not correct!";
+   EXPECT_EQ( 7526u, mesh_.n_vertices()) << "The number of vertices after decimation is not correct!";
+   EXPECT_EQ(22572u, mesh_.n_edges())    << "The number of edges after decimation is not correct!";
+   EXPECT_EQ(15048u, mesh_.n_faces())    << "The number of faces after decimation is not correct!";
+}
+
+TEST_F(OpenMeshEigenTest, Subdivider_Sqrt3) {
+    mesh_.clear();
+
+    // Add some vertices
+    Mesh::VertexHandle vhandle[9];
+
+    vhandle[0] = mesh_.add_vertex(EigenTriMesh::Point(0, 0, 0));
+    vhandle[1] = mesh_.add_vertex(EigenTriMesh::Point(0, 1, 0));
+    vhandle[2] = mesh_.add_vertex(EigenTriMesh::Point(0, 2, 0));
+    vhandle[3] = mesh_.add_vertex(EigenTriMesh::Point(1, 0, 0));
+    vhandle[4] = mesh_.add_vertex(EigenTriMesh::Point(1, 1, 0));
+    vhandle[5] = mesh_.add_vertex(EigenTriMesh::Point(1, 2, 0));
+    vhandle[6] = mesh_.add_vertex(EigenTriMesh::Point(2, 0, 0));
+    vhandle[7] = mesh_.add_vertex(EigenTriMesh::Point(2, 1, 0));
+    vhandle[8] = mesh_.add_vertex(EigenTriMesh::Point(2, 2, 0));
+
+    // Add eight faces
+    std::vector<Mesh::VertexHandle> face_vhandles;
+
+    face_vhandles.push_back(vhandle[0]);
+    face_vhandles.push_back(vhandle[4]);
+    face_vhandles.push_back(vhandle[3]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[0]);
+    face_vhandles.push_back(vhandle[1]);
+    face_vhandles.push_back(vhandle[4]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[1]);
+    face_vhandles.push_back(vhandle[2]);
+    face_vhandles.push_back(vhandle[4]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[2]);
+    face_vhandles.push_back(vhandle[5]);
+    face_vhandles.push_back(vhandle[4]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[3]);
+    face_vhandles.push_back(vhandle[7]);
+    face_vhandles.push_back(vhandle[6]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[3]);
+    face_vhandles.push_back(vhandle[4]);
+    face_vhandles.push_back(vhandle[7]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[4]);
+    face_vhandles.push_back(vhandle[8]);
+    face_vhandles.push_back(vhandle[7]);
+
+    mesh_.add_face(face_vhandles);
+    face_vhandles.clear();
+
+    face_vhandles.push_back(vhandle[4]);
+    face_vhandles.push_back(vhandle[5]);
+    face_vhandles.push_back(vhandle[8]);
+
+    mesh_.add_face(face_vhandles);
+
+    // Test setup:
+    //  6 === 7 === 8
+    //  |   / |   / |
+    //  |  /  |  /  |
+    //  | /   | /   |
+    //  3 === 4 === 5
+    //  |   / | \   |
+    //  |  /  |  \  |
+    //  | /   |   \ |
+    //  0 === 1 === 2
+
+    // Initialize subdivider
+    OpenMesh::Subdivider::Uniform::Sqrt3T<EigenTriMesh> sqrt3;
+
+    // Check setup
+    EXPECT_EQ(9u, mesh_.n_vertices() ) << "Wrong number of vertices";
+    EXPECT_EQ(8u, mesh_.n_faces() )    << "Wrong number of faces";
+
+    // Execute 3 subdivision steps
+    sqrt3.attach(mesh_);
+    sqrt3( 3 );
+    sqrt3.detach();
+
+    // Check setup
+    EXPECT_EQ(121u, mesh_.n_vertices() ) << "Wrong number of vertices after subdivision with sqrt3";
+    EXPECT_EQ(216u, mesh_.n_faces() )    << "Wrong number of faces after subdivision with sqrt3";
+}
+
 
 }
 
