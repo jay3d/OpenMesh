@@ -22,6 +22,7 @@
 
 <b>Build System</b>
 <ul>
+<li>Removed Debian packaging as this will be handled by Debian Maintainers and would interfere with their repo. (Thanks to Dima Kogan for the Packaging!!)</li>
 <li>Removed globbing for Core and Tools library include and source files</li>
 <li>Removed global includes from App builds</li>
 </ul>
