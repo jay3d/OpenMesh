@@ -401,8 +401,8 @@ calc_halfedge_normal(HalfedgeHandle _heh, const double _feature_angle) const
     }
 
     Normal n(0,0,0);
-    for(unsigned int i=0; i<fhs.size(); ++i)
-      n += Kernel::normal(fhs[i]);
+    for (unsigned int i = 0; i < fhs.size(); ++i)
+      n += Kernel::has_face_normals() ? Kernel::normal(fhs[i]) : calc_face_normal(fhs[i]);
 
     return normalize(n);
   }
@@ -444,8 +444,8 @@ is_estimated_feature_edge(HalfedgeHandle _heh, const double _feature_angle) cons
   FaceHandle fh0 = Kernel::face_handle(_heh);
   FaceHandle fh1 = Kernel::face_handle(Kernel::opposite_halfedge_handle(_heh));
 
-  Normal fn0 = Kernel::normal(fh0);
-  Normal fn1 = Kernel::normal(fh1);
+  Normal fn0 = Kernel::has_face_normals() ? Kernel::normal(fh0) : calc_face_normal(fh0);
+  Normal fn1 = Kernel::has_face_normals() ? Kernel::normal(fh1) : calc_face_normal(fh1);
 
   // dihedral angle above angle threshold
   return ( dot(fn0,fn1) < cos(_feature_angle) );
