@@ -130,26 +130,31 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 size_t _OBJWriter_::getMaterial(OpenMesh::Vec3f _color) const
 {
-  for (size_t i=0; i < material_.size(); i++)
-    if(material_[i] == _color)
-      return i;
+  auto idx_it = material_idx_.find(_color);
+  if (idx_it != material_idx_.end()) {
+      return idx_it->second;
+  } else {
+      size_t idx = material_.size();
+      material_.push_back(_color);
+      material_idx_[_color] = idx;
 
-  //not found add new material
-  material_.push_back( _color );
-  return material_.size()-1;
+      return idx;
+  }
 }
 
 //-----------------------------------------------------------------------------
 
 size_t _OBJWriter_::getMaterial(OpenMesh::Vec4f _color) const
 {
-  for (size_t i=0; i < materialA_.size(); i++)
-    if(materialA_[i] == _color)
-      return i;
-
-  //not found add new material
-  materialA_.push_back( _color );
-  return materialA_.size()-1;
+  auto idx_it = materialA_idx_.find(_color);
+  if (idx_it != materialA_idx_.end()) {
+      return idx_it->second;
+  } else {
+      size_t idx = materialA_.size();
+      materialA_.push_back(_color);
+      materialA_idx_[_color] = idx;
+      return idx;
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -162,7 +167,9 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
   OpenMesh::Vec4f cA;
 
   material_.clear();
+  material_idx_.clear();
   materialA_.clear();
+  materialA_idx_.clear();
 
   //iterate over faces
   for (size_t i=0, nF=_be.n_faces(); i<nF; ++i)
@@ -392,7 +399,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   }
 
   material_.clear();
+  material_idx_.clear();
   materialA_.clear();
+  materialA_idx_.clear();
 
   return true;
 }
