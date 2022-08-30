@@ -103,7 +103,9 @@ private:
   mutable std::string objName_;
 
   mutable std::vector< OpenMesh::Vec3f > material_;
+  mutable std::map< OpenMesh::Vec3f, size_t> material_idx_;
   mutable std::vector< OpenMesh::Vec4f > materialA_;
+  mutable std::map< OpenMesh::Vec4f, size_t> materialA_idx_;
 
   size_t getMaterial(OpenMesh::Vec3f _color) const;
 
