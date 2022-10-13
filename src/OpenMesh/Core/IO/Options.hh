@@ -51,6 +51,7 @@
 
 // OpenMesh
 #include <OpenMesh/Core/System/config.h>
+#include <string>
 
 
 //== NAMESPACES ==============================================================
