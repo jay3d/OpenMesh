@@ -456,13 +456,7 @@ public:
   }
 
   /// calculated and returns the average of the two vertex normals
-  Normal calc_normal(EdgeHandle _eh) const
-  {
-    HalfedgeHandle _heh = this->halfedge_handle(_eh, 0);
-    VertexHandle vh0 = this->from_vertex_handle(_heh);
-    VertexHandle vh1 = this->to_vertex_handle(_heh);
-    return 0.5 * (this->calc_normal(vh0) + this->calc_normal(vh1));
-  }
+  Normal calc_normal(EdgeHandle _eh) const;
 
   /** defines a consistent representation of a sector geometry:
       the halfedge _in_heh defines the sector orientation

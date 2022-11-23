@@ -109,7 +109,7 @@ PolyMeshT<Kernel>::calc_face_normal_impl(FaceHandle _fh, PointIs3DTag) const
 {
   assert(this->halfedge_handle(_fh).is_valid());
   ConstFaceVertexIter fv_it(this->cfv_iter(_fh));
-  
+
   // Safeguard for 1-gons
   if (!(++fv_it).is_valid()) return Normal(0, 0, 0);
 
@@ -140,7 +140,7 @@ PolyMeshT<Kernel>::calc_face_normal_impl(FaceHandle _fh, PointIs3DTag) const
   }
 
   const typename vector_traits<Normal>::value_type length = norm(n);
-  
+
   // The expression ((n *= (1.0/norm)),n) is used because the OpenSG
   // vector class does not return self after component-wise
   // self-multiplication with a scalar!!!
@@ -420,6 +420,28 @@ calc_normal(HalfedgeHandle _heh, const double _feature_angle) const
   return calc_halfedge_normal(_heh, _feature_angle);
 }
 
+
+//-----------------------------------------------------------------------------
+
+
+template <class Kernel>
+typename PolyMeshT<Kernel>::Normal
+PolyMeshT<Kernel>::
+calc_normal(EdgeHandle _eh) const
+{
+  Normal n(0);
+  for (int i = 0; i < 2; ++i)
+  {
+    const auto heh = this->halfedge_handle(_eh, i);
+    const auto fh = this->face_handle(heh);
+    if (fh.is_valid())
+      n += calc_normal(fh);
+  }
+  const auto length = norm(n);
+  if (length != 0)
+    n /= length;
+  return n;
+}
 
 //-----------------------------------------------------------------------------
 
