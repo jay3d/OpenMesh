@@ -23,19 +23,12 @@ if ( BUILD_APPS )
     add_subdirectory (VDProgMesh/Analyzer)
 
     # Add non ui apps as dependency before fixbundle 
-    if ( WIN32 )
-      if ( NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" )
-	# let bundle generation depend on all targets
+    if ( APPLE OR (WIN32 AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" ) )
+        # let bundle generation depend on all targets
 	add_dependencies (fixbundle commandlineDecimater Dualizer mconvert Smoothing commandlineAdaptiveSubdivider commandlineSubdivider mkbalancedpm Analyzer )
-      endif()
     endif()
 
-    # Add non ui apps as dependency before fixbundle
-    if ( APPLE)
-      # let bundle generation depend on all targets
-      add_dependencies (fixbundle commandlineDecimater Dualizer mconvert Smoothing commandlineAdaptiveSubdivider commandlineSubdivider mkbalancedpm Analyzer )
-    endif()
-
+    set( OpenGL_GL_PREFERENCE GLVND)
 
     # find needed packages for gui applications
     find_package (OpenGL)
@@ -70,17 +63,12 @@ if ( BUILD_APPS )
 			    
 
       # Add ui apps as dependency before fixbundle 
-      if ( WIN32 AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles")
+      # Required on Windows (NOTMINGW) and APPLE
+      if ( APPLE OR (WIN32 AND NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles") )
 	# let bundle generation depend on all targets
 	add_dependencies (fixbundle DecimaterGui ProgViewer QtViewer SubdividerGui Synthesizer)
       endif()
     
-      # Add ui apps as dependency before fixbundle 
-      if ( APPLE)
-	# let bundle generation depend on all targets
-	add_dependencies (fixbundle DecimaterGui ProgViewer QtViewer SubdividerGui Synthesizer)
-      endif()
-
       if ( WIN32 )
 	    FILE(GLOB files_install_app_dlls "${CMAKE_BINARY_DIR}/Build/*.dll" )
 	    INSTALL(FILES ${files_install_app_dlls} DESTINATION . )

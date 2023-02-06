@@ -109,7 +109,7 @@ PolyMeshT<Kernel>::calc_face_normal_impl(FaceHandle _fh, PointIs3DTag) const
 {
   assert(this->halfedge_handle(_fh).is_valid());
   ConstFaceVertexIter fv_it(this->cfv_iter(_fh));
-  
+
   // Safeguard for 1-gons
   if (!(++fv_it).is_valid()) return Normal(0, 0, 0);
 
@@ -140,7 +140,7 @@ PolyMeshT<Kernel>::calc_face_normal_impl(FaceHandle _fh, PointIs3DTag) const
   }
 
   const typename vector_traits<Normal>::value_type length = norm(n);
-  
+
   // The expression ((n *= (1.0/norm)),n) is used because the OpenSG
   // vector class does not return self after component-wise
   // self-multiplication with a scalar!!!
@@ -401,8 +401,8 @@ calc_halfedge_normal(HalfedgeHandle _heh, const double _feature_angle) const
     }
 
     Normal n(0,0,0);
-    for(unsigned int i=0; i<fhs.size(); ++i)
-      n += Kernel::normal(fhs[i]);
+    for (unsigned int i = 0; i < fhs.size(); ++i)
+      n += Kernel::has_face_normals() ? Kernel::normal(fhs[i]) : calc_face_normal(fhs[i]);
 
     return normalize(n);
   }
@@ -420,6 +420,28 @@ calc_normal(HalfedgeHandle _heh, const double _feature_angle) const
   return calc_halfedge_normal(_heh, _feature_angle);
 }
 
+
+//-----------------------------------------------------------------------------
+
+
+template <class Kernel>
+typename PolyMeshT<Kernel>::Normal
+PolyMeshT<Kernel>::
+calc_normal(EdgeHandle _eh) const
+{
+  Normal n(0);
+  for (int i = 0; i < 2; ++i)
+  {
+    const auto heh = this->halfedge_handle(_eh, i);
+    const auto fh = this->face_handle(heh);
+    if (fh.is_valid())
+      n += calc_normal(fh);
+  }
+  const auto length = norm(n);
+  if (length != 0)
+    n /= length;
+  return n;
+}
 
 //-----------------------------------------------------------------------------
 
@@ -444,8 +466,8 @@ is_estimated_feature_edge(HalfedgeHandle _heh, const double _feature_angle) cons
   FaceHandle fh0 = Kernel::face_handle(_heh);
   FaceHandle fh1 = Kernel::face_handle(Kernel::opposite_halfedge_handle(_heh));
 
-  Normal fn0 = Kernel::normal(fh0);
-  Normal fn1 = Kernel::normal(fh1);
+  Normal fn0 = Kernel::has_face_normals() ? Kernel::normal(fh0) : calc_face_normal(fh0);
+  Normal fn1 = Kernel::has_face_normals() ? Kernel::normal(fh1) : calc_face_normal(fh1);
 
   // dihedral angle above angle threshold
   return ( dot(fn0,fn1) < cos(_feature_angle) );

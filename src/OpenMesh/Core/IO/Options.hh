@@ -51,6 +51,7 @@
 
 // OpenMesh
 #include <OpenMesh/Core/System/config.h>
+#include <string>
 
 
 //== NAMESPACES ==============================================================
@@ -115,29 +116,22 @@ public:
       TexCoordST     = 0x8000  ///< Write texture coordinates as ST instead of UV
   };
 
+  /// Texture filename. This will be written as
+  /// map_Kd in the OBJ writer into the material file.
+  std::string texture_file ;
+
+  /// Filename extension for material files when writing OBJs
+  /// default is currently .mat
+  std::string material_file_extension;
+
 public:
 
   /// Default constructor
-  Options() : flags_( Default )
+  Options() : texture_file(""), material_file_extension(".mat"), flags_( Default )
   { }
 
-
-  /// Copy constructor
-  Options(const Options& _opt) : flags_(_opt.flags_)
-  { }
-
-
-  /// Initializing constructor setting a single option
-  Options(Flag _flg) : flags_( _flg)
-  { }
-
-
-  /// Initializing constructor setting multiple options
+   /// Initializing constructor setting multiple options
   Options(const value_type _flgs) : flags_( _flgs)
-  { }
-
-
-  ~Options()
   { }
 
   /// Restore state after default constructor.
@@ -154,16 +148,8 @@ public:
 public:
 
 
-  //@{
-  /// Copy options defined in _rhs.
-
-  Options& operator = ( const Options& _rhs )
-  { flags_ = _rhs.flags_; return *this; }
-
   Options& operator = ( const value_type _rhs )
   { flags_ = _rhs; return *this; }
-
-  //@}
 
 
   //@{

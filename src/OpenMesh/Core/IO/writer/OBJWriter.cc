@@ -130,26 +130,31 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 size_t _OBJWriter_::getMaterial(OpenMesh::Vec3f _color) const
 {
-  for (size_t i=0; i < material_.size(); i++)
-    if(material_[i] == _color)
-      return i;
+  auto idx_it = material_idx_.find(_color);
+  if (idx_it != material_idx_.end()) {
+      return idx_it->second;
+  } else {
+      size_t idx = material_.size();
+      material_.push_back(_color);
+      material_idx_[_color] = idx;
 
-  //not found add new material
-  material_.push_back( _color );
-  return material_.size()-1;
+      return idx;
+  }
 }
 
 //-----------------------------------------------------------------------------
 
 size_t _OBJWriter_::getMaterial(OpenMesh::Vec4f _color) const
 {
-  for (size_t i=0; i < materialA_.size(); i++)
-    if(materialA_[i] == _color)
-      return i;
-
-  //not found add new material
-  materialA_.push_back( _color );
-  return materialA_.size()-1;
+  auto idx_it = materialA_idx_.find(_color);
+  if (idx_it != materialA_idx_.end()) {
+      return idx_it->second;
+  } else {
+      size_t idx = materialA_.size();
+      materialA_.push_back(_color);
+      materialA_idx_[_color] = idx;
+      return idx;
+  }
 }
 
 //-----------------------------------------------------------------------------
@@ -162,7 +167,9 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
   OpenMesh::Vec4f cA;
 
   material_.clear();
+  material_idx_.clear();
   materialA_.clear();
+  materialA_idx_.clear();
 
   //iterate over faces
   for (size_t i=0, nF=_be.n_faces(); i<nF; ++i)
@@ -195,6 +202,9 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
       _out << "illum 1" << '\n';
     }
 
+  if (_opt.texture_file != "") {
+      _out << "map_Kd " << _opt.texture_file << std::endl;
+  }
   return true;
 }
 
@@ -219,8 +229,10 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out.precision(_precision);
 
   // check exporter features
-  if (!check( _be, _opt))
-     return false;
+  if (!check( _be, _opt)) {
+      return false;
+  }
+
 
   // No binary mode for OBJ
   if ( _opt.check(Options::Binary) ) {
@@ -240,9 +252,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   }
 
   //create material file if needed
-  if ( _opt.check(Options::FaceColor) ){
+  if ( _opt.check(Options::FaceColor) || _opt.texture_file != ""){
 
-    std::string matFile = path_ + objName_ + ".mat";
+    std::string matFile = path_ + objName_ + _opt.material_file_extension;
 
     std::fstream matStream(matFile.c_str(), std::ios_base::out );
 
@@ -262,8 +274,8 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out << _be.n_faces() << " faces" << '\n';
 
   // material file
-  if (useMatrial &&  _opt.check(Options::FaceColor) )
-    _out << "mtllib " << objName_ << ".mat" << '\n';
+  if ( (useMatrial &&  _opt.check(Options::FaceColor)) || _opt.texture_file != "")
+    _out << "mtllib " << objName_ << _opt.material_file_extension << '\n';
 
   std::map<Vec2f,int> texMap;
   //collect Texturevertices from halfedges
@@ -387,7 +399,9 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   }
 
   material_.clear();
+  material_idx_.clear();
   materialA_.clear();
+  materialA_idx_.clear();
 
   return true;
 }

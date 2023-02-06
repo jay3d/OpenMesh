@@ -1,14 +1,6 @@
 
 # This script just creates compressed files of OpenMesh sources
 
-# Create Build directory and Build documentation
-mkdir build-doc
-
-cd build-doc
-cmake ..
-make doc
-cd ..
-
 # Extract Version Information
 VERSION=OpenMesh-$(cat CMakeLists.txt | grep VERSION | grep -v cmake | grep -v CMAKE | tr -d "VERSION=" | tr -d " ")
 
@@ -26,8 +18,6 @@ mv README.md      $VERSION/
 mv src            $VERSION/
 mv cmake-library  $VERSION/ 
 mv openmesh.pc.in $VERSION/
-
-mv build-doc/Build/share/OpenMesh/Doc/html/  $VERSION/Documentation
 
 tar cjf $VERSION.tar.bz2 $VERSION 
 tar czf $VERSION.tar.gz $VERSION 
