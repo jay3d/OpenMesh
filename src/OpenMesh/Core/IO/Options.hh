@@ -110,7 +110,7 @@ public:
       FaceTexCoord   = 0x0400, ///< Has (r) / store (w) face texture coordinates
       ColorAlpha     = 0x0800, ///< Has (r) / store (w) alpha values for colors
       ColorFloat     = 0x1000, ///< Has (r) / store (w) float values for colors (currently only implemented for PLY and OFF files)
-      Custom         = 0x2000, ///< Has (r)             custom properties (currently only implemented in PLY Reader ASCII version)
+      Custom         = 0x2000, ///< Has (r) / store (w) custom properties (currently PLY only supports reading and only ASCII version. OM supports reading and writing)
       Status         = 0x4000, ///< Has (r) / store (w) status properties
       TexCoordST     = 0x8000  ///< Write texture coordinates as ST instead of UV
   };

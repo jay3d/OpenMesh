@@ -562,34 +562,35 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
   // -------------------- write custom properties
 
-
-
-  const auto store_property = [this, &_os, swap, &bytes](
-    const BaseKernel::const_prop_iterator _it_begin, 
-    const BaseKernel::const_prop_iterator _it_end, 
-    const OMFormat::Chunk::Entity _ent)
+  if (_opt.check(Options::Custom))
   {
-    for (auto prop = _it_begin; prop != _it_end; ++prop)
+    const auto store_property = [this, &_os, swap, &bytes](
+      const BaseKernel::const_prop_iterator _it_begin,
+      const BaseKernel::const_prop_iterator _it_end,
+      const OMFormat::Chunk::Entity _ent)
     {
-      if (!*prop || (*prop)->name().empty() ||
-          ((*prop)->name().size() > 1 && (*prop)->name()[1] == ':'))
-      { // skip dead and "private" properties (no name or name matches "?:*")
-        continue;
+      for (auto prop = _it_begin; prop != _it_end; ++prop)
+      {
+        if (!*prop || (*prop)->name().empty() ||
+            ((*prop)->name().size() > 1 && (*prop)->name()[1] == ':'))
+        { // skip dead and "private" properties (no name or name matches "?:*")
+          continue;
+        }
+        bytes += store_binary_custom_chunk(_os, **prop, _ent, swap);
       }
-      bytes += store_binary_custom_chunk(_os, **prop, _ent, swap);
-    }
-  };
+    };
 
-  store_property(_be.kernel()->vprops_begin(), _be.kernel()->vprops_end(),
-      OMFormat::Chunk::Entity_Vertex);
-  store_property(_be.kernel()->fprops_begin(), _be.kernel()->fprops_end(),
-      OMFormat::Chunk::Entity_Face);
-  store_property(_be.kernel()->eprops_begin(), _be.kernel()->eprops_end(),
-      OMFormat::Chunk::Entity_Edge);
-  store_property(_be.kernel()->hprops_begin(), _be.kernel()->hprops_end(),
-      OMFormat::Chunk::Entity_Halfedge);
-  store_property(_be.kernel()->mprops_begin(), _be.kernel()->mprops_end(),
-      OMFormat::Chunk::Entity_Mesh);
+    store_property(_be.kernel()->vprops_begin(), _be.kernel()->vprops_end(),
+        OMFormat::Chunk::Entity_Vertex);
+    store_property(_be.kernel()->fprops_begin(), _be.kernel()->fprops_end(),
+        OMFormat::Chunk::Entity_Face);
+    store_property(_be.kernel()->eprops_begin(), _be.kernel()->eprops_end(),
+        OMFormat::Chunk::Entity_Edge);
+    store_property(_be.kernel()->hprops_begin(), _be.kernel()->hprops_end(),
+        OMFormat::Chunk::Entity_Halfedge);
+    store_property(_be.kernel()->mprops_begin(), _be.kernel()->mprops_end(),
+        OMFormat::Chunk::Entity_Mesh);
+  }
 
   memset(&chunk_header, 0, sizeof(chunk_header));
   chunk_header.name_ = false;
