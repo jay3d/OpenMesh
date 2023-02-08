@@ -781,7 +781,7 @@ TEST_F(OpenMeshTutorials, storing_custom_properties) {
   EXPECT_TRUE(mesh.mproperty(mprop_map).persistent()) << "property should be persistent";
 
   // write mesh
-  IO::Options opts(IO::Options::Custom);
+  OpenMesh::IO::Options opts(OpenMesh::IO::Options::Custom);
   bool ok = OpenMesh::IO::write_mesh(mesh, "persistence-check.om", opts);
   EXPECT_TRUE(ok) << "Cannot write mesh to file 'persistent-check.om'";
 
