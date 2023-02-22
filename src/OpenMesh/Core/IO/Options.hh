@@ -97,7 +97,7 @@ public:
   /// Definitions of %Options for reading and writing. The options can be
   /// or'ed.
   enum Flag {
-      Default        = 0x0000, ///< No options
+      None           = 0x0000, ///< No options
       Binary         = 0x0001, ///< Set binary mode for r/w
       MSB            = 0x0002, ///< Assume big endian byte ordering
       LSB            = 0x0004, ///< Assume little endian byte ordering
@@ -113,7 +113,8 @@ public:
       ColorFloat     = 0x1000, ///< Has (r) / store (w) float values for colors (currently only implemented for PLY and OFF files)
       Custom         = 0x2000, ///< Has (r) / store (w) custom properties marked persistent (currently PLY only supports reading and only ASCII version. OM supports reading and writing)
       Status         = 0x4000, ///< Has (r) / store (w) status properties
-      TexCoordST     = 0x8000  ///< Write texture coordinates as ST instead of UV
+      TexCoordST     = 0x8000, ///< Write texture coordinates as ST instead of UV
+      Default        = Custom, ///< By default write persistent custom properties
   };
 
   /// Texture filename. This will be written as
