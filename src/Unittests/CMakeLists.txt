@@ -1,9 +1,67 @@
 include (VCICommon)
 
-include_directories (
-  ..
-  ${CMAKE_CURRENT_SOURCE_DIR}
+set( UNITTEST_SRC
+unittests.cc
+unittests_add_face.cc
+unittests_boundary.cc
+unittests_centroid_calculations.cc
+unittests_convert_meshes.cc
+unittests_cpp_11_features.cc
+unittests_decimater.cc
+unittests_delete_face.cc
+unittests_eigen3_type.cc
+unittests_faceless_mesh.cc
+unittests_mc_decimater.cc
+unittests_mesh_cast.cc
+unittests_mesh_dual.cc
+unittests_mesh_type.cc
+unittests_mixed_decimater.cc
+unittests_normal_calculations.cc
+unittests_polymesh_collapse.cc
+unittests_polymesh_vec2i.cc
+unittests_property.cc
+unittests_propertymanager.cc
+unittests_randomNumberGenerator.cc
+unittests_read_write_OBJ.cc
+unittests_read_write_OFF.cc
+unittests_read_write_OM.cc
+unittests_read_write_PLY.cc
+unittests_read_write_STL.cc
+unittests_set_positions_directly.cc
+unittests_smart_handles.cc
+unittests_smart_ranges.cc
+unittests_smarttagger.cc
+unittests_smoother.cc
+unittests_split_copy.cc
+unittests_split_edge_copy.cc
+unittests_sr_binary.cc
+unittests_stripifier.cc
+unittests_subdivider_adaptive.cc
+unittests_subdivider_uniform.cc
+unittests_trimesh_circulator_current_halfedge_handle_replacement.cc
+unittests_trimesh_circulator_face_edge.cc
+unittests_trimesh_circulator_face_face.cc
+unittests_trimesh_circulator_face_halfedge.cc
+unittests_trimesh_circulator_face_vertex.cc
+unittests_trimesh_circulator_halfedge_loop.cc
+unittests_trimesh_circulator_vertex_edge.cc
+unittests_trimesh_circulator_vertex_face.cc
+unittests_trimesh_circulator_vertex_ihalfedge.cc
+unittests_trimesh_circulator_vertex_ohalfedge.cc
+unittests_trimesh_circulator_vertex_vertex.cc
+unittests_trimesh_collapse.cc
+unittests_trimesh_garbage_collection.cc
+unittests_trimesh_iterators.cc
+unittests_trimesh_others.cc
+unittests_trimesh_ranges.cc
+unittests_trimesh_split.cc
+unittests_trimesh_vec2i.cc
+unittests_tutorials.cc
+unittests_vdpm.cc
+unittests_vector_type.cc
 )
+
+
 
 if ( NOT DEFINED OPENMESH_BUILD_UNIT_TESTS)
     set( OPENMESH_BUILD_UNIT_TESTS false CACHE BOOL "Enable or disable unit test builds in OpenMesh." )
@@ -35,7 +93,6 @@ if ( OPENMESH_BUILD_UNIT_TESTS )
     endif()
 
     # Create new target named unittests_hexmeshing
-    FILE(GLOB UNITTEST_SRC *.cc)
     # Create unittest executable
     vci_add_executable(unittests ${UNITTEST_SRC})
     vci_add_executable(unittests_customvec ${UNITTEST_SRC})

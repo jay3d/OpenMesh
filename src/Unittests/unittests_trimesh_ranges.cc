@@ -93,6 +93,7 @@ void compare_ranges(RangeT1&& range1, RangeT2&& range2, int offset, bool reverse
 
   size_t n = vec1.size();
 
+/*
   std::cout << "Vec1 elements: ";
   for (auto el : vec1)
     std::cout << el.idx() << " ";
@@ -102,6 +103,7 @@ void compare_ranges(RangeT1&& range1, RangeT2&& range2, int offset, bool reverse
   for (auto el : vec2)
     std::cout << el.idx() << " ";
   std::cout << std::endl;
+*/
 
   for (size_t i = 0; i < n; ++i)
   {

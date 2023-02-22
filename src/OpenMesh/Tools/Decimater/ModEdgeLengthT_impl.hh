@@ -72,7 +72,7 @@ ModEdgeLengthT<MeshT>::ModEdgeLengthT(MeshT &_mesh, float _edge_length,
 
 template<class MeshT>
 float ModEdgeLengthT<MeshT>::collapse_priority(const CollapseInfo& _ci) {
-  typename Mesh::Scalar sqr_length = (_ci.p0 - _ci.p1).sqrnorm();
+  typename Mesh::Scalar sqr_length = sqrnorm(_ci.p0 - _ci.p1);
 
   return ( (sqr_length <= sqr_edge_length_) ? sqr_length : float(Base::ILLEGAL_COLLAPSE));
 }
