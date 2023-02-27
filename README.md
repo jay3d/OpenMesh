@@ -1,4 +1,4 @@
-# OpenMesh, 9.1
+# OpenMesh, 10.0
 
 [![](https://gitlab.vci.wth-aachen.de:9000/OpenMesh/OpenMesh/badges/master/pipeline.svg)](https://gitlab.vci.rwth-aachen.de:9000/OpenMesh/OpenMesh/commits/master)
 

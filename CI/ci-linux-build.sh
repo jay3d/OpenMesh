@@ -69,9 +69,9 @@ else
 
   echo "Copying all required libraries of OpenMesh to the systemlib directory"
   if [ "$BUILD_TYPE" == "release" ]; then
-    ldd Build/lib/libOpenMeshCore.so.9.1 | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp -v '{}' systemlib
+    ldd Build/lib/libOpenMeshCore.so.10.0 | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp -v '{}' systemlib
   else
-    ldd Build/lib/libOpenMeshCored.so.9.1 | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp -v '{}' systemlib
+    ldd Build/lib/libOpenMeshCored.so.10.0 | grep "=> /" | awk '{print $3}' | xargs -I '{}' cp -v '{}' systemlib
   fi
 fi
 
