@@ -439,7 +439,7 @@ public:
   {
     OpenMesh::MPropHandleT< std::map< int, std::string > > property;
 
-    std::cerr << "add_texture_information " << _id << " name : " << _name << std::endl();
+    std::cerr << "add_texture_information " << _id << " name : " << _name << std::endl;
     if ( !mesh_.get_property_handle(property,"TextureMapping") ) {
       std::cerr << "Added Texturemapping property" << std::endl;
       mesh_.add_property(property,"TextureMapping");
