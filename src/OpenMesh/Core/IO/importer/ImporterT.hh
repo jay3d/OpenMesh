@@ -439,12 +439,16 @@ public:
   {
     OpenMesh::MPropHandleT< std::map< int, std::string > > property;
 
+    std::cerr << "add_texture_information " << _id << " name : " << _name << std::endl();
     if ( !mesh_.get_property_handle(property,"TextureMapping") ) {
+      std::cerr << "Added Texturemapping property" << std::endl;
       mesh_.add_property(property,"TextureMapping");
     }
 
-    if ( mesh_.property(property).find( _id ) == mesh_.property(property).end() )
+    if ( mesh_.property(property).find( _id ) == mesh_.property(property).end() ) {
+      std::cerr << "Added Texture file " << _name << std::endl;
       mesh_.property(property)[_id] = _name;
+    }
   }
 
   // low-level access to mesh
