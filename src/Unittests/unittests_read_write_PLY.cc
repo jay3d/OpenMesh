@@ -532,8 +532,10 @@ TEST_F(OpenMeshReadWritePLY, LoadPLYFromMeshLabWithFaceTexCoord) {
     mesh_.get_property_handle(property, "TextureMapping");
     EXPECT_EQ(mesh_.property(property).size(), 2u) << "Wrong texture number";
     EXPECT_EQ(mesh_.property(property).count(0), 1u) << "Could not find texture with id 0";
+    std::cerr << "DEBUGGING OUTPUT : " << std::endl;
     std::cerr << mesh_.property(property)[0] << std::endl;
     std::cerr << mesh_.property(property)[1] << std::endl;
+    std::cerr << "DEBUGGING OUTPUT : " << std::endl;
     EXPECT_TRUE((mesh_.property(property)[0] == std::string("tex_0.jpg"))) << "Wrong texture name";
     EXPECT_EQ(mesh_.property(property).count(1), 1u) << "Could not find texture with id 1";
     EXPECT_TRUE((mesh_.property(property)[1] == std::string("tex_1.jpg"))) << "Wrong texture name";
