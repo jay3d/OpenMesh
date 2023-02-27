@@ -1353,6 +1353,12 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
         
         // TextureFile
         if (line.rfind(" TextureFile ", 0) == 0) {
+          std::cerr << "Comment: " << std::endl;
+          std::cerr << "Line is : " << line << std::endl;
+          std::cerr << "Size is : " << line.size() << std::endl;
+          if (line.size() < 13)
+              std::cerr << "Line is " << line.size() << std::endl;
+          std::cerr << "Substring: " << line.substr(13) << std::endl;
           texture_files_.push_back(line.substr(13));
         }
       } else if (keyword == "element") {
