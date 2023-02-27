@@ -365,7 +365,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleVertexBoolProperty) {
     mesh.property(prop,v3) = true;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
     // load
@@ -375,7 +377,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleVertexBoolProperty) {
     cmpMesh.add_property(prop,"VBProp");
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -436,7 +438,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleVertexBoolPropertySpaceEquivalent) {
     mesh.property(prop,v9) = true;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
     // load
@@ -445,7 +449,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleVertexBoolPropertySpaceEquivalent) {
     cmpMesh.add_property(prop,"VBProp");
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -500,7 +504,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleTwoVertexBoolProperty) {
     mesh.property(prop2,v3) = false;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
 
@@ -512,7 +518,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleTwoVertexBoolProperty) {
     cmpMesh.add_property(prop2,"VBProp2");
     cmpMesh.property(prop2).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -570,7 +576,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleEdgeIntProperty) {
     mesh.property(prop,e3) = value3;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
     // load
@@ -579,7 +587,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleEdgeIntProperty) {
     cmpMesh.add_property(prop,propName);
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -646,8 +654,9 @@ TEST_F(OpenMeshReadWriteOM, WriteSplitTriangleEdgeIntProperty) {
     mesh.property(prop,e6) = value6;
 
     // save
-    OpenMesh::IO::Options options;
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
     // load
@@ -656,7 +665,7 @@ TEST_F(OpenMeshReadWriteOM, WriteSplitTriangleEdgeIntProperty) {
     cmpMesh.add_property(prop,propName);
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -929,7 +938,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleFaceDoubleProperty) {
     mesh.property(prop,f1) = va1ue1;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
     // load
@@ -938,7 +949,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleFaceDoubleProperty) {
     cmpMesh.add_property(prop,propName);
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -983,7 +994,9 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleFaceFloatProperty) {
     mesh.property(prop,f1) = va1ue1;
 
     // save
-    bool ok = OpenMesh::IO::write_mesh(mesh,filename);
+    OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+
+    bool ok = OpenMesh::IO::write_mesh(mesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to write "<<filename;
 
 
@@ -992,7 +1005,7 @@ TEST_F(OpenMeshReadWriteOM, WriteTriangleFaceFloatProperty) {
     cmpMesh.add_property(prop,propName);
     cmpMesh.property(prop).set_persistent(true);
 
-    ok = OpenMesh::IO::read_mesh(cmpMesh,filename);
+    ok = OpenMesh::IO::read_mesh(cmpMesh, filename, opts);
     EXPECT_TRUE(ok) << "Unable to read "<<filename;
 
     // compare
@@ -1050,7 +1063,8 @@ TEST_F(OpenMeshReadWriteOM, ReadBigMeshWithCustomProperty) {
   mesh.add_property(vertexProp, "IVProp");
   mesh.property(vertexProp).set_persistent(true);
 
-  ok = OpenMesh::IO::read_mesh(mesh,"cube1_customProps.om");
+  OpenMesh::IO::Options opts = OpenMesh::IO::Options::Custom;
+  ok = OpenMesh::IO::read_mesh(mesh,"cube1_customProps.om", opts);
   EXPECT_TRUE(ok) << "Unable to read cube1_customProps.om";
 
   ///=============== result ======================
@@ -1066,7 +1080,7 @@ TEST_F(OpenMeshReadWriteOM, ReadBigMeshWithCustomProperty) {
   wrong = false;
   for (Mesh::VertexIter vIter = mesh.vertices_begin(); vIter != mesh.vertices_end() && !wrong; ++vIter)
     wrong = (vIter->idx() != mesh.property(vertexProp,*vIter));
-  EXPECT_FALSE(wrong) << "min one vertex has worng vertex property";
+  EXPECT_FALSE(wrong) << "min one vertex has wrong vertex property";
 }
 
 
