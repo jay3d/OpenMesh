@@ -9,7 +9,7 @@ enable_testing()
 
 
 project (OpenMesh 
-         VERSION 9.1.0
+         VERSION 10.0.0
          LANGUAGES C CXX ) 
 
 # Set AUTO UIC/MOC Policy to new for CMAKE 3.17 or higher
