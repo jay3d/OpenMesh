@@ -406,7 +406,8 @@ bool _OMReader_::read_binary_vertex_chunk(std::istream &_is, BaseImporter &_bi, 
       {
         Chunk::PropertyName property_type;
         bytes_ += restore(_is, property_type, _swap);
-        add_generic_property(property_type, _bi);
+        if (_opt.check(Options::Custom))
+          add_generic_property(property_type, _bi);
       }
 
       bytes_ += restore_binary_custom_data(_is, _bi.kernel()->_get_vprop(property_name_), header_.n_vertices_, _swap);
@@ -563,7 +564,8 @@ bool _OMReader_::read_binary_face_chunk(std::istream &_is, BaseImporter &_bi, Op
       {
         Chunk::PropertyName property_type;
         bytes_ += restore(_is, property_type, _swap);
-        add_generic_property(property_type, _bi);
+        if (_opt.check(Options::Custom))
+          add_generic_property(property_type, _bi);
       }
 
       bytes_ += restore_binary_custom_data(_is, _bi.kernel()->_get_fprop(property_name_), header_.n_faces_, _swap);
@@ -604,7 +606,8 @@ bool _OMReader_::read_binary_edge_chunk(std::istream &_is, BaseImporter &_bi, Op
       {
         Chunk::PropertyName property_type;
         bytes_ += restore(_is, property_type, _swap);
-        add_generic_property(property_type, _bi);
+        if (_opt.check(Options::Custom))
+          add_generic_property(property_type, _bi);
       }
 
       bytes_ += restore_binary_custom_data(_is, _bi.kernel()->_get_eprop(property_name_), header_.n_edges_, _swap);
@@ -654,7 +657,8 @@ bool _OMReader_::read_binary_halfedge_chunk(std::istream &_is, BaseImporter &_bi
       {
         Chunk::PropertyName property_type;
         bytes_ += restore(_is, property_type, _swap);
-        add_generic_property(property_type, _bi);
+        if (_opt.check(Options::Custom))
+          add_generic_property(property_type, _bi);
       }
 
       bytes_ += restore_binary_custom_data(_is, _bi.kernel()->_get_hprop(property_name_), 2 * header_.n_edges_, _swap);
@@ -689,7 +693,7 @@ bool _OMReader_::read_binary_halfedge_chunk(std::istream &_is, BaseImporter &_bi
       {
         int next_id_0      = -1;
         int to_vertex_id_0 = -1;
-        int face_id_0      = -1; 
+        int face_id_0      = -1;
         bytes_ += restore( _is, next_id_0,      OMFormat::Chunk::Integer_Size(chunk_header_.bits_), _swap );
         bytes_ += restore( _is, to_vertex_id_0, OMFormat::Chunk::Integer_Size(chunk_header_.bits_), _swap );
         bytes_ += restore( _is, face_id_0,      OMFormat::Chunk::Integer_Size(chunk_header_.bits_), _swap );
@@ -745,7 +749,7 @@ bool _OMReader_::read_binary_halfedge_chunk(std::istream &_is, BaseImporter &_bi
 
 //-----------------------------------------------------------------------------
 
-bool _OMReader_::read_binary_mesh_chunk(std::istream &_is, BaseImporter &_bi, Options & /* _opt */, bool _swap) const
+bool _OMReader_::read_binary_mesh_chunk(std::istream &_is, BaseImporter &_bi, Options& _opt , bool _swap) const
 {
   using OMFormat::Chunk;
 
@@ -760,7 +764,8 @@ bool _OMReader_::read_binary_mesh_chunk(std::istream &_is, BaseImporter &_bi, Op
       {
         Chunk::PropertyName property_type;
         bytes_ += restore(_is, property_type, _swap);
-        add_generic_property(property_type, _bi);
+        if (_opt.check(Options::Custom))
+          add_generic_property(property_type, _bi);
       }
 
       bytes_ += restore_binary_custom_data(_is, _bi.kernel()->_get_mprop(property_name_), 1, _swap);
