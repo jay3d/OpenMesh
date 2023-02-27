@@ -201,7 +201,7 @@ private:
 
   mutable std::vector< ElementInfo > elements_;
 
-  mutable std::list< std::string > texture_files_;
+  mutable std::vector< std::string > texture_files_;
 
   template<typename T>
   inline void read(_PLYReader_::ValueType _type, std::istream& _in, T& _value, OpenMesh::GenProg::TrueType /*_binary*/) const

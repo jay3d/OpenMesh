@@ -137,8 +137,8 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
 
     // Add TextureFiles
     int texture_index = 0;
-    for(auto texture_file = texture_files_.begin(); texture_file != texture_files_.end(); texture_file++) {
-      _bi.add_texture_information(texture_index++, *texture_file);
+    for(auto const & texture_file : texture_files_) {
+      _bi.add_texture_information(texture_index++, texture_file);
     }
 
     // filter relevant options for reading
@@ -1351,10 +1351,8 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
       if (keyword == "comment") {
         std::getline(_is, line);
         
-        std::cerr << "Comment detected : " << line << std::endl;
         // TextureFile
         if (line.rfind(" TextureFile ", 0) == 0) {
-          std::cerr << "Comment is Texture File: " << line.substr(13) << std::endl;
           texture_files_.push_back(line.substr(13));
         }
       } else if (keyword == "element") {
