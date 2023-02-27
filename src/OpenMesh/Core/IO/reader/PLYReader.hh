@@ -61,6 +61,7 @@
 #include <string>
 #include <cstdio>
 #include <vector>
+#include <list>
 
 #include <OpenMesh/Core/System/config.h>
 #include <OpenMesh/Core/Utils/SingletonT.hh>
@@ -165,7 +166,7 @@ private:
     TEXX,TEXY,
     COLORRED,COLORGREEN,COLORBLUE,COLORALPHA,
     XNORM,YNORM,ZNORM, CUSTOM_PROP, VERTEX_INDICES,
-    UNSUPPORTED
+    TEXCOORD, TEXNUMBER, UNSUPPORTED
   };
 
   /// Stores sizes of property types
@@ -199,6 +200,8 @@ private:
   };
 
   mutable std::vector< ElementInfo > elements_;
+
+  mutable std::list< std::string > texture_files_;
 
   template<typename T>
   inline void read(_PLYReader_::ValueType _type, std::istream& _in, T& _value, OpenMesh::GenProg::TrueType /*_binary*/) const

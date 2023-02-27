@@ -6,7 +6,11 @@
 
 <!-- --------------------------------------------------------------------- -->
 
-<tr valign=top><td><b>9.1</b> (?/?/?)</td><td>
+<tr valign=top><td><b>10.0</b> (?/?/?)</td><td>
+
+<b>IO</b>
+<ul>
+<li>PLY reader/writer: Support for meshlab texture coordinates and ids in PLY IO (Thanks to  Gregoire Grzeczkowicz for the patch)</li>
 
 <b>Tools</b>
 <ul>
