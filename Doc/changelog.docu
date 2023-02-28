@@ -35,7 +35,8 @@
 
 <b>Documentation</b>
 <ul>
-<li>Added some information on how to build and run the unittests.</li>
+<li>Added information on how to build and run the unittests.</li>
+<li>Added documentation about using cmake to build an application using OpenMesh.</li>
 </ul>
 </tr>
 
