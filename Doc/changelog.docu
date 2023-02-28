@@ -13,20 +13,17 @@
 <li>OM Reader/Writer: Only rad and write custom properties if the Custom option is set (The default option contains this flag).</li>
 </ul>
 
-<b>IO</b>
-<ul>
-<li>PLY reader/writer: Support for meshlab texture coordinates and ids in PLY IO (Thanks to  Gregoire Grzeczkowicz for the patch)</li>
-
 <b>Tools</b>
 <ul>
 <li>Decimater: Fixed incompatibility with Eigen vector type</li>
 </ul>
 
-
 <b>IO</b>
 <ul>
+<li>OM Reader/Writer: Only rad and write custom properties if the Custom option is set (The default option contains this flag).</li>
 <li>OBJ writer: Added param 'texture_file' to the Options class, it specifies the path to the texture file (Thanks to Philipp Auersperg-Castell for the patch)</li>
 <li>OBJ writer: added param 'material_file_extension' to the Options class, it specifies the material file suffix, default is ".mat" as it was before. (Thanks to Philipp Auersperg-Castell for the patch)</li>
+<li>PLY reader/writer: Support for meshlab texture coordinates and ids in PLY IO (Thanks to  Gregoire Grzeczkowicz for the patch)</li>
 </ul>
 
 <b>Build System</b>
