@@ -80,23 +80,25 @@ _STLWriter_::_STLWriter_() { IOManager().register_module(this); }
 
 bool
 _STLWriter_::
-write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(const std::string& _filename, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
+  Options tmpOptions = _writeOptions;
+
   // binary or ascii ?
   if (_filename.rfind(".stla") != std::string::npos)
   {
-    _opt -= Options::Binary;
+    tmpOptions -= Options::Binary;
   }
   else if (_filename.rfind(".stlb") != std::string::npos)
   {
-    _opt += Options::Binary;
+    tmpOptions += Options::Binary;
   }
 
   // open file
-  std::fstream out(_filename.c_str(), (_opt.check(Options::Binary) ? std::ios_base::binary | std::ios_base::out
-                                                                   : std::ios_base::out) );
+  std::fstream out(_filename.c_str(), (tmpOptions.check(Options::Binary) ? std::ios_base::binary | std::ios_base::out
+                                                                         : std::ios_base::out) );
 
-  bool result = write(out, _be, _opt, _precision);
+  bool result = write(out, _be, tmpOptions, _precision);
 
   out.close();
 
@@ -108,24 +110,24 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 bool
 _STLWriter_::
-write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
   // check exporter features
-  if (!check(_be, _opt)) return false;
+  if (!check(_be, _writeOptions)) return false;
 
   // check writer features
-  if (_opt.check(Options::VertexNormal)   ||
-      _opt.check(Options::VertexTexCoord) ||
-      _opt.check(Options::FaceColor))
+  if (_writeOptions.check(Options::VertexNormal)   ||
+      _writeOptions.check(Options::VertexTexCoord) ||
+      _writeOptions.check(Options::FaceColor))
     return false;
 
-  if (!_opt.check(Options::Binary))
+  if (!_writeOptions.check(Options::Binary))
     _os.precision(_precision);
 
-  if (_opt & Options::Binary)
-    return write_stlb(_os, _be, _opt);
+  if (_writeOptions & Options::Binary)
+    return write_stlb(_os, _be, _writeOptions);
   else
-    return write_stla(_os, _be, _opt);
+    return write_stla(_os, _be, _writeOptions);
 
   return false;
 }

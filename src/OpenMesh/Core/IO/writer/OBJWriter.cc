@@ -81,7 +81,7 @@ _OBJWriter_::_OBJWriter_() { IOManager().register_module(this); }
 
 bool
 _OBJWriter_::
-write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(const std::string& _filename, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
   std::fstream out(_filename.c_str(), std::ios_base::out );
 
@@ -120,7 +120,7 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
       objName_ = objName_.substr(0,dotposition);
   }
 
-  bool result = write(out, _be, _opt, _precision);
+  bool result = write(out, _be, _writeOptions, _precision);
 
   out.close();
   return result;
@@ -213,7 +213,7 @@ writeMaterial(std::ostream& _out, BaseExporter& _be, Options _opt) const
 
 bool
 _OBJWriter_::
-write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(std::ostream& _out, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
   unsigned int idx;
   Vec3f v, n;
@@ -229,32 +229,32 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out.precision(_precision);
 
   // check exporter features
-  if (!check( _be, _opt)) {
+  if (!check( _be, _writeOptions)) {
       return false;
   }
 
 
   // No binary mode for OBJ
-  if ( _opt.check(Options::Binary) ) {
+  if ( _writeOptions.check(Options::Binary) ) {
     omout() << "[OBJWriter] : Warning, Binary mode requested for OBJ Writer (No support for Binary mode), falling back to standard." <<  std::endl;
   }
 
   // check for unsupported writer features
-  if (_opt.check(Options::FaceNormal) ) {
+  if (_writeOptions.check(Options::FaceNormal) ) {
     omerr() << "[OBJWriter] : FaceNormal not supported by OBJ Writer" <<  std::endl;
     return false;
   }
 
   // check for unsupported writer features
-  if (_opt.check(Options::VertexColor) ) {
+  if (_writeOptions.check(Options::VertexColor) ) {
     omerr() << "[OBJWriter] : VertexColor not supported by OBJ Writer" <<  std::endl;
     return false;
   }
 
   //create material file if needed
-  if ( _opt.check(Options::FaceColor) || _opt.texture_file != ""){
+  if ( _writeOptions.check(Options::FaceColor) || _writeOptions.texture_file != ""){
 
-    std::string matFile = path_ + objName_ + _opt.material_file_extension;
+    std::string matFile = path_ + objName_ + _writeOptions.material_file_extension;
 
     std::fstream matStream(matFile.c_str(), std::ios_base::out );
 
@@ -263,7 +263,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
       omerr() << "[OBJWriter] : cannot write material file " << matFile << std::endl;
 
     }else{
-      useMatrial = writeMaterial(matStream, _be, _opt);
+      useMatrial = writeMaterial(matStream, _be, _writeOptions);
 
       matStream.close();
     }
@@ -274,12 +274,12 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   _out << _be.n_faces() << " faces" << '\n';
 
   // material file
-  if ( (useMatrial &&  _opt.check(Options::FaceColor)) || _opt.texture_file != "")
-    _out << "mtllib " << objName_ << _opt.material_file_extension << '\n';
+  if ( (useMatrial &&  _writeOptions.check(Options::FaceColor)) || _writeOptions.texture_file != "")
+    _out << "mtllib " << objName_ << _writeOptions.material_file_extension << '\n';
 
   std::map<Vec2f,int> texMap;
   //collect Texturevertices from halfedges
-  if(_opt.check(Options::FaceTexCoord))
+  if(_writeOptions.check(Options::FaceTexCoord))
   {
     std::vector<Vec2f> texCoords;
     //add all texCoords to map
@@ -291,7 +291,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
   }
 
   //collect Texture coordinates from vertices
-  if(_opt.check(Options::VertexTexCoord))
+  if(_writeOptions.check(Options::VertexTexCoord))
   {
     for (size_t i=0, nV=_be.n_vertices(); i<nV; ++i)
     {
@@ -303,7 +303,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
   // assign each texcoord in the map its id
   // and write the vt entries
-  if(_opt.check(Options::VertexTexCoord) || _opt.check(Options::FaceTexCoord))
+  if(_writeOptions.check(Options::VertexTexCoord) || _writeOptions.check(Options::FaceTexCoord))
   {
     int texCount = 0;
     for(std::map<Vec2f,int>::iterator it = texMap.begin(); it != texMap.end() ; ++it)
@@ -323,26 +323,26 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
 
     _out << "v " << v[0] <<" "<< v[1] <<" "<< v[2] << '\n';
 
-    if (_opt.check(Options::VertexNormal))
+    if (_writeOptions.check(Options::VertexNormal))
       _out << "vn " << n[0] <<" "<< n[1] <<" "<< n[2] << '\n';    
   }
 
   size_t lastMat = std::numeric_limits<std::size_t>::max();
 
   // we do not want to write seperators if we only write vertex indices
-  bool onlyVertices =    !_opt.check(Options::VertexTexCoord)
-                      && !_opt.check(Options::VertexNormal)
-                      && !_opt.check(Options::FaceTexCoord);
+  bool onlyVertices =    !_writeOptions.check(Options::VertexTexCoord)
+                      && !_writeOptions.check(Options::VertexNormal)
+                      && !_writeOptions.check(Options::FaceTexCoord);
 
   // faces (indices starting at 1 not 0)
   for (size_t i=0, nF=_be.n_faces(); i<nF; ++i)
   {
 
-    if (useMatrial &&  _opt.check(Options::FaceColor) ){
+    if (useMatrial &&  _writeOptions.check(Options::FaceColor) ){
       size_t material;
 
       //color with alpha
-      if ( _opt.color_has_alpha() ){
+      if ( _writeOptions.color_has_alpha() ){
         cA  = color_cast<OpenMesh::Vec4f> (_be.colorA( FaceHandle(int(i)) ));
         material = getMaterial(cA);
       } else{
@@ -374,7 +374,7 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
         _out << "/" ;
 
         //write texCoords index from halfedge
-        if(_opt.check(Options::FaceTexCoord))
+        if(_writeOptions.check(Options::FaceTexCoord))
         {
           _out << texMap[_be.texcoord(_be.getHeh(FaceHandle(int(i)),vhandles[j]))];
         }
@@ -382,12 +382,12 @@ write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _prec
         else
         {
           // write vertex texture coordinate index
-          if (_opt.check(Options::VertexTexCoord))
+          if (_writeOptions.check(Options::VertexTexCoord))
             _out  << texMap[_be.texcoord(vhandles[j])];
         }
 
         // write vertex normal index
-        if ( _opt.check(Options::VertexNormal) ) {
+        if ( _writeOptions.check(Options::VertexNormal) ) {
           // write separator
           _out << "/" ;
           _out << idx;

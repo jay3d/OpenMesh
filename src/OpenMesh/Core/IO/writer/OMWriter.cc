@@ -93,7 +93,7 @@ _OMWriter_()
 
 bool
 _OMWriter_::write(const std::string& _filename, BaseExporter& _be,
-                   Options _opt, std::streamsize /*_precision*/) const
+                   const Options& _writeOptions, std::streamsize /*_precision*/) const
 {
   // check whether exporter can give us an OpenMesh BaseKernel
   if (!_be.kernel()) return false;
@@ -103,7 +103,9 @@ _OMWriter_::write(const std::string& _filename, BaseExporter& _be,
   if (_filename.rfind(".om") == std::string::npos)
     return false;
 
-  _opt += Options::Binary; // only binary format supported
+  Options tmpOptions = _writeOptions;
+
+  tmpOptions += Options::Binary; // only binary format supported
 
   std::ofstream ofs(_filename.c_str(), std::ios::binary);
 
@@ -115,7 +117,7 @@ _OMWriter_::write(const std::string& _filename, BaseExporter& _be,
   }
 
   // call stream save method
-  bool rc = write(ofs, _be, _opt);
+  bool rc = write(ofs, _be, tmpOptions);
 
   // close filestream
   ofs.close();
@@ -128,27 +130,31 @@ _OMWriter_::write(const std::string& _filename, BaseExporter& _be,
 //-----------------------------------------------------------------------------
 
 bool
-_OMWriter_::write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize /*_precision*/) const
+_OMWriter_::write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::streamsize /*_precision*/) const
 {
 //   std::clog << "[OMWriter]::write( stream )\n";
 
+  Options tmpOptions = _writeOptions;
+
   // check exporter features
-  if ( !check( _be, _opt ) )
+  if ( !check( _be, tmpOptions ) )
   {
     omerr() << "[OMWriter]: exporter does not support wanted feature!\n";
     return false;
   }
 
+
+
   // Maybe an ascii version will be implemented in the future.
   // For now, support only a binary format
-  if ( !_opt.check( Options::Binary ) )
-    _opt += Options::Binary;
+  if ( !tmpOptions.check( Options::Binary ) )
+    tmpOptions += Options::Binary;
 
   // Ignore LSB/MSB bit. Always store in LSB (little endian)
-  _opt += Options::LSB;
-  _opt -= Options::MSB;
+  tmpOptions += Options::LSB;
+  tmpOptions -= Options::MSB;
 
-  return write_binary(_os, _be, _opt);
+  return write_binary(_os, _be, tmpOptions);
 }
 
 

@@ -104,7 +104,7 @@ public:
   std::string get_extensions() const override
   { return "om"; }
 
-  bool write(std::ostream&, BaseExporter&, Options, std::streamsize _precision = 6) const override;
+  bool write(std::ostream&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
   size_t binary_size(BaseExporter& _be, Options _opt) const override;
 
@@ -116,7 +116,7 @@ protected:
   static const OMFormat::uchar magic_[3];
   static const OMFormat::uint8 version_;
 
-  bool write(const std::string&, BaseExporter&, Options, std::streamsize _precision = 6) const override;
+  bool write(const std::string&, BaseExporter&, const Options&, std::streamsize _precision = 6) const override;
 
   bool write_binary(std::ostream&, BaseExporter&, Options) const;
 
