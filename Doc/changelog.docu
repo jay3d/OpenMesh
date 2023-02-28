@@ -13,6 +13,9 @@
 <li>OM Reader/Writer: Only rad and write custom properties if the Custom option is set (The default option contains this flag).</li>
 </ul>
 
+<b>IO</b>
+<ul>
+<li>PLY reader/writer: Support for meshlab texture coordinates and ids in PLY IO (Thanks to  Gregoire Grzeczkowicz for the patch)</li>
 
 <b>Tools</b>
 <ul>

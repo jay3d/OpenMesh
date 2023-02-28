@@ -135,7 +135,11 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
         return false;
     }
 
-
+    // Add TextureFiles
+    int texture_index = 0;
+    for(auto const & texture_file : texture_files_) {
+      _bi.add_texture_information(texture_index++, texture_file);
+    }
 
     // filter relevant options for reading
     bool swap = _opt.check(Options::Swap);
@@ -156,6 +160,9 @@ bool _PLYReader_::read(std::istream& _in, BaseImporter& _bi, Options& _opt) {
     }
     if (options_.face_has_color() && userOptions_.face_has_color()) {
         _opt += Options::FaceColor;
+    }
+    if (options_.face_has_texcoord() && userOptions_.face_has_texcoord()) {
+        _opt += Options::FaceTexCoord;
     }
     if (options_.is_binary()) {
         _opt += Options::Binary;
@@ -282,12 +289,14 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
 
     unsigned int i, j, k, l, idx;
     unsigned int nV;
-    OpenMesh::Vec3f v, n;
+    OpenMesh::Vec3f v, n, t3d;
     std::string trash;
     OpenMesh::Vec2f t;
     OpenMesh::Vec4i c;
     float tmp;
     BaseImporter::VHandles vhandles;
+    std::vector<Vec3f> face_texcoords3d;
+    std::vector<Vec2f> face_texcoords;
     VertexHandle vh;
 
     _bi.reserve(vertexCount_, 3* vertexCount_ , faceCount_);
@@ -304,7 +313,7 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
 
 	for (std::vector<ElementInfo>::iterator e_it = elements_.begin(); e_it != elements_.end(); ++e_it)
 	{
-	        if (_in.eof()) {
+	  if (_in.eof()) {
 			if (err_enabled)
 				omerr().enable();
 
@@ -460,6 +469,61 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
 							++complex_faces;
 						break;
 
+					case TEXCOORD:
+            // nV = number of texcoord for current face
+            _in >> nV;
+            
+            if (_opt.face_has_texcoord()) {
+
+              // need to know the number of vertex for this face
+              assert(!vhandles.empty());
+
+              if (nV == 2 * vhandles.size()) {
+
+                face_texcoords.clear();
+                face_texcoords.reserve(vhandles.size());
+
+                for (j = 0; j < vhandles.size(); j++) {
+                  _in >> t[0];
+                  _in >> t[1];
+
+                  face_texcoords.push_back(t);
+                }
+
+                _bi.add_face_texcoords(fh, vhandles[0], face_texcoords);
+
+              } else if (nV == 3 * vhandles.size()) {
+
+                face_texcoords3d.clear();
+                face_texcoords3d.reserve(vhandles.size());
+
+                for (j = 0; j < vhandles.size(); j++) {
+                  _in >> t3d[0];
+                  _in >> t3d[1];
+                  _in >> t3d[2];
+
+                  face_texcoords3d.push_back(t3d);
+                }
+
+                _bi.add_face_texcoords(fh, vhandles[0], face_texcoords3d);
+
+              } else {
+                for (j = 0; j < nV; j++) {
+                  _in >> trash;
+                }
+              }
+            } else {
+              for (j = 0; j < nV; j++) {
+                _in >> trash;
+              }
+            }
+						break;
+
+          case TEXNUMBER:
+            _in >> idx;
+            _bi.set_face_texindex(fh, idx);
+            break;
+
 					case COLORRED:
 					  if (prop.value == ValueTypeFLOAT32 || prop.value == ValueTypeFLOAT) {
 					    _in >> tmp;
@@ -504,7 +568,7 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
 						break;
 					}
 				}
-				if (_opt.face_has_color())
+        if (_opt.face_has_color())
 					_bi.set_color(fh, Vec4uc(c));
 			}
 		}
@@ -539,9 +603,11 @@ bool _PLYReader_::read_ascii(std::istream& _in, BaseImporter& _bi, const Options
 
 bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap*/, const Options& _opt) const {
 
-    OpenMesh::Vec3f        v, n;  // Vertex
+    OpenMesh::Vec3f        v, n, t3d;  // Vertex
     OpenMesh::Vec2f        t;  // TexCoords
     BaseImporter::VHandles vhandles;
+    std::vector<Vec3f>     face_texcoords3d;
+    std::vector<Vec2f>     face_texcoords;
     VertexHandle           vh;
     OpenMesh::Vec4i        c;  // Color
     float                  tmp;
@@ -707,6 +773,56 @@ bool _PLYReader_::read_binary(std::istream& _in, BaseImporter& _bi, bool /*_swap
 						if (!fh.is_valid())
 							++complex_faces;
 						break;
+          case TEXCOORD:
+            // nV = number of texcoord for current face
+            readInteger(prop.listIndexType, _in, nV);
+            
+            if (_opt.face_has_texcoord()) {
+
+              // need to know the number of vertex for this face
+              assert(!vhandles.empty());
+
+              if (nV == 2 * vhandles.size()) {
+
+                face_texcoords.clear();
+                face_texcoords.reserve(vhandles.size());
+
+                for (std::size_t j = 0; j < vhandles.size(); j++) {
+                  readValue(prop.value, _in, t[0]);
+                  readValue(prop.value, _in, t[1]);
+
+                  face_texcoords.push_back(t);
+                }
+
+                _bi.add_face_texcoords(fh, vhandles[0], face_texcoords);
+
+              } else if (nV == 3 * vhandles.size()) {
+
+                face_texcoords3d.clear();
+                face_texcoords3d.reserve(vhandles.size());
+
+                for (std::size_t j = 0; j < vhandles.size(); j++) {
+                  readValue(prop.value, _in, t3d[0]);
+                  readValue(prop.value, _in, t3d[1]);
+                  readValue(prop.value, _in, t3d[2]);
+
+                  face_texcoords3d.push_back(t3d);
+                }
+
+                _bi.add_face_texcoords(fh, vhandles[0], face_texcoords3d);
+
+              } else {
+                consume_input(_in, nV * scalar_size_[prop.value]);
+              }
+            } else {
+              consume_input(_in, nV * scalar_size_[prop.value]);
+            }
+            break;
+          case TEXNUMBER:
+            unsigned int idx;
+            readInteger(prop.value, _in, idx);
+            _bi.set_face_texindex(fh, idx);
+            break;
 					case COLORRED:
 						if (prop.value == ValueTypeFLOAT32 ||
 							prop.value == ValueTypeFLOAT) {
@@ -1170,6 +1286,9 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
     // clear element list
     elements_.clear();
 
+    // clear texture list
+    texture_files_.clear();
+
     // read 1st line
     std::string line;
     std::getline(_is, line);
@@ -1231,6 +1350,19 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
       if (keyword == "comment") {
         std::getline(_is, line);
+
+        // Meshlab puts texture filenames as comments
+        // We collect them into a vector and add them in the
+        // given order to our mesh to keep the indices.
+        if (line.rfind(" TextureFile ", 0) == 0) {
+          std::string filename = line.substr(13);
+
+          // This trim is required especially on windows as
+          // we can run into problems with line endings on
+          // files from different platforms.
+          trim(filename);
+          texture_files_.push_back(filename);
+        }
       } else if (keyword == "element") {
         _is >> elementName;
         _is >> elementCount;
@@ -1300,6 +1432,11 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
                 omerr() << "Custom face Properties defined, before 'vertex_indices' property was defined. They will be skipped" << std::endl;
                 elements_.back().properties_.clear();
               }
+            } else if (propertyName == "texcoord")
+            {
+              property.property = TEXCOORD;
+              options_ += Options::FaceTexCoord;
+
             } else {
               options_ += Options::Custom;
             }
@@ -1408,6 +1545,9 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
               options_ += Options::ColorAlpha;
               if (valueType == ValueTypeFLOAT || valueType == ValueTypeFLOAT32)
                 options_ += Options::ColorFloat;
+            } else if (propertyName == "texnumber") {
+              entry = PropertyInfo(TEXNUMBER, valueType);
+              options_ += Options::FaceTexCoord;
             }
           }
 
