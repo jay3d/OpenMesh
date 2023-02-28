@@ -176,4 +176,20 @@ CMake builds both shared and static under MacOS X.
 **/
 
 
+/** \page compiling_tests Compiling OpenMesh Unit Tests
+
+%OpenMesh comes with a set of unittests for all platforms. In order to run these
+tests, you need to enable the cmake flag <b>OPENMESH_BUILD_UNIT_TESTS</b>.
+You also need <a href="https://github.com/google/googletest">GoogleTest</a> on your
+machine. Configure the cmake variables in OpenMesh to point to your GTest include
+dirs and libraries (check the Advanced button in cmake, if you don't see these 
+options). Than run cmake and build OpenMesh. 
+
+Afterwards you should have a Unittests subdirectory in your binary build folder.
+This directory includes the unittest executables and several test files for input 
+and output checks. You can run the executables directly, but
+make sure, that the working directory is the directory where the executables are.
+ 
+ **/
+
 //-----------------------------------------------------------------------------
