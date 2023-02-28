@@ -1350,17 +1350,23 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
 
       if (keyword == "comment") {
         std::getline(_is, line);
-        
-        trim(line);
+
         // TextureFile
         if (line.rfind(" TextureFile ", 0) == 0) {
           std::cerr << "Comment: " << std::endl;
           std::cerr << "Line is : " << line << std::endl;
           std::cerr << "Size is : " << line.size() << std::endl;
-          if (line.size() < 13)
-              std::cerr << "Line is " << line.size() << std::endl;
-          std::cerr << "Substring: " << line.substr(13) << std::endl;
-          texture_files_.push_back(line.substr(13));
+
+          std::string filename = line.substr(13);
+
+          std::cerr << "Filename : " << filename << std::endl;
+          std::cerr << "Filename size : " << filename.size() << std::endl;
+
+          trim(filename);
+          std::cerr << "Trimmed : " << filename << std::endl;
+          std::cerr << "Trimmed size : " << filename.size() << std::endl;
+
+          texture_files_.push_back(filename);
         }
       } else if (keyword == "element") {
         _is >> elementName;
