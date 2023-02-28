@@ -80,6 +80,7 @@ repeatedly replacing each vertex' position by the center of gravity
 \li \ref mesh_type
 \li \ref tutorial_01
 \li \ref tutorial_build
+\li \ref tutorial_build_internal_apps
 \li \ref tutorial_02
 \li \ref tutorial_03
 \li \ref tutorial_04

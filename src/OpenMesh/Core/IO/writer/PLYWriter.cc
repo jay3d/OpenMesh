@@ -92,7 +92,7 @@ _PLYWriter_::_PLYWriter_()
 
 bool
 _PLYWriter_::
-write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(const std::string& _filename, BaseExporter& _be, const Options& _opt, std::streamsize _precision) const
 {
 
   // open file
@@ -106,23 +106,24 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 bool
 _PLYWriter_::
-write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
+
+  options_ = _writeOptions;
+
   // check exporter features
-  if ( !check( _be, _opt ) )
+  if ( !check( _be, options_ ) )
     return false;
 
-
   // check writer features
-  if ( _opt.check(Options::FaceNormal) ) {
+  if ( options_.check(Options::FaceNormal) ) {
     // Face normals are not supported
     // Uncheck these options and output message that
     // they are not written out even though they were requested
-    _opt.unset(Options::FaceNormal);
+    options_.unset(Options::FaceNormal);
     omerr() << "[PLYWriter] : Warning: Face normals are not supported and thus not exported! " << std::endl;
   }
 
-  options_ = _opt;
 
 
   if (!_os.good())
@@ -132,13 +133,13 @@ write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize _preci
     return false;
   }
 
-  if (!_opt.check(Options::Binary))
+  if (!options_.check(Options::Binary))
     _os.precision(_precision);
 
   // write to file
-  bool result = (_opt.check(Options::Binary) ?
-     write_binary(_os, _be, _opt) :
-     write_ascii(_os, _be, _opt));
+  bool result = (options_.check(Options::Binary) ?
+     write_binary(_os, _be, options_) :
+     write_ascii(_os, _be, options_));
 
   return result;
 }

@@ -105,23 +105,23 @@ public:
   /** Write to a file
    * @param _filename write to file with the given filename
    * @param _be BaseExporter, which specifies the data source
-   * @param _opt writing options
+   * @param _writeOptions writing options
    * @param _precision can be used to specify the precision of the floating point notation.
    */
   virtual bool write(const std::string& _filename,
-		     BaseExporter& _be,
-                     Options _opt,
+                     BaseExporter& _be,
+                     const Options& _writeOptions,
                      std::streamsize _precision = 6) const = 0;
 
   /** Write to a std::ostream
    * @param _os write to std::ostream
    * @param _be BaseExporter, which specifies the data source
-   * @param _opt writing options
+   * @param _writeOptions writing options
    * @param _precision can be used to specify the precision of the floating point notation.
    */
   virtual bool write(std::ostream& _os,
-		     BaseExporter& _be,
-                     Options _opt,
+                     BaseExporter& _be,
+                     const Options& _writeOptions,
                      std::streamsize _precision = 6) const = 0;
 
   /// Returns expected size of file if binary format is supported else 0.

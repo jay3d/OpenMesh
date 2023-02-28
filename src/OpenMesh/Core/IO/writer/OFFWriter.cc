@@ -78,12 +78,12 @@ _OFFWriter_::_OFFWriter_() { IOManager().register_module(this); }
 
 bool
 _OFFWriter_::
-write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(const std::string& _filename, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
-  std::ofstream out(_filename.c_str(), (_opt.check(Options::Binary) ? std::ios_base::binary | std::ios_base::out
-                                                           : std::ios_base::out) );
+  std::ofstream out(_filename.c_str(), (_writeOptions.check(Options::Binary) ? std::ios_base::binary | std::ios_base::out
+                                                                             : std::ios_base::out) );
 
-  return write(out, _be, _opt, _precision);
+  return write(out, _be, _writeOptions, _precision);
 }
 
 //-----------------------------------------------------------------------------
@@ -91,15 +91,15 @@ write(const std::string& _filename, BaseExporter& _be, Options _opt, std::stream
 
 bool
 _OFFWriter_::
-write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
   // check exporter features
-  if ( !check( _be, _opt ) )
+  if ( !check( _be, _writeOptions ) )
     return false;
 
 
   // check writer features
-  if ( _opt.check(Options::FaceNormal) ) // not supported by format
+  if ( _writeOptions.check(Options::FaceNormal) ) // not supported by format
     return false;
 
 
@@ -111,20 +111,20 @@ write(std::ostream& _os, BaseExporter& _be, Options _opt, std::streamsize _preci
   }
 
   // write header line
-  if (_opt.check(Options::VertexTexCoord)) _os << "ST";
-  if (_opt.check(Options::VertexColor) || _opt.check(Options::FaceColor))    _os << "C";
-  if (_opt.check(Options::VertexNormal))   _os << "N";
+  if (_writeOptions.check(Options::VertexTexCoord)) _os << "ST";
+  if (_writeOptions.check(Options::VertexColor) || _writeOptions.check(Options::FaceColor))    _os << "C";
+  if (_writeOptions.check(Options::VertexNormal))   _os << "N";
   _os << "OFF";
-  if (_opt.check(Options::Binary)) _os << " BINARY";
+  if (_writeOptions.check(Options::Binary)) _os << " BINARY";
   _os << "\n";
 
-  if (!_opt.check(Options::Binary))
+  if (!_writeOptions.check(Options::Binary))
     _os.precision(_precision);
 
   // write to file
-  bool result = (_opt.check(Options::Binary) ?
-		 write_binary(_os, _be, _opt) :
-		 write_ascii(_os, _be, _opt));
+  bool result = (_writeOptions.check(Options::Binary) ?
+         write_binary(_os, _be, _writeOptions) :
+         write_ascii(_os, _be, _writeOptions));
 
 
   // return result

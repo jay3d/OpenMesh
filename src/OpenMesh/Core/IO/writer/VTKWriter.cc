@@ -24,7 +24,7 @@ _VTKWriter_::_VTKWriter_() { IOManager().register_module(this); }
 
 //-----------------------------------------------------------------------------
 
-bool _VTKWriter_::write(const std::string& _filename, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+bool _VTKWriter_::write(const std::string& _filename, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
     std::ofstream out(_filename.c_str());
 
@@ -33,22 +33,22 @@ bool _VTKWriter_::write(const std::string& _filename, BaseExporter& _be, Options
         return false;
     }
 
-    return write(out, _be, _opt, _precision);
+    return write(out, _be, _writeOptions, _precision);
 }
 
 //-----------------------------------------------------------------------------
 
-bool _VTKWriter_::write(std::ostream& _out, BaseExporter& _be, Options _opt, std::streamsize _precision) const
+bool _VTKWriter_::write(std::ostream& _out, BaseExporter& _be, const Options& _writeOptions, std::streamsize _precision) const
 {
     VertexHandle vh;
 
     // check exporter features
-    if (!check(_be, _opt)) {
+    if (!check(_be, _writeOptions)) {
         return false;
     }
 
     // check writer features
-    if (!_opt.is_empty()) {
+    if (!_writeOptions.is_empty()) {
         omlog() << "[VTKWriter] : writer does not support any options\n";
         return false;
     }

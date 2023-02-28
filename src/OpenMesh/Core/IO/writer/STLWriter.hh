@@ -91,9 +91,9 @@ public:
   std::string get_description() const override { return "Stereolithography Format"; }
   std::string get_extensions()  const override { return "stl stla stlb"; }
 
-  bool write(const std::string&, BaseExporter&, Options, std::streamsize _precision = 6) const override;
+  bool write(const std::string&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
-  bool write(std::ostream&, BaseExporter&, Options, std::streamsize _precision = 6) const override;
+  bool write(std::ostream&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
   size_t binary_size(BaseExporter&, Options) const override;
 
