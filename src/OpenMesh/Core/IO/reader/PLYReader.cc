@@ -1351,21 +1351,16 @@ bool _PLYReader_::can_u_read(std::istream& _is) const {
       if (keyword == "comment") {
         std::getline(_is, line);
 
-        // TextureFile
+        // Meshlab puts texture filenames as comments
+        // We collect them into a vector and add them in the
+        // given order to our mesh to keep the indices.
         if (line.rfind(" TextureFile ", 0) == 0) {
-          std::cerr << "Comment: " << std::endl;
-          std::cerr << "Line is : " << line << std::endl;
-          std::cerr << "Size is : " << line.size() << std::endl;
-
           std::string filename = line.substr(13);
 
-          std::cerr << "Filename : " << filename << std::endl;
-          std::cerr << "Filename size : " << filename.size() << std::endl;
-
+          // This trim is required especially on windows as
+          // we can run into problems with line endings on
+          // files from different platforms.
           trim(filename);
-          std::cerr << "Trimmed : " << filename << std::endl;
-          std::cerr << "Trimmed size : " << filename.size() << std::endl;
-
           texture_files_.push_back(filename);
         }
       } else if (keyword == "element") {
