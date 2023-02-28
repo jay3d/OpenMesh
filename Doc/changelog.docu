@@ -32,6 +32,11 @@
 <li>Removed globbing for Core and Tools library include and source files</li>
 <li>Removed global includes from App builds</li>
 </ul>
+
+<b>Documentation</b>
+<ul>
+<li>Added some information on how to build and run the unittests.</li>
+</ul>
 </tr>
 
 

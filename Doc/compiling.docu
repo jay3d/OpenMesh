@@ -176,7 +176,7 @@ CMake builds both shared and static under MacOS X.
 **/
 
 
-/** \page compiling_tests Compiling OpenMesh Unit Tests
+/** \page compiling_tests Compiling OpenMesh unit tests
 
 %OpenMesh comes with a set of unittests for all platforms. In order to run these
 tests, you need to enable the cmake flag <b>OPENMESH_BUILD_UNIT_TESTS</b>.
