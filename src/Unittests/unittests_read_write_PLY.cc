@@ -464,6 +464,191 @@ TEST_F(OpenMeshReadWritePLY, WriteAndReadBinaryPLYWithFloatVertexColors) {
 }
 
 /*
+ * Just load a ply file of a cube with face texcoord and face texture index
+ */
+TEST_F(OpenMeshReadWritePLY, LoadPLYFromMeshLabWithFaceTexCoord) {
+
+    mesh_.clear();
+
+    mesh_.request_halfedge_texcoords2D();
+    mesh_.request_face_texture_index();
+
+    OpenMesh::IO::Options options;
+    options += OpenMesh::IO::Options::FaceTexCoord;
+
+    std::string file_name = "meshlab-faceTexCoords.ply";
+
+    bool ok = OpenMesh::IO::read_mesh(mesh_, file_name, options);
+
+    EXPECT_TRUE(ok) << "Unable to load meshlab-faceTexCoords.ply";
+
+    EXPECT_EQ(8u  , mesh_.n_vertices()) << "The number of loaded vertices is not correct!";
+    EXPECT_EQ(18u , mesh_.n_edges())    << "The number of loaded edges is not correct!";
+    EXPECT_EQ(12u , mesh_.n_faces())    << "The number of loaded faces is not correct!";
+
+    EXPECT_FALSE(options.vertex_has_normal()) << "Wrong user options are returned!";
+    EXPECT_FALSE(options.vertex_has_texcoord()) << "Wrong user options are returned!";
+    EXPECT_TRUE(options.face_has_texcoord()) << "Wrong user options are returned!";
+
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[0] ) << "Wrong texCoord at halfedge 0 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[1] ) << "Wrong texCoord at halfedge 0 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(1))[0] ) << "Wrong texCoord at halfedge 1 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(1))[1] ) << "Wrong texCoord at halfedge 1 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(2))[0] ) << "Wrong texCoord at halfedge 2 component 0";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(2))[1] ) << "Wrong texCoord at halfedge 2 component 1";
+    EXPECT_FLOAT_EQ(-0.2, mesh_.texcoord2D(mesh_.halfedge_handle(3))[0] ) << "Wrong texCoord at halfedge 3 component 0";
+    EXPECT_FLOAT_EQ(-0.2, mesh_.texcoord2D(mesh_.halfedge_handle(3))[1] ) << "Wrong texCoord at halfedge 3 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(4))[0] ) << "Wrong texCoord at halfedge 4 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(4))[1] ) << "Wrong texCoord at halfedge 4 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(5))[0] ) << "Wrong texCoord at halfedge 5 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(5))[1] ) << "Wrong texCoord at halfedge 5 component 1";
+    EXPECT_FLOAT_EQ(-0.1, mesh_.texcoord2D(mesh_.halfedge_handle(6))[0] ) << "Wrong texCoord at halfedge 6 component 0";
+    EXPECT_FLOAT_EQ(-0.1, mesh_.texcoord2D(mesh_.halfedge_handle(6))[1] ) << "Wrong texCoord at halfedge 6 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(7))[0] ) << "Wrong texCoord at halfedge 7 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(7))[1] ) << "Wrong texCoord at halfedge 7 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(8))[0] ) << "Wrong texCoord at halfedge 8 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(8))[1] ) << "Wrong texCoord at halfedge 8 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(9))[0] ) << "Wrong texCoord at halfedge 9 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(9))[1] ) << "Wrong texCoord at halfedge 9 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(10))[0] ) << "Wrong texCoord at halfedge 10 component 0";
+    EXPECT_FLOAT_EQ(0.3, mesh_.texcoord2D(mesh_.halfedge_handle(10))[1] ) << "Wrong texCoord at halfedge 10 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(11))[0] ) << "Wrong texCoord at halfedge 11 component 0";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(11))[1] ) << "Wrong texCoord at halfedge 11 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(12))[0] ) << "Wrong texCoord at halfedge 12 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(12))[1] ) << "Wrong texCoord at halfedge 12 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(13))[0] ) << "Wrong texCoord at halfedge 13 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(13))[1] ) << "Wrong texCoord at halfedge 13 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(14))[0] ) << "Wrong texCoord at halfedge 14 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(14))[1] ) << "Wrong texCoord at halfedge 14 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(15))[0] ) << "Wrong texCoord at halfedge 15 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(15))[1] ) << "Wrong texCoord at halfedge 15 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(16))[0] ) << "Wrong texCoord at halfedge 16 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(16))[1] ) << "Wrong texCoord at halfedge 16 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(17))[0] ) << "Wrong texCoord at halfedge 17 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(17))[1] ) << "Wrong texCoord at halfedge 17 component 1";
+
+    //check texture mapping for the mesh
+    OpenMesh::MPropHandleT< std::map< int, std::string > > property;
+    mesh_.get_property_handle(property, "TextureMapping");
+    EXPECT_EQ(mesh_.property(property).size(), 2u) << "Wrong texture number";
+    EXPECT_EQ(mesh_.property(property).count(0), 1u) << "Could not find texture with id 0";
+    EXPECT_TRUE((mesh_.property(property)[0] == std::string("tex_0.jpg"))) << "Wrong texture name";
+    EXPECT_EQ(mesh_.property(property).count(1), 1u) << "Could not find texture with id 1";
+    EXPECT_TRUE((mesh_.property(property)[1] == std::string("tex_1.jpg"))) << "Wrong texture name";
+
+    //check texture mapping per face
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(0)), 0) << "Face 0 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(1)), 0) << "Face 1 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(2)), 1) << "Face 2 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(3)), 1) << "Face 3 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(4)), 1) << "Face 4 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(5)), 1) << "Face 5 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(6)), 0) << "Face 6 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(7)), 0) << "Face 7 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(8)), 0) << "Face 8 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(9)), 0) << "Face 9 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(10)), 0) << "Face 10 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(11)), 0) << "Face 11 texture index is not set correctly";
+        
+    mesh_.release_halfedge_texcoords2D();
+    mesh_.release_face_texture_index();
+
+}
+
+/*
+ * Just load a binary ply file of a cube with face texcoord and face texture index
+ */
+TEST_F(OpenMeshReadWritePLY, LoadBinaryPLYFromMeshLabWithFaceTexCoord) {
+
+    mesh_.clear();
+
+    mesh_.request_halfedge_texcoords2D();
+    mesh_.request_face_texture_index();
+
+    OpenMesh::IO::Options options;
+    options += OpenMesh::IO::Options::FaceTexCoord;
+    options += OpenMesh::IO::Options::Binary;
+
+    std::string file_name = "meshlab-faceTexCoords-binary.ply";
+
+    bool ok = OpenMesh::IO::read_mesh(mesh_, file_name, options);
+
+    EXPECT_TRUE(ok) << "Unable to load meshlab-faceTexCoords-binary.ply";
+
+    EXPECT_EQ(8u  , mesh_.n_vertices()) << "The number of loaded vertices is not correct!";
+    EXPECT_EQ(18u , mesh_.n_edges())    << "The number of loaded edges is not correct!";
+    EXPECT_EQ(12u , mesh_.n_faces())    << "The number of loaded faces is not correct!";
+
+    EXPECT_FALSE(options.vertex_has_normal()) << "Wrong user options are returned!";
+    EXPECT_FALSE(options.vertex_has_texcoord()) << "Wrong user options are returned!";
+    EXPECT_TRUE(options.face_has_texcoord()) << "Wrong user options are returned!";
+
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[0] ) << "Wrong texCoord at halfedge 0 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(0))[1] ) << "Wrong texCoord at halfedge 0 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(1))[0] ) << "Wrong texCoord at halfedge 1 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(1))[1] ) << "Wrong texCoord at halfedge 1 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(2))[0] ) << "Wrong texCoord at halfedge 2 component 0";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(2))[1] ) << "Wrong texCoord at halfedge 2 component 1";
+    EXPECT_FLOAT_EQ(-0.2, mesh_.texcoord2D(mesh_.halfedge_handle(3))[0] ) << "Wrong texCoord at halfedge 3 component 0";
+    EXPECT_FLOAT_EQ(-0.2, mesh_.texcoord2D(mesh_.halfedge_handle(3))[1] ) << "Wrong texCoord at halfedge 3 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(4))[0] ) << "Wrong texCoord at halfedge 4 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(4))[1] ) << "Wrong texCoord at halfedge 4 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(5))[0] ) << "Wrong texCoord at halfedge 5 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(5))[1] ) << "Wrong texCoord at halfedge 5 component 1";
+    EXPECT_FLOAT_EQ(-0.1, mesh_.texcoord2D(mesh_.halfedge_handle(6))[0] ) << "Wrong texCoord at halfedge 6 component 0";
+    EXPECT_FLOAT_EQ(-0.1, mesh_.texcoord2D(mesh_.halfedge_handle(6))[1] ) << "Wrong texCoord at halfedge 6 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(7))[0] ) << "Wrong texCoord at halfedge 7 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(7))[1] ) << "Wrong texCoord at halfedge 7 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(8))[0] ) << "Wrong texCoord at halfedge 8 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(8))[1] ) << "Wrong texCoord at halfedge 8 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(9))[0] ) << "Wrong texCoord at halfedge 9 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(9))[1] ) << "Wrong texCoord at halfedge 9 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(10))[0] ) << "Wrong texCoord at halfedge 10 component 0";
+    EXPECT_FLOAT_EQ(0.3, mesh_.texcoord2D(mesh_.halfedge_handle(10))[1] ) << "Wrong texCoord at halfedge 10 component 1";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(11))[0] ) << "Wrong texCoord at halfedge 11 component 0";
+    EXPECT_FLOAT_EQ(0.2, mesh_.texcoord2D(mesh_.halfedge_handle(11))[1] ) << "Wrong texCoord at halfedge 11 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(12))[0] ) << "Wrong texCoord at halfedge 12 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(12))[1] ) << "Wrong texCoord at halfedge 12 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(13))[0] ) << "Wrong texCoord at halfedge 13 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(13))[1] ) << "Wrong texCoord at halfedge 13 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(14))[0] ) << "Wrong texCoord at halfedge 14 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(14))[1] ) << "Wrong texCoord at halfedge 14 component 1";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(15))[0] ) << "Wrong texCoord at halfedge 15 component 0";
+    EXPECT_FLOAT_EQ(0.1, mesh_.texcoord2D(mesh_.halfedge_handle(15))[1] ) << "Wrong texCoord at halfedge 15 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(16))[0] ) << "Wrong texCoord at halfedge 16 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(16))[1] ) << "Wrong texCoord at halfedge 16 component 1";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(17))[0] ) << "Wrong texCoord at halfedge 17 component 0";
+    EXPECT_FLOAT_EQ(0, mesh_.texcoord2D(mesh_.halfedge_handle(17))[1] ) << "Wrong texCoord at halfedge 17 component 1";
+
+    //check texture mapping for the mesh
+    OpenMesh::MPropHandleT< std::map< int, std::string > > property;
+    mesh_.get_property_handle(property, "TextureMapping");
+    EXPECT_EQ(mesh_.property(property).size(), 2u) << "Wrong texture number";
+    EXPECT_EQ(mesh_.property(property).count(0), 1u) << "Could not find texture with id 0";
+    EXPECT_TRUE((mesh_.property(property)[0] == std::string("tex_0.jpg"))) << "Wrong texture name";
+    EXPECT_EQ(mesh_.property(property).count(1), 1u) << "Could not find texture with id 1";
+    EXPECT_TRUE((mesh_.property(property)[1] == std::string("tex_1.jpg"))) << "Wrong texture name";
+
+    //check texture mapping per face
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(0)), 0) << "Face 0 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(1)), 0) << "Face 1 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(2)), 1) << "Face 2 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(3)), 1) << "Face 3 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(4)), 1) << "Face 4 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(5)), 1) << "Face 5 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(6)), 0) << "Face 6 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(7)), 0) << "Face 7 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(8)), 0) << "Face 8 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(9)), 0) << "Face 9 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(10)), 0) << "Face 10 texture index is not set correctly";
+    EXPECT_EQ(mesh_.property(mesh_.face_texture_index_pph(), mesh_.face_handle(11)), 0) << "Face 11 texture index is not set correctly";
+        
+    mesh_.release_halfedge_texcoords2D();
+    mesh_.release_face_texture_index();
+
+}
+
+/*
  * Just load a ply file of a cube with vertex texCoords
  */
 TEST_F(OpenMeshReadWritePLY, LoadSimplePLYWithTexCoords) {

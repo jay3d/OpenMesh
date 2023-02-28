@@ -443,8 +443,9 @@ public:
       mesh_.add_property(property,"TextureMapping");
     }
 
-    if ( mesh_.property(property).find( _id ) == mesh_.property(property).end() )
+    if ( mesh_.property(property).find( _id ) == mesh_.property(property).end() ) {
       mesh_.property(property)[_id] = _name;
+    }
   }
 
   // low-level access to mesh
