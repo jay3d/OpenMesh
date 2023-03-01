@@ -1,7 +1,7 @@
 /* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *           Copyright (c) 2001-2022, RWTH-Aachen University                 *
+ *           Copyright (c) 2001-2023, RWTH-Aachen University                 *
  *           Department of Computer Graphics and Multimedia                  *
  *                          All rights reserved.                             *
  *                            www.openmesh.org                               *
@@ -47,7 +47,7 @@
 //  Implements a writer module for STL ascii files
 //
 //=============================================================================
-// $Id: STLWriter.hh,v 1.2 2007-05-18 15:17:43 habbecke Exp $
+
 
 #ifndef __STLWRITER_HH__
 #define __STLWRITER_HH__
