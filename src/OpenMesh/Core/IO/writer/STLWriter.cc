@@ -409,7 +409,7 @@ write_stlb(std::ostream& _out, BaseExporter& _be, Options /* _opt */, std::strea
 
 size_t
 _STLWriter_::
-binary_size(BaseExporter& _be, Options /* _opt */) const
+binary_size(BaseExporter& _be, const Options& /* _opt */) const
 {
   size_t bytes(0);
   size_t _12floats(12*sizeof(float));

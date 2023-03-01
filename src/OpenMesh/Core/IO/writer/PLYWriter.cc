@@ -708,7 +708,7 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
 
 size_t
 _PLYWriter_::
-binary_size(BaseExporter& _be, Options _opt) const
+binary_size(BaseExporter& _be, const Options& _writeOptions) const
 {
   size_t header(0);
   size_t data(0);
@@ -716,7 +716,7 @@ binary_size(BaseExporter& _be, Options _opt) const
   size_t _3ui(3*sizeof(unsigned int));
   size_t _4ui(4*sizeof(unsigned int));
 
-  if ( !_opt.is_binary() )
+  if ( !_writeOptions.is_binary() )
     return 0;
   else
   {
@@ -728,19 +728,19 @@ binary_size(BaseExporter& _be, Options _opt) const
     data   += _be.n_vertices() * _3floats;    // vertex data
   }
 
-  if ( _opt.vertex_has_normal() && _be.has_vertex_normals() )
+  if ( _writeOptions.vertex_has_normal() && _be.has_vertex_normals() )
   {
     header += 1; // N
     data   += _be.n_vertices() * _3floats;
   }
 
-  if ( _opt.vertex_has_color() && _be.has_vertex_colors() )
+  if ( _writeOptions.vertex_has_color() && _be.has_vertex_colors() )
   {
     header += 1; // C
     data   += _be.n_vertices() * _3floats;
   }
 
-  if ( _opt.vertex_has_texcoord() && _be.has_vertex_texcoords() )
+  if ( _writeOptions.vertex_has_texcoord() && _be.has_vertex_texcoords() )
   {
     size_t _2floats(2*sizeof(float));
     header += 2; // ST
@@ -765,8 +765,8 @@ binary_size(BaseExporter& _be, Options _opt) const
   }
 
   // face colors
-  if ( _opt.face_has_color() && _be.has_face_colors() ){
-    if ( _opt.color_has_alpha() )
+  if ( _writeOptions.face_has_color() && _be.has_face_colors() ){
+    if ( _writeOptions.color_has_alpha() )
       data += _be.n_faces() * _4ui;
     else
       data += _be.n_faces() * _3ui;

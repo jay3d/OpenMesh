@@ -102,7 +102,7 @@ public:
 
   bool write(std::ostream&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
-  size_t binary_size(BaseExporter& _be, Options _opt) const override;
+  size_t binary_size(BaseExporter& _be, const Options& _opt) const override;
 
   enum ValueType {
     Unsupported = 0,
