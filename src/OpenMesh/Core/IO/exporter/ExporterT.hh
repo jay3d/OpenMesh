@@ -64,6 +64,7 @@
 #include <OpenMesh/Core/Utils/GenProg.hh>
 #include <OpenMesh/Core/Utils/vector_cast.hh>
 #include <OpenMesh/Core/Utils/color_cast.hh>
+#include <OpenMesh/Core/Utils/Predicates.hh>
 #include <OpenMesh/Core/IO/exporter/BaseExporter.hh>
 #include <OpenMesh/Core/IO/OMFormat.hh>
 
@@ -300,10 +301,9 @@ public:
   {
     unsigned int count(0);
     _hehandles.clear();
-    for(typename Mesh::CHIter he_it=mesh_.halfedges_begin();
-        he_it != mesh_.halfedges_end(); ++he_it)
+    for(auto heh: mesh_.halfedges().filtered(!OpenMesh::Predicates::Boundary()))
     {
-      _hehandles.push_back(vector_cast<Vec2f>(mesh_.texcoord2D( *he_it)));
+      _hehandles.push_back(vector_cast<Vec2f>(mesh_.texcoord2D(heh)));
       ++count;
     }
 
