@@ -10,7 +10,8 @@
 
 <b>Breaking Changes</b>
 <ul>
-<li>OM Reader/Writer: Only rad and write custom properties if the Custom option is set (The default option contains this flag).</li>
+<li>OM Reader/Writer: Only read and write custom properties if the Custom option is set (The default option contains this flag).</li>
+<li>Fix OBJ Writer: do not store halfedge texture coordinates of boundary halfedges</li>
 </ul>
 
 <b>Tools</b>
