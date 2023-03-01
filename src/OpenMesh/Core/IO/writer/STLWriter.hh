@@ -95,7 +95,7 @@ public:
 
   bool write(std::ostream&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
-  size_t binary_size(BaseExporter&, Options) const override;
+  size_t binary_size(BaseExporter&, const Options&) const override;
 
 private:
   bool write_stla(const std::string&, BaseExporter&, Options) const;

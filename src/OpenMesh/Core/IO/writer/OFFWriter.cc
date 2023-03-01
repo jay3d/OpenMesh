@@ -136,7 +136,7 @@ write(std::ostream& _os, BaseExporter& _be, const Options& _writeOptions, std::s
 
 bool
 _OFFWriter_::
-write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
+write_ascii(std::ostream& _out, BaseExporter& _be, const Options& _writeOptions) const
 {
 
   unsigned int i, nV, nF;
@@ -155,7 +155,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
   _out << _be.n_faces() << " ";
   _out << 0 << "\n";
 
-  if (_opt.color_is_float())
+  if (_writeOptions.color_is_float())
     _out << std::fixed;
 
 
@@ -169,16 +169,16 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
     _out << v[0] << " " << v[1] << " " << v[2];
 
     // VertexNormal
-    if ( _opt.vertex_has_normal() ) {
+    if ( _writeOptions.vertex_has_normal() ) {
       n  = _be.normal(vh);
       _out << " " << n[0] << " " << n[1] << " " << n[2];
     }
 
     // VertexColor
-    if ( _opt.vertex_has_color() ) {
-      if ( _opt.color_is_float() ) {
+    if ( _writeOptions.vertex_has_color() ) {
+      if ( _writeOptions.color_is_float() ) {
         //with alpha
-        if ( _opt.color_has_alpha() ){
+        if ( _writeOptions.color_has_alpha() ){
           cAf  = _be.colorAf(vh);
           _out << " " << cAf;
         }else{
@@ -188,7 +188,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
         }
       } else {
         //with alpha
-        if ( _opt.color_has_alpha() ){
+        if ( _writeOptions.color_has_alpha() ){
           cA  = _be.colorA(vh);
           _out << " " << cA;
         }else{
@@ -200,7 +200,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
     }
 
     // TexCoord
-    if (_opt.vertex_has_texcoord() ) {
+    if (_writeOptions.vertex_has_texcoord() ) {
       t  = _be.texcoord(vh);
       _out << " " << t[0] << " " << t[1];
     }
@@ -221,10 +221,10 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
       _out << vhandles[2].idx();
 
       //face color
-      if ( _opt.face_has_color() ){
-        if ( _opt.color_is_float() ) {
+      if ( _writeOptions.face_has_color() ){
+        if ( _writeOptions.color_is_float() ) {
           //with alpha
-          if ( _opt.color_has_alpha() ){
+          if ( _writeOptions.color_has_alpha() ){
             cAf  = _be.colorAf( FaceHandle(i) );
             _out << " " << cAf;
           }else{
@@ -234,7 +234,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
           }
         } else {
           //with alpha
-          if ( _opt.color_has_alpha() ){
+          if ( _writeOptions.color_has_alpha() ){
             cA  = _be.colorA( FaceHandle(i) );
             _out << " " << cA;
           }else{
@@ -257,10 +257,10 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
 	       _out << vhandles[j].idx() << " ";
 
       //face color
-      if ( _opt.face_has_color() ){
-        if ( _opt.color_is_float() ) {
+      if ( _writeOptions.face_has_color() ){
+        if ( _writeOptions.color_is_float() ) {
           //with alpha
-          if ( _opt.color_has_alpha() ){
+          if ( _writeOptions.color_has_alpha() ){
             cAf  = _be.colorAf( FaceHandle(i) );
             _out << " " << cAf;
           }else{
@@ -270,7 +270,7 @@ write_ascii(std::ostream& _out, BaseExporter& _be, Options _opt) const
           }
         } else {
           //with alpha
-          if ( _opt.color_has_alpha() ){
+          if ( _writeOptions.color_has_alpha() ){
             cA  = _be.colorA( FaceHandle(i) );
             _out << " " << cA;
           }else{
@@ -312,7 +312,7 @@ void _OFFWriter_::writeValue(std::ostream& _out, float value) const {
 
 bool
 _OFFWriter_::
-write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
+write_binary(std::ostream& _out, BaseExporter& _be, const Options& _writeOptions) const
 {
 
   unsigned int i, nV, nF;
@@ -340,21 +340,21 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
     writeValue(_out, v[2]);
 
     // vertex normal
-    if ( _opt.vertex_has_normal() ) {
+    if ( _writeOptions.vertex_has_normal() ) {
       n  = _be.normal(vh);
       writeValue(_out, n[0]);
       writeValue(_out, n[1]);
       writeValue(_out, n[2]);
     }
     // vertex color
-    if ( _opt.vertex_has_color() ) {
-      if ( _opt.color_is_float() ) {
+    if ( _writeOptions.vertex_has_color() ) {
+      if ( _writeOptions.color_is_float() ) {
         cf  = _be.colorAf(vh);
         writeValue(_out, cf[0]);
         writeValue(_out, cf[1]);
         writeValue(_out, cf[2]);
 
-        if ( _opt.color_has_alpha() )
+        if ( _writeOptions.color_has_alpha() )
           writeValue(_out, cf[3]);
       } else {
         c  = _be.colorA(vh);
@@ -362,12 +362,12 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
         writeValue(_out, c[1]);
         writeValue(_out, c[2]);
 
-        if ( _opt.color_has_alpha() )
+        if ( _writeOptions.color_has_alpha() )
           writeValue(_out, c[3]);
       }
     }
     // texCoords
-    if (_opt.vertex_has_texcoord() ) {
+    if (_writeOptions.vertex_has_texcoord() ) {
       t  = _be.texcoord(vh);
       writeValue(_out, t[0]);
       writeValue(_out, t[1]);
@@ -388,14 +388,14 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
       writeValue(_out, vhandles[2].idx());
 
       //face color
-      if ( _opt.face_has_color() ){
-        if ( _opt.color_is_float() ) {
+      if ( _writeOptions.face_has_color() ){
+        if ( _writeOptions.color_is_float() ) {
           cf  = _be.colorAf( FaceHandle(i) );
           writeValue(_out, cf[0]);
           writeValue(_out, cf[1]);
           writeValue(_out, cf[2]);
 
-          if ( _opt.color_has_alpha() )
+          if ( _writeOptions.color_has_alpha() )
             writeValue(_out, cf[3]);
         } else {
           c  = _be.colorA( FaceHandle(i) );
@@ -403,7 +403,7 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
           writeValue(_out, c[1]);
           writeValue(_out, c[2]);
 
-          if ( _opt.color_has_alpha() )
+          if ( _writeOptions.color_has_alpha() )
             writeValue(_out, c[3]);
         }
       }
@@ -420,14 +420,14 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
         writeValue(_out, vhandles[j].idx() );
 
       //face color
-      if ( _opt.face_has_color() ){
-        if ( _opt.color_is_float() ) {
+      if ( _writeOptions.face_has_color() ){
+        if ( _writeOptions.color_is_float() ) {
           cf  = _be.colorAf( FaceHandle(i) );
           writeValue(_out, cf[0]);
           writeValue(_out, cf[1]);
           writeValue(_out, cf[2]);
 
-          if ( _opt.color_has_alpha() )
+          if ( _writeOptions.color_has_alpha() )
             writeValue(_out, cf[3]);
         } else {
           c  = _be.colorA( FaceHandle(i) );
@@ -435,7 +435,7 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
           writeValue(_out, c[1]);
           writeValue(_out, c[2]);
 
-          if ( _opt.color_has_alpha() )
+          if ( _writeOptions.color_has_alpha() )
             writeValue(_out, c[3]);
         }
       }
@@ -450,7 +450,7 @@ write_binary(std::ostream& _out, BaseExporter& _be, Options _opt) const
 
 size_t
 _OFFWriter_::
-binary_size(BaseExporter& _be, Options _opt) const
+binary_size(BaseExporter& _be, const Options& _writeOptions) const
 {
   size_t header(0);
   size_t data(0);
@@ -459,7 +459,7 @@ binary_size(BaseExporter& _be, Options _opt) const
   size_t _3ui(3*sizeof(unsigned int));
   size_t _4ui(4*sizeof(unsigned int));
 
-  if ( !_opt.is_binary() )
+  if ( !_writeOptions.is_binary() )
     return 0;
   else
   {
@@ -470,19 +470,19 @@ binary_size(BaseExporter& _be, Options _opt) const
     data   += _be.n_vertices() * _3floats;    // vertex data
   }
 
-  if ( _opt.vertex_has_normal() && _be.has_vertex_normals() )
+  if ( _writeOptions.vertex_has_normal() && _be.has_vertex_normals() )
   {
     header += 1; // N
     data   += _be.n_vertices() * _3floats;
   }
 
-  if ( _opt.vertex_has_color() && _be.has_vertex_colors() )
+  if ( _writeOptions.vertex_has_color() && _be.has_vertex_colors() )
   {
     header += 1; // C
     data   += _be.n_vertices() * _3floats;
   }
 
-  if ( _opt.vertex_has_texcoord() && _be.has_vertex_texcoords() )
+  if ( _writeOptions.vertex_has_texcoord() && _be.has_vertex_texcoords() )
   {
     size_t _2floats(2*sizeof(float));
     header += 2; // ST
@@ -505,8 +505,8 @@ binary_size(BaseExporter& _be, Options _opt) const
   }
 
   // face colors
-  if ( _opt.face_has_color() && _be.has_face_colors() ){
-    if ( _opt.color_has_alpha() )
+  if ( _writeOptions.face_has_color() && _be.has_face_colors() ){
+    if ( _writeOptions.color_has_alpha() )
       data += _be.n_faces() * _4ui;
     else
       data += _be.n_faces() * _3ui;

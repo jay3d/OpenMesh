@@ -35,7 +35,7 @@ public:
     bool write(const std::string&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
     bool write(std::ostream&, BaseExporter&, const Options& _writeOptions, std::streamsize _precision = 6) const override;
 
-    size_t binary_size(BaseExporter&, Options) const override { return 0; }
+    size_t binary_size(BaseExporter&, const Options&) const override { return 0; }
 };
 
 //== TYPE DEFINITION ==========================================================

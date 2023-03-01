@@ -175,7 +175,7 @@ template <typename T> struct Enabler
 
 
 bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
-                               Options _opt) const
+                               const Options& _writeOptions) const
 {
   #ifndef DOXY_IGNORE_THIS
     Enabler<mostream> enabler(omlog());
@@ -184,7 +184,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   size_t bytes = 0;
 
   const bool swap =
-      _opt.check(Options::Swap) || (Endian::local() == Endian::MSB);
+      _writeOptions.check(Options::Swap) || (Endian::local() == Endian::MSB);
 
   unsigned int i, nV, nF;
   Vec3f v;
@@ -245,7 +245,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
 
   // ---------- write vertex normal
-  if (_be.n_vertices() && _opt.check( Options::VertexNormal ))
+  if (_be.n_vertices() && _writeOptions.check( Options::VertexNormal ))
   {
     Vec3f n = _be.normal(VertexHandle(0));
     Vec3d nd = _be.normald(VertexHandle(0));
@@ -279,7 +279,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write vertex color
-  if (_be.n_vertices() && _opt.check( Options::VertexColor ) && _be.has_vertex_colors() )
+  if (_be.n_vertices() && _writeOptions.check( Options::VertexColor ) && _be.has_vertex_colors() )
   {
     Vec3uc c = _be.color(VertexHandle(0));
 
@@ -297,7 +297,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write vertex texture coords
-  if (_be.n_vertices() && _opt.check(Options::VertexTexCoord)) {
+  if (_be.n_vertices() && _writeOptions.check(Options::VertexTexCoord)) {
 
     t = _be.texcoord(VertexHandle(0));
 
@@ -344,7 +344,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
 
   // ---------- write face texture coords
-  if (_OMWriter_::version_ > OMFormat::mk_version(2,1) && _be.n_edges() && _opt.check(Options::FaceTexCoord))
+  if (_OMWriter_::version_ > OMFormat::mk_version(2,1) && _be.n_edges() && _writeOptions.check(Options::FaceTexCoord))
   {
 
     t = _be.texcoord(HalfedgeHandle(0));
@@ -407,7 +407,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
   // ---------- write face normals
 
-  if (_be.n_faces() && _be.has_face_normals() && _opt.check(Options::FaceNormal) )
+  if (_be.n_faces() && _be.has_face_normals() && _writeOptions.check(Options::FaceNormal) )
   {
 #define NEW_STYLE 0
 #if NEW_STYLE
@@ -459,7 +459,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
   // ---------- write face color
 
-  if (_be.n_faces() && _be.has_face_colors() && _opt.check( Options::FaceColor ))
+  if (_be.n_faces() && _be.has_face_colors() && _writeOptions.check( Options::FaceColor ))
   {
 #define NEW_STYLE 0
 #if NEW_STYLE
@@ -491,7 +491,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write vertex status
-  if (_be.n_vertices() && _be.has_vertex_status() && _opt.check(Options::Status))
+  if (_be.n_vertices() && _be.has_vertex_status() && _writeOptions.check(Options::Status))
   {
     auto s = _be.status(VertexHandle(0));
     chunk_header.name_ = false;
@@ -510,7 +510,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write edge status
-  if (_be.n_edges() && _be.has_edge_status() && _opt.check(Options::Status))
+  if (_be.n_edges() && _be.has_edge_status() && _writeOptions.check(Options::Status))
   {
     auto s = _be.status(EdgeHandle(0));
     chunk_header.name_ = false;
@@ -529,7 +529,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write halfedge status
-  if (_be.n_edges() && _be.has_halfedge_status() && _opt.check(Options::Status))
+  if (_be.n_edges() && _be.has_halfedge_status() && _writeOptions.check(Options::Status))
   {
     auto s = _be.status(HalfedgeHandle(0));
     chunk_header.name_ = false;
@@ -548,7 +548,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
   }
 
   // ---------- write face status
-  if (_be.n_faces() && _be.has_face_status() && _opt.check(Options::Status))
+  if (_be.n_faces() && _be.has_face_status() && _writeOptions.check(Options::Status))
   {
     auto s = _be.status(FaceHandle(0));
     chunk_header.name_ = false;
@@ -568,7 +568,7 @@ bool _OMWriter_::write_binary(std::ostream& _os, BaseExporter& _be,
 
   // -------------------- write custom properties
 
-  if (_opt.check(Options::Custom))
+  if (_writeOptions.check(Options::Custom))
   {
     const auto store_property = [this, &_os, swap, &bytes](
       const BaseKernel::const_prop_iterator _it_begin,
@@ -672,7 +672,7 @@ size_t _OMWriter_::store_binary_custom_chunk(std::ostream& _os,
 
 // ----------------------------------------------------------------------------
 
-size_t _OMWriter_::binary_size(BaseExporter& /* _be */, Options /* _opt */) const
+size_t _OMWriter_::binary_size(BaseExporter& /* _be */, const Options& /* _opt */) const
 {
   // std::clog << "[OMWriter]: binary_size()" << std::endl;
   size_t bytes  = sizeof( OMFormat::Header );
