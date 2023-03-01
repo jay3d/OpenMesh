@@ -1,7 +1,7 @@
 /* ========================================================================= *
  *                                                                           *
  *                               OpenMesh                                    *
- *           Copyright (c) 2001-2019, RWTH-Aachen University                 *
+ *           Copyright (c) 2001-2023, RWTH-Aachen University                 *
  *           Department of Computer Graphics and Multimedia                  *
  *                          All rights reserved.                             *
  *                            www.openmesh.org                               *
