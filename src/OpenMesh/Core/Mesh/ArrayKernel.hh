@@ -298,7 +298,9 @@ public:
    *
    * \note Garbage collection invalidates all handles. If you need to keep track of
    *       a set of handles, you can pass them to this function. The handles that the
-   *       given pointers point to are updated in place.
+   *       given pointers point to are updated in place. Warning: You cannot update 
+   *       handles stored in a mesh property, as the memory might be moved
+   *       during garbage collection! 
    *       See also \ref deletedElements.
    *
    * @param vh_to_update Pointers to vertex handles that should get updated
