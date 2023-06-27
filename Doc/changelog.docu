@@ -14,6 +14,11 @@
 <li>Fix OBJ Writer: do not store halfedge texture coordinates of boundary halfedges</li>
 </ul>
 
+<b>Core</b>
+<ul>
+<li>Fixed several warnings</li>
+</ul>
+
 <b>Tools</b>
 <ul>
 <li>Decimater: Fixed incompatibility with Eigen vector type</li>
