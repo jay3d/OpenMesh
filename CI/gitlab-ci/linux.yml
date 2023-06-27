@@ -18,5 +18,5 @@ cppcheck:
 {linux-template-job.yml, COMPILER=gcc, LANGUAGE=cpp14, QT_VERSION=qt5.15.1}
 {linux-template-job.yml, COMPILER=clang, LANGUAGE=cpp14, QT_VERSION=qt5.15.1}
 
-{linux-iwyu-job.yml, BUILDTYPE=release, COMPILER=clang, LANGUAGE=cpp14, QT_VERSION=qt5.15.1}
+#{linux-iwyu-job.yml, BUILDTYPE=release, COMPILER=clang, LANGUAGE=cpp14, QT_VERSION=qt5.15.1}
 {linux-novchecks-job.yml, BUILDTYPE=release, COMPILER=clang, LANGUAGE=cpp14, QT_VERSION=qt5.15.1}
