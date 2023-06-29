@@ -100,11 +100,12 @@ PolyMesh_ArrayKernelT<MeshTraits>* MeshDual (PolyMesh_ArrayKernelT<MeshTraits> &
   {
       typename PolyMesh_ArrayKernelT<MeshTraits>::Point centerPoint(0,0,0);
       typename PolyMesh_ArrayKernelT<MeshTraits>::Scalar degree= 0.0;
-      for(typename PolyMesh_ArrayKernelT<MeshTraits>::ConstFaceVertexIter vit=primal.cfv_iter(*fit); vit.is_valid(); ++vit, ++degree)
+      for(typename PolyMesh_ArrayKernelT<MeshTraits>::ConstFaceVertexIter vit=primal.cfv_iter(*fit); vit.is_valid(); ++vit, ++degree) {
         centerPoint += primal.point(*vit);
-        assert(degree!=0);
-        centerPoint /= degree;
-        primal.property(primalToDual, *fit) = dual->add_vertex(centerPoint);
+      }
+      assert(degree!=0);
+      centerPoint /= degree;
+      primal.property(primalToDual, *fit) = dual->add_vertex(centerPoint);
   }
 
   //for each vertex in the primal, add a face in the dual
