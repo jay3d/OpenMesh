@@ -106,7 +106,7 @@ if ( OPENMESH_BUILD_UNIT_TESTS )
     set_target_properties ( unittests_doublevec PROPERTIES  BUILD_WITH_INSTALL_RPATH 0 )
 
    # Set output directory to ${BINARY_DIR}/Unittests
-    set (OUTPUT_DIR "${CMAKE_BINARY_DIR}/Unittests")
+    set (OUTPUT_DIR "${PROJECT_BINARY_DIR}/Unittests")
       set_target_properties(unittests PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
       set_target_properties(unittests_customvec PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
       set_target_properties(unittests_doublevec PROPERTIES RUNTIME_OUTPUT_DIRECTORY ${OUTPUT_DIR})
@@ -160,28 +160,28 @@ if ( OPENMESH_BUILD_UNIT_TESTS )
          add_custom_command(TARGET unittests POST_BUILD 
                             COMMAND "${CMAKE_COMMAND}" -E copy 
                             "$<TARGET_FILE:${TAR}>"
-                            "${CMAKE_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>" 
+                            "${PROJECT_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>"
                             COMMENT "Copying OpenMesh targets to unittests directory")
          add_custom_command(TARGET unittests_customvec POST_BUILD
                             COMMAND "${CMAKE_COMMAND}" -E copy
                             "$<TARGET_FILE:${TAR}>"
-                            "${CMAKE_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>"
+                            "${PROJECT_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>"
                             COMMENT "Copying OpenMesh targets to unittests directory")
          add_custom_command(TARGET unittests_doublevec POST_BUILD
                             COMMAND "${CMAKE_COMMAND}" -E copy
                             "$<TARGET_FILE:${TAR}>"
-                            "${CMAKE_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>"
+                            "${PROJECT_BINARY_DIR}/Unittests/$<TARGET_FILE_NAME:${TAR}>"
                             COMMENT "Copying OpenMesh targets to unittests directory")
        endforeach(TAR)
      endif()
 	
-    vci_copy_after_build(unittests ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${CMAKE_BINARY_DIR}/Unittests/)
-    vci_copy_after_build(unittests_customvec ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${CMAKE_BINARY_DIR}/Unittests/)
-    vci_copy_after_build(unittests_doublevec ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${CMAKE_BINARY_DIR}/Unittests/)
+    vci_copy_after_build(unittests ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${PROJECT_BINARY_DIR}/Unittests/)
+    vci_copy_after_build(unittests_customvec ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${PROJECT_BINARY_DIR}/Unittests/)
+    vci_copy_after_build(unittests_doublevec ${CMAKE_CURRENT_SOURCE_DIR}/TestFiles ${PROJECT_BINARY_DIR}/Unittests/)
 
-    add_test(NAME AllTestsIn_OpenMesh_tests WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Unittests" COMMAND "${CMAKE_BINARY_DIR}/Unittests/unittests")
-    add_test(NAME AllTestsIn_OpenMesh_tests_with_minimal_vector WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Unittests" COMMAND "${CMAKE_BINARY_DIR}/Unittests/unittests_customvec")
-    add_test(NAME AllTestsIn_OpenMesh_tests_with_double_vector WORKING_DIRECTORY "${CMAKE_BINARY_DIR}/Unittests" COMMAND "${CMAKE_BINARY_DIR}/Unittests/unittests_doublevec")
+    add_test(NAME AllTestsIn_OpenMesh_tests WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/Unittests" COMMAND "${PROJECT_BINARY_DIR}/Unittests/unittests")
+    add_test(NAME AllTestsIn_OpenMesh_tests_with_minimal_vector WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/Unittests" COMMAND "${PROJECT_BINARY_DIR}/Unittests/unittests_customvec")
+    add_test(NAME AllTestsIn_OpenMesh_tests_with_double_vector WORKING_DIRECTORY "${PROJECT_BINARY_DIR}/Unittests" COMMAND "${PROJECT_BINARY_DIR}/Unittests/unittests_doublevec")
 
   else(GTEST_FOUND)
       message(STATUS "Google testing framework was not found, unittests disabled.")

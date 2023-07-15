@@ -46,7 +46,7 @@ include (BundleUtilities)
 #  message("Fixing up bundle ...")
 #
 #  # copy qt plugins to bundle
-#  file (GLOB _plugins "@CMAKE_BINARY_DIR@/Build/OpenFlipper.app/Contents/Resources/Plugins/*.so")
+#  file (GLOB _plugins "@PROJECT_BINARY_DIR@/Build/OpenFlipper.app/Contents/Resources/Plugins/*.so")
 #  file (GLOB_RECURSE _qtplugins "@QT_PLUGINS_DIR@/*.bundle")
 #  foreach (_qtp ${_qtplugins})
 #    get_filename_component(_dir "${_qtp}" PATH)
@@ -54,10 +54,9 @@ include (BundleUtilities)
 #  endforeach ()
 
 #  # fix all dependencies
-#  fixup_bundle (@CMAKE_BINARY_DIR@/Build/bin/QtViewer "${_qtplugins}" "/usr/lib;${_qtdirs};${_GlutDir}")
+#  fixup_bundle (@PROJECT_BINARY_DIR@/Build/bin/QtViewer "${_qtplugins}" "/usr/lib;${_qtdirs};${_GlutDir}")
 #
 #endif()
 
 # create qt plugin configuration file
-# file(WRITE "@CMAKE_BINARY_DIR@/Build/OpenMesh.app/Contents/Resources/qt.conf" "[Paths]\nPlugins = Resources/QtPlugins")
-
+# file(WRITE "@PROJECT_BINARY_DIR@/Build/OpenMesh.app/Contents/Resources/qt.conf" "[Paths]\nPlugins = Resources/QtPlugins")

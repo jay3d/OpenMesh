@@ -18,9 +18,4 @@ endfunction(gp_item_default_embedded_path_override)
 include (BundleUtilities)
 
 # fix all dependencies
-fixup_bundle ("@CMAKE_BINARY_DIR@/Build/Smoothing.exe" ""  "@QT_BINARY_DIR@")
-
-
-
-
-
+fixup_bundle ("@PROJECT_BINARY_DIR@/Build/Smoothing.exe" ""  "@QT_BINARY_DIR@")

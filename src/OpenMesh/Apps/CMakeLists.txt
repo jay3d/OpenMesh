@@ -70,12 +70,12 @@ if ( BUILD_APPS )
       endif()
     
       if ( WIN32 )
-	    FILE(GLOB files_install_app_dlls "${CMAKE_BINARY_DIR}/Build/*.dll" )
+	    FILE(GLOB files_install_app_dlls "${PROJECT_BINARY_DIR}/Build/*.dll" )
 	    INSTALL(FILES ${files_install_app_dlls} DESTINATION . )
 
             # platform plugins for qt shoulb be installed along with the apps to run on the target systems
-            if (EXISTS ${CMAKE_BINARY_DIR}/Build/plugins/platforms )
-              FILE(GLOB files_install_app_platform_dlls "${CMAKE_BINARY_DIR}/Build/plugins/platforms/*.dll" )
+            if (EXISTS ${PROJECT_BINARY_DIR}/Build/plugins/platforms )
+              FILE(GLOB files_install_app_platform_dlls "${PROJECT_BINARY_DIR}/Build/plugins/platforms/*.dll" )
               INSTALL(FILES ${files_install_app_platform_dlls} DESTINATION plugins/platforms/ )
 
               # Create a qt.conf file to find plugins on windows

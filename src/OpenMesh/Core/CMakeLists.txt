@@ -181,8 +181,8 @@ endif()
 # if we build debug and release in the same dir, we want to install both!
 if ( ${CMAKE_PROJECT_NAME} MATCHES "OpenMesh")
   if ( WIN32 )
-    FILE(GLOB files_install_libs "${CMAKE_BINARY_DIR}/Build/lib/*.lib" )
-    FILE(GLOB files_install_dlls "${CMAKE_BINARY_DIR}/Build/*.dll" )
+    FILE(GLOB files_install_libs "${PROJECT_BINARY_DIR}/Build/lib/*.lib" )
+    FILE(GLOB files_install_dlls "${PROJECT_BINARY_DIR}/Build/*.dll" )
     INSTALL(FILES ${files_install_libs} DESTINATION lib )
     INSTALL(FILES ${files_install_dlls} DESTINATION . )
   endif()
@@ -243,4 +243,3 @@ install(TARGETS OpenMeshCore EXPORT OpenMeshConfig
   ARCHIVE DESTINATION ${VCI_PROJECT_LIBDIR}
   LIBRARY DESTINATION ${VCI_PROJECT_LIBDIR}
   RUNTIME DESTINATION ${VCI_PROJECT_BINDIR})
-

@@ -60,9 +60,9 @@ IF (NOT OPENMESH_FOUND)
   SET (SEARCH_PATHS 
     /usr/local/
     /usr/
-    "${CMAKE_SOURCE_DIR}/OpenMesh/src/OpenMesh"
-    "${CMAKE_SOURCE_DIR}/libs_required/OpenMesh/src/OpenMesh"
-    "${CMAKE_SOURCE_DIR}/../OpenMesh/src/OpenMesh"
+    "${PROJECT_SOURCE_DIR}/OpenMesh/src/OpenMesh"
+    "${PROJECT_SOURCE_DIR}/libs_required/OpenMesh/src/OpenMesh"
+    "${PROJECT_SOURCE_DIR}/../OpenMesh/src/OpenMesh"
     "C:/Program Files/OpenMesh 8.1"
     "C:/Program Files/OpenMesh 8.0"
     "C:/Program Files/OpenMesh 7.2"

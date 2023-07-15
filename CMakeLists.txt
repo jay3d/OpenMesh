@@ -37,7 +37,7 @@ if (NOT WIN32 AND NOT CMAKE_BUILD_TYPE)
 endif()
 
 # add our macro directory to cmake search path
-set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${CMAKE_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/cmake-library/finders ${CMAKE_CURRENT_SOURCE_DIR}/cmake-library/VCI )
+set (CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} ${PROJECT_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/cmake ${CMAKE_CURRENT_SOURCE_DIR}/cmake-library/finders ${CMAKE_CURRENT_SOURCE_DIR}/cmake-library/VCI )
 set (CMAKE_DEBUG_POSTFIX "d")
 
 # include our cmake files
@@ -90,13 +90,13 @@ if( (${CMAKE_PROJECT_NAME} MATCHES "OpenMesh") AND BUILD_APPS )
   if (WIN32)
     if ( NOT "${CMAKE_GENERATOR}" MATCHES "MinGW Makefiles" AND BUILD_APPS )
       add_custom_target (fixbundle ALL
-        COMMAND ${CMAKE_COMMAND} -P "${CMAKE_BINARY_DIR}/fixbundle.win.cmake" )
+        COMMAND ${CMAKE_COMMAND} -P "${PROJECT_BINARY_DIR}/fixbundle.win.cmake" )
     endif()
   endif()
 
   if (APPLE)
     add_custom_target (fixbundle ALL
-      COMMAND ${CMAKE_COMMAND} -P "${CMAKE_BINARY_DIR}/fixbundle.cmake"
+      COMMAND ${CMAKE_COMMAND} -P "${PROJECT_BINARY_DIR}/fixbundle.cmake"
     )
   endif()
 
@@ -166,8 +166,8 @@ if(${CMAKE_PROJECT_NAME} MATCHES "OpenMesh")
   # On apple we do a fixbundle, which is only necessary for the apps and not for the libs
   if (APPLE AND BUILD_APPS)
     # prepare bundle generation cmake file and add a build target for it
-    configure_file ("${CMAKE_SOURCE_DIR}/cmake/fixbundle.cmake.in"
-       "${CMAKE_BINARY_DIR}/fixbundle.cmake" @ONLY IMMEDIATE)
+    configure_file ("${PROJECT_SOURCE_DIR}/cmake/fixbundle.cmake.in"
+       "${PROJECT_BINARY_DIR}/fixbundle.cmake" @ONLY IMMEDIATE)
 
     # let bundle generation depend on all targets
     if (QT_FOUND)
@@ -178,7 +178,7 @@ if(${CMAKE_PROJECT_NAME} MATCHES "OpenMesh")
     if ( EXISTS "/opt/local/libexec/qt4-mac/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib" )
         add_custom_command(TARGET OpenMesh POST_BUILD
            COMMAND ${CMAKE_COMMAND} -E copy_directory "/opt/local/libexec/qt4-mac/lib/QtGui.framework/Versions/4/Resources/qt_menu.nib" 
-                                                      "${CMAKE_BINARY_DIR}/Build/Libraries/qt_menu.nib" )
+                                                      "${PROJECT_BINARY_DIR}/Build/Libraries/qt_menu.nib" )
     endif ()
   endif ()
 

@@ -58,10 +58,10 @@ if (WIN32)
   set (CPACK_GENERATOR "NSIS")
   set (CPACK_PACKAGE_INSTALL_DIRECTORY "${CPACK_PACKAGE_NAME} ${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}")
   set (CPACK_NSIS_DISPLAY_NAME "OpenMesh v${CPACK_PACKAGE_VERSION}")
-  # set (CPACK_NSIS_MUI_ICON "${CMAKE_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\OpenFlipper_Icon_128x128x32.ico")
+  # set (CPACK_NSIS_MUI_ICON "${PROJECT_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\OpenFlipper_Icon_128x128x32.ico")
   # we need a real uninstaller icon here and we have to define both to make the installer icon work
-  # set (CPACK_NSIS_MUI_UNIICON "${CMAKE_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\OpenFlipper_Icon_128x128x32.ico")
-  # set (CPACK_PACKAGE_ICON "${CMAKE_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\installer.bmp")
+  # set (CPACK_NSIS_MUI_UNIICON "${PROJECT_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\OpenFlipper_Icon_128x128x32.ico")
+  # set (CPACK_PACKAGE_ICON "${PROJECT_SOURCE_DIR}\\\\OpenFlipper\\\\Icons\\\\installer.bmp")
   set (CPACK_NSIS_HELP_LINK "http:\\\\www.openmesh.org")
   set (CPACK_NSIS_URL_INFO_ABOUT "http:\\\\www.openmesh.org")
   # TODO: fillme
@@ -97,16 +97,16 @@ if (WIN32)
   endif()
 
   # copy the glut library if it exists on windows
-  if (EXISTS ${CMAKE_BINARY_DIR}/Build/glut32.dll)
-    install(FILES ${CMAKE_BINARY_DIR}/Build/glut32.dll
+  if (EXISTS ${PROJECT_BINARY_DIR}/Build/glut32.dll)
+    install(FILES ${PROJECT_BINARY_DIR}/Build/glut32.dll
             DESTINATION ./
             COMPONENT Applications
            )
   endif()
 
   # copy the documentation if it exists
-  if (EXISTS ${CMAKE_BINARY_DIR}/Build/Doc)
-    install(DIRECTORY ${CMAKE_BINARY_DIR}/Build/Doc
+  if (EXISTS ${PROJECT_BINARY_DIR}/Build/Doc)
+    install(DIRECTORY ${PROJECT_BINARY_DIR}/Build/Doc
             DESTINATION ./
             COMPONENT Applications
            )
@@ -126,8 +126,8 @@ else ()
 endif ()
 
 if (APPLE)
-  if (EXISTS ${CMAKE_BINARY_DIR}/Build/share/OpenMesh/Doc)
-	     install(DIRECTORY ${CMAKE_BINARY_DIR}/Build/share/OpenMesh/Doc
+  if (EXISTS ${PROJECT_BINARY_DIR}/Build/share/OpenMesh/Doc)
+	     install(DIRECTORY ${PROJECT_BINARY_DIR}/Build/share/OpenMesh/Doc
 	     DESTINATION ./
          COMPONENT Applications
      )
@@ -139,12 +139,12 @@ include (CPack)
 
 if (NOT WIN32 AND NOT APPLE)
   # no binary target for linux
-  file (REMOVE "${CMAKE_BINARY_DIR}/CPackConfig.cmake")
+  file (REMOVE "${PROJECT_BINARY_DIR}/CPackConfig.cmake")
 endif ()
 
 # cmake doesn't create a source package target, so we have to add our own
-if (EXISTS "${CMAKE_BINARY_DIR}/CPackSourceConfig.cmake")
+if (EXISTS "${PROJECT_BINARY_DIR}/CPackSourceConfig.cmake")
   add_custom_target (PACKAGE_SOURCE
-    ${CMAKE_CPACK_COMMAND} --config "${CMAKE_BINARY_DIR}/CPackSourceConfig.cmake"
+    ${CMAKE_CPACK_COMMAND} --config "${PROJECT_BINARY_DIR}/CPackSourceConfig.cmake"
   )
 endif ()
